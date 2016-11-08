@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/Farmscene055 after importing GraphMaker.unity
+  isLoaded: 1
+  isActive: 1
