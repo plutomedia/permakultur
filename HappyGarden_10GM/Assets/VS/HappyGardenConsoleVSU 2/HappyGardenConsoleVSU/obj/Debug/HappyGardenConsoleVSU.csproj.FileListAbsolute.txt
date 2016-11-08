@@ -1,0 +1,6 @@
+D:\VisualStudio2015\Projects\HappyGardenConsoleVSU\HappyGardenConsoleVSU\bin\Debug\HappyGardenConsoleVSU.exe.config
+D:\VisualStudio2015\Projects\HappyGardenConsoleVSU\HappyGardenConsoleVSU\obj\Debug\HappyGardenConsoleVSU.csprojResolveAssemblyReference.cache
+D:\VisualStudio2015\Projects\HappyGardenConsoleVSU\HappyGardenConsoleVSU\bin\Debug\HappyGardenConsoleVSU.exe
+D:\VisualStudio2015\Projects\HappyGardenConsoleVSU\HappyGardenConsoleVSU\bin\Debug\HappyGardenConsoleVSU.pdb
+D:\VisualStudio2015\Projects\HappyGardenConsoleVSU\HappyGardenConsoleVSU\obj\Debug\HappyGardenConsoleVSU.exe
+D:\VisualStudio2015\Projects\HappyGardenConsoleVSU\HappyGardenConsoleVSU\obj\Debug\HappyGardenConsoleVSU.pdb

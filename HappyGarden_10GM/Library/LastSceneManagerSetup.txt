@@ -1,0 +1,5 @@
+sceneSetups:
+- path: Assets/Farmscene055 problem system collections generic queue 1 is defined
+    multiple times.unity
+  isLoaded: 1
+  isActive: 1

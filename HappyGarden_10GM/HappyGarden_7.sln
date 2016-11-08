@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HappyGarden_7.CSharp.Plugins", "HappyGarden_7.CSharp.Plugins.csproj", "{F7589640-F85A-CC6D-E4F5-A114E0080AB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HappyGarden_7.CSharp", "HappyGarden_7.CSharp.csproj", "{EA8B3E21-C4DC-FCAD-1235-AA6A10AFB7C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HappyGarden_7.CSharp.Editor.Plugins", "HappyGarden_7.CSharp.Editor.Plugins.csproj", "{44F5DD36-61B7-9C4E-1696-3840F81244B9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F7589640-F85A-CC6D-E4F5-A114E0080AB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7589640-F85A-CC6D-E4F5-A114E0080AB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7589640-F85A-CC6D-E4F5-A114E0080AB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7589640-F85A-CC6D-E4F5-A114E0080AB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA8B3E21-C4DC-FCAD-1235-AA6A10AFB7C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA8B3E21-C4DC-FCAD-1235-AA6A10AFB7C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA8B3E21-C4DC-FCAD-1235-AA6A10AFB7C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA8B3E21-C4DC-FCAD-1235-AA6A10AFB7C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44F5DD36-61B7-9C4E-1696-3840F81244B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44F5DD36-61B7-9C4E-1696-3840F81244B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44F5DD36-61B7-9C4E-1696-3840F81244B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44F5DD36-61B7-9C4E-1696-3840F81244B9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,14 @@
+{
+    "name_eng": "Dummy-name",
+    "name_no": "UmuligPlante",
+    "name_lat": "Domio Nomino",
+    "fieldNr": 0,
+    "spotX": 0,
+    "spotY": 0,
+    "distance": 0.0,
+    "maxHeight": 50.0,
+    "maxDepth": 0.0,
+    "growthSpeed": 2.0,
+    "optimumPh": 0.0,
+    "bindsNitrogen": false
+}
