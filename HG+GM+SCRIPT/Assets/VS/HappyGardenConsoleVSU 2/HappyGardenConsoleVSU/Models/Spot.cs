@@ -25,10 +25,10 @@ namespace HappyGardenConsoleVSU
         //for the graph display we make vector-lists from some essential values
         public  List<Vector2> waterMM = new List<Vector2>();
         public  List<Vector2> air = new List<Vector2>();
-        public static List<Vector2> organicMatter = new List<Vector2>();
-        public static List<Vector2> smallLife = new List<Vector2>();
-        public static List<Vector2> humusQuality = new List<Vector2>();
-        public static List<Vector2> nitrogen = new List<Vector2>();
+        public  List<Vector2> organicMatter = new List<Vector2>();
+        public  List<Vector2> smallLife = new List<Vector2>();
+        public  List<Vector2> humusQuality = new List<Vector2>();
+        public  List<Vector2> nitrogen = new List<Vector2>();
 
         public List<Vector2> temp = new List<Vector2>();
 
@@ -239,8 +239,8 @@ namespace HappyGardenConsoleVSU
 
                     //initialization for the graph-values
 
-                waterMM.Add(new Vector2(0, _water*100));  //ganger med hundre pga grafen
-                air.Add(new Vector2(0, (float)_air*100));
+                    waterMM.Add(new Vector2(0, _water*100));  //ganger med hundre pga grafen
+                    air.Add(new Vector2(0, (float)_air*100));
                     smallLife.Add(new Vector2(0, _smallLife));
                     humusQuality.Add(new Vector2(0, _humusQuality));
                     nitrogen.Add(new Vector2(0, _nitrogen));
@@ -307,92 +307,17 @@ namespace HappyGardenConsoleVSU
 
         public void InitializeSpot()
         {
-            //dette gjøres i initiateEarthTypes
-            //waterMM.Add(new Vector2(0, 0.6f));
-            //air.Add(new Vector2(0, 0.05f));
-            //smallLife.Add(new Vector2(0, 0.08f));
-            //humusQuality.Add(new Vector2(0, 0.2f));
-            //nitrogen.Add(new Vector2(0, 0.02f));
-            //organicMatter.Add(new Vector2(0, 0.25f));
-
             //Default is not planted. Plant Name is 'ubeplantet'
             plantName = "Ubeplantet";
             planted = false;
             plantet = planted;
-            
-            //setting the amount of nutrients and minerals.
-/*
-
-            valFe = 0.0004;
-            valMn = 0.00005;
-            valZn = 0.00002;
-            valB = 0.000015M;
-            valCu = 0.000006;
-            valMo = 0.000001;
-
-            valFe = 400E-006;  // Fe
-            valMn = 50E-006;   // Mn
-            valZn = 20E-006;  // Zn
-            valB = 1E-006M;   // B
-            valCu = 6E-006;    // Cu
-            valMo = 1E-006;    // Mo
-*/
-           /// water variable is added under InitiateEarthType,
-           /// water = 0.3; //tørt: 0-0.2, vått 0.3-0.6 f.x
-
-            //Approximated weight procent of soil, based on various sources
-            //The amount also are presented by kg/ha (depth of soil ?)
- /*           valC = 0.9; // 
-            valO = 0.01; // 
-            valH = 0.01;  // 
-            valN = 0.22; // 
-            valK = 0.01;  // 
-            valCa = 0.01; // 
-            valPh = 0.01;  // 
-            valS = 0.01;  // 
-            valMg = 0.01;  // 
-*/
-            //Dummy values from normal soil analysis
-            //Macro nutitients greatly differs from soiltype to soiltype
-            //and by the treatment of the eart. These values are dummy-values,
-            //and will be updated by which soiltype is chosen/calculated
-            double waterold = water;
-            //water = Nyverdi(water,1);
-            //Debug.Log("waterOld="+waterold+ " Water i spot ( "+fieldnr+" , " + v_index + " , " + h_index + ") initialiseres med..................." + water);
-            //water_H2O = water;
-
-/*
-            nutr_C = valC;  // 
-            nutr_O = valO;  // 
-            nutr_H = valH;  // 
-            nutr_N = valN;  // 
-            nutr_K = valK;  // 
-            nutr_Ca = valCa;  // 
-            nutr_Ph = valPh;  // 
-            nutr_S = valS;  // 
-            nutr_Mg = valMg;  // 
- */       
-
-            //Debug.Log("water_H2O: " + water_H2O);
-/*
-            nutr_N = Nyverdi(valN , 2);
-            nutr_C = Nyverdi(valC, 2);
-            nutr_K  = Nyverdi(valK , 3);
-            nutr_Ca = Nyverdi(valCa , 3);
-            nutr_Ph = Nyverdi(valPh , 2);  
-            nutr_O = Nyverdi(valO , 2);
-            nutr_H  = Nyverdi(valH , 2);
-            nutr_S  = Nyverdi(valS , 1);
-            nutr_Mg = Nyverdi(valMg , 1);
-*/
         }
 
 
 
         public void WriteSpot(Text myText)
         {
-            //String plantName;
-            //plantName = "u-beplantet";
+
             uttekst = myText;
             double plantHeight=0;
             int day;
@@ -404,30 +329,14 @@ namespace HappyGardenConsoleVSU
             if (planted)
             {
                 plantHeight = planten.Height;
-                //nytekst = String.Format("Day {10}   Water {0}, N {1}, C {2}, K {3}, Ca {4}, Ph {5}, X {6}, Y {7} Z {8}, Plant: {9}, {11} cm", water_H2O, nutr_N, nutr_C, nutr_K, nutr_Ca, nutr_Ph, nutr_S, nutr_Mg, min_Fe, plantName, day, plantHeight);
-                //nytekst = String.Format("Water {0}, N {1}, C {2}, K {3}, Ca {4}, Ph {5}, X {6}, Y {7} Z {8}, Plant: {9}, {10} cm", water_H2O, nutr_N, nutr_C, nutr_K, nutr_Ca, nutr_Ph, nutr_S, nutr_Mg, min_Fe, plantName, plantHeight);
                 nytekst = String.Format("Water {0}, N {1}, C {2}, Ph {3}, S {4}, Plant: {5}, {6} cm", water_H2O, nutr_N, nutr_C, nutr_Ph, nutr_S, plantName, plantHeight);
-
             }
             else
             {
-                //nytekst = String.Format("Day {10}   Water {0}, N {1}, C {2}, K {3}, Ca {4}, Ph {5}, X {6}, Y {7} Z {8}, Plant: {9}", water_H2O, nutr_N, nutr_C, nutr_K, nutr_Ca, nutr_Ph, nutr_S, nutr_Mg, min_Fe, plantName, day);
-                //nytekst = String.Format("Water {0}, N {1}, C {2}, K {3}, Ca {4}, Ph {5}, X {6}, Y {7} Z {8}, Plant: ***", water_H2O, nutr_N, nutr_C, nutr_K, nutr_Ca, nutr_Ph, nutr_S, nutr_Mg, min_Fe, plantName);
                 nytekst = String.Format("Water {0}, N {1}, C {2}, Ph {3}, S {4},  Plant: ***", water_H2O, nutr_N, nutr_C, nutr_Ph, nutr_S);
-
             }
 
-
-
-            //String nytekst = String.Format("Day {10}   Water {0}, N {1}, C {2}, K {3}, Ca {4}, Ph {5}, X {6}, Y {7} Z {8}, Plant: {9} {11}", water_H2O, nutr_N, nutr_C, nutr_K, nutr_Ca, nutr_Ph, nutr_S, nutr_Mg, min_Fe, plantName, day, day);
-            //String nytekst = String.Format("Day {10}   Water {0}, N {1}, C {2}, K {3}, Ca {4}, Ph {5}, X {6}, Y {7} Z {8}, Plant: {9} Height: {11}", water_H2O, nutr_N, nutr_C, nutr_K, nutr_Ca, nutr_Ph, nutr_S, nutr_Mg, min_Fe, plantName, day, plantHeight);
-
-            //oldtekst = textOfDay+uttekst.text;
-
             uttekst.text += nytekst;
-            
-
-
         }
 
 
@@ -635,7 +544,7 @@ namespace HappyGardenConsoleVSU
 
                     break;
                 case 2:
-                    //Debug.Log("---------------------------------------------------earth update");
+                    Debug.Log("---------------------------------------------------earth update");
                     //Debug.Log("Iteration 2: Calculating new equilibrum between spots, according to env variables. Not implemented");
                     //Debug.Log("  Calculating humus factors. Especially water, oxygen, amount of small life and other");
                     //Debug.Log("waterlevel:" + water_H2O + " temperature: ?" + " acidity: ?"+"" );
@@ -685,12 +594,12 @@ namespace HappyGardenConsoleVSU
                     Debug.Log("_____Spot oppdateres dag " + tempDay + " > (" + v_index + " , " + h_index + " )");
                     Debug.Log("air  tempday  _air=" + _air);
 
-                    waterMM.Add(new Vector2(tempDay, (float)water_H2O)*100);
-                    air.Add(new Vector2(tempDay, (float)_air)*100);
-                    smallLife.Add(new Vector2(tempDay, (float)_smallLife)*100);
-                    humusQuality.Add(new Vector2(tempDay, _humusQuality)*100);
-                    nitrogen.Add(new Vector2(tempDay, (float)_nitrogen*100));
-                    organicMatter.Add(new Vector2(tempDay, (float)_organicMatter)*100);
+                    waterMM.Add         (new Vector2(tempDay, (float)water_H2O*100));
+                    air.Add             (new Vector2(tempDay, (float)_air*100));
+                    smallLife.Add       (new Vector2(tempDay, (float)_smallLife*100));
+                    humusQuality.Add    (new Vector2(tempDay, (float)_humusQuality*100));
+                    nitrogen.Add        (new Vector2(tempDay, (float)_nitrogen*100));
+                    organicMatter.Add   (new Vector2(tempDay, (float)_organicMatter*100));
 
                     Debug.Log("air  tempday  _air=" + _air);
 
