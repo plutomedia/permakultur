@@ -41,7 +41,7 @@ namespace HappyGardenConsoleVSU
 
             environments = new Environments();
             gameFrame = new GameFrame(whatText);  //This is not good mvc. here we hand the view to the model, and intend to change the view from the model. No listeners.
-
+            wmgTut.initiateSecondGraph();
         }
 
 

@@ -47,7 +47,7 @@ namespace HappyGardenConsoleVSU
 
          void Start()
         {
-             initiateSecondGraph();
+            initiateSecondGraph();
 
 
           /*  zpots = Field.Spots; //array som har alle jordlappene 
@@ -182,6 +182,8 @@ namespace HappyGardenConsoleVSU
         {
 
             graphGO = GameObject.Instantiate(emptyGraphPrefab);
+  
+
             graphGO.transform.SetParent(this.transform, false);
             graph = graphGO.GetComponent<WMG_Axis_Graph>();
    /* */
