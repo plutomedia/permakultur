@@ -214,14 +214,6 @@ namespace HappyGardenConsoleVSU
 
                 case "muldJord":
 
-
-                   Debug.Log("Initialisering av jordverdier. Jordtype 'muldJord': "+jordType);
-               /*     topLayerSize = 5;
-                    humusLayerSize = 30;
-                    mineralEarthSize = 30;
-                    water = 0.3f;
-                    water = Nyverdi(water, 1);
-*/
                     //This will be the main vector-lists with earth data
                     _water = 0.25f;
                     _air = 0.2f;

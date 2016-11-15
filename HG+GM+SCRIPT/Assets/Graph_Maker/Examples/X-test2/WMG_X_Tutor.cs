@@ -47,7 +47,9 @@ namespace HappyGardenConsoleVSU
 
          void Start()
         {
-            
+             initiateSecondGraph();
+
+
           /*  zpots = Field.Spots; //array som har alle jordlappene 
 
             testData = containerValues.MinVektorListe;// dette er måten eksterne vektorer kan bli tilgj
@@ -66,12 +68,15 @@ namespace HappyGardenConsoleVSU
             nitrogen = zpots[0, 0].Nitrogen;
             organicMatter = zpots[0, 0].OrganicMatter;
             */
-            graphGO = GameObject.Instantiate(emptyGraphPrefab);
-            graphGO.transform.SetParent(this.transform, false);
-            graph = graphGO.GetComponent<WMG_Axis_Graph>();
-            graph.xAxis.AxisMaxValue = 28;
 
-            initiateSecondGraph();
+       
+          /*  graphGO = GameObject.Instantiate(emptyGraphPrefab);
+            graphGO.transform.SetParent(this.transform, false);
+              graph = graphGO.GetComponent<WMG_Axis_Graph>();
+               graph.xAxis.AxisMaxValue = 28;
+            */
+
+           
 
             /*
                         series1 = graph.addSeries();    //legger inn series1. den hentes vha graphGO.Getcomponent se linje 20
@@ -144,12 +149,9 @@ namespace HappyGardenConsoleVSU
                */
         }//start()
 
-        //void Start()
-        //{
-
-        //}
 
 
+        /*
         void Update()
         {
             if (Initializer.GraphUpdated)
@@ -159,30 +161,42 @@ namespace HappyGardenConsoleVSU
                 Debug.Log("");
             }
         }
+        */
 
+        /*
+                public void updateGraphs()
+                {
+                    Debug.Log("updateGraphs i WMG_X_Tutor       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+                    soltimer = Weather.Sun;
 
+                    initiateSecondGraph();
 
-        public void updateGraphs()
-        {
-            Debug.Log("updateGraphs i WMG_X_Tutor       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-            soltimer = Weather.Sun;
-
-            initiateSecondGraph();
-
-            series2.pointValues.SetList(soltimer);
-            series3.pointValues.SetList(waterData); //      
-                                                    //series4.pointValues.SetList(tilf1Data); //her settes tilfeldige verdier serie en
-                                                    //series5.pointValues.SetList(tilf2Data); //her settes tilfeldige verdier serie to
-        }
+                    series2.pointValues.SetList(soltimer);
+                    series3.pointValues.SetList(waterData); //      
+                                                            //series4.pointValues.SetList(tilf1Data); //her settes tilfeldige verdier serie en
+                                                            //series5.pointValues.SetList(tilf2Data); //her settes tilfeldige verdier serie to
+                }
+        */
 
         public void initiateSecondGraph()
         {
 
-   
-        zpots           = Field.Spots;//array som har alle jordlappen
+            graphGO = GameObject.Instantiate(emptyGraphPrefab);
+            graphGO.transform.SetParent(this.transform, false);
+            graph = graphGO.GetComponent<WMG_Axis_Graph>();
+   /* */
 
-            Debug.Log("");
+            graph.xAxis.AxisMaxValue = 28;
 
+            zpots           = Field.Spots;//array som har alle jordlappen
+
+            Debug.Log("zpots:::::::::::::::::"+zpots);
+            Debug.Log("zpots[0,0]:::::::::::::::::" + zpots[0,0]);
+            Debug.Log("zpots[0, 0].Air:::::::::::::::::" + zpots[0, 0].Air);
+            Debug.Log("zpots[0, 0].Air[0]:::::::::::::::::" + zpots[0, 0].Air[0]);
+            Debug.Log("zpots[0, 0].Air[0].y:::::::::::::::::" + zpots[0, 0].Air[0].y);
+
+            waterMM         = zpots[0, 0].WaterMM;
             air             = zpots[0, 0].Air;
             smallLife       = zpots[0, 0].SmallLife;
             humusQuality    = zpots[0, 0].HumusQuality; ;
@@ -198,37 +212,17 @@ namespace HappyGardenConsoleVSU
 
 
 
-
-            graphGO = GameObject.Instantiate(emptyGraphPrefab);
-            graphGO.transform.SetParent(this.transform, false);
-            graph = graphGO.GetComponent<WMG_Axis_Graph>();
-            graph.xAxis.AxisMaxValue = 28;
-
-
-
-
-
             /* int zpotLengde = zpots.GetLength(1);
             Debug.Log("int zpotLengde = zpots.GetLength(1);    zpotLengde=  " + zpots.GetLength(1));
             ///disse må tilordnes
             ///eksempel air= zpots[i,j].Air;*/
-            Debug.Log("????????????????????????????????????????????????????????????????\ntest for import av array fra spot. via farm. air:(float)air[0].y     ->" + (float)air[0].y);
-            //Debug.Log("test for import av array fra spot. via farm. air:(float)air[1].y     ->" + (float)air[1].y);
+            //Debug.Log("????????\ntest for import av array fra spot. via farm. air:(float)air        ->"  + air);
+            //Debug.Log("????????\ntest for import av array fra spot. via farm. air:(float)air[0]     ->" + air[0]);
+            //Debug.Log("????????\ntest for import av array fra spot. via farm. air:(float)air[0].y   ->" + air[0].y);
             //Debug.Log("test for import av array fra spot. via farm. air:(float)air[2].y     ->" + (float)air[2].y);
-            //graphGO = GameObject.Instantiate(emptyGraphPrefab);
-            //graphGO.transform.SetParent(this.transform, false);
-            //graph = graphGO.GetComponent<WMG_Axis_Graph>();
+
            
 
-
-            //Destroy(series2);
-            //Destroy(series3);
-            //Destroy(series4);
-            //Destroy(series5);
-            //Destroy(series6);
-            //Destroy(series7);
-            //Destroy(series8);
-            //Destroy(series9);
 
             //PROBLEM. SER UT TIL Å SUMMERE SEG OPP
             //kan vi renske dataene først eller opprette en helt ny graf
@@ -241,8 +235,7 @@ namespace HappyGardenConsoleVSU
             series7 = graph.addSeries();
             series8 = graph.addSeries();
             series9 = graph.addSeries(); 
-/*   
-*/
+
 
             series1.pointValues.SetList(waterMM);
             series2.pointValues.SetList(soltimer);
@@ -254,20 +247,44 @@ namespace HappyGardenConsoleVSU
             series8.pointValues.SetList(nitrogen);
             series9.pointValues.SetList(organicMatter);
 
-            Debug.Log("\n******************************************SKRIVER UT VEKTORER WATER SOL WATERD AIR HUMUSQ NITRO");
-            printVector(waterMM,100);
-            printVector(soltimer, 100);
-            printVector(waterData, 100);
-            printVector(air, 100);
-            printVector(humusQuality, 100);
-            printVector(nitrogen, 100);
 
+            series1.seriesName = "Water";
+            series2.seriesName = "Soltimer";
+            series3.seriesName = "Rain mm";
+            series4.seriesName = "Oxygen";
+            series5.seriesName = "tilf2";
+            series6.seriesName = "smallLife";
+            series7.seriesName = "humusQuality";
+            series8.seriesName = "Nitrogen";
+            series9.seriesName = "organicMatter";
+
+
+            series1.lineColor = Color.grey;
+            series2.lineColor = Color.yellow;
+            series3.lineColor = Color.blue;
+            series4.lineColor = Color.cyan;
+            series5.lineColor = Color.white;
+            series6.lineColor = Color.black;
+            series7.lineColor = Color.grey;
+            series8.lineColor = Color.red;
+            series9.lineColor = Color.magenta;
+
+            Debug.Log("\n******************************************SKRIVER UT VEKTORER WATER SOL WATERD AIR HUMUSQ NITRO");
+            Debug.Log("waterMM"); printVector(waterMM,100);
+            Debug.Log("soltimer"); printVector(soltimer, 100);
+            Debug.Log("waterData"); printVector(waterData, 100);
+            Debug.Log("air"); printVector(air, 100);
+            Debug.Log("humusQuality"); printVector(humusQuality, 100);
+            Debug.Log("nitrogen"); printVector(nitrogen, 100);
+            Debug.Log("\n");  
             /**/
         }
 
         public void printVector(List<Vector2> flekk, float max)
         {
-            for (int i = 0; i < 20; i++)
+            int range = flekk.Count;
+            Debug.Log("lengde: " + range);
+            for (int i = 0; i < range; i++)
             {
                 Debug.Log("printVector  "+flekk[i].y);
             }
