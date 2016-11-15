@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 42aea6c0c34d4734ebbea2693168095d
+timeCreated: 1478345178
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - emptyGraphPrefab: {fileID: 1000011988740658, guid: 961186cb32f52bc4faaad3de9453d824,
+      type: 2}
+  - graph: {instanceID: 0}
+  - series1: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

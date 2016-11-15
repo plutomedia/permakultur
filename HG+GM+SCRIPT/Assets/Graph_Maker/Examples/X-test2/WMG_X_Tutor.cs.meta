@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: b271a4f3b42d632489dfcf1a0f724e0a
+timeCreated: 1479154175
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - emptyGraphPrefab: {fileID: 1000013160664964, guid: d429caf9ab04f604db93d713c547cb53,
+      type: 2}
+  - series1: {instanceID: 0}
+  - series2: {instanceID: 0}
+  - series3: {instanceID: 0}
+  - series4: {instanceID: 0}
+  - series5: {instanceID: 0}
+  - series6: {instanceID: 0}
+  - series7: {instanceID: 0}
+  - series8: {instanceID: 0}
+  - series9: {instanceID: 0}
+  - ScriptContainer: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

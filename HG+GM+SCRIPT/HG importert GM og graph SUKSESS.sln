@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HG importert GM og graph SUKSESS.CSharp", "HG importert GM og graph SUKSESS.CSharp.csproj", "{E23BC3A1-42A2-DEA7-7A96-DBFEB6881D32}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HG importert GM og graph SUKSESS.CSharp.Editor", "HG importert GM og graph SUKSESS.CSharp.Editor.csproj", "{02A8EDB7-2471-4F6B-C2CF-D142B5365DB9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E23BC3A1-42A2-DEA7-7A96-DBFEB6881D32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E23BC3A1-42A2-DEA7-7A96-DBFEB6881D32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E23BC3A1-42A2-DEA7-7A96-DBFEB6881D32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E23BC3A1-42A2-DEA7-7A96-DBFEB6881D32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02A8EDB7-2471-4F6B-C2CF-D142B5365DB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02A8EDB7-2471-4F6B-C2CF-D142B5365DB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02A8EDB7-2471-4F6B-C2CF-D142B5365DB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02A8EDB7-2471-4F6B-C2CF-D142B5365DB9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

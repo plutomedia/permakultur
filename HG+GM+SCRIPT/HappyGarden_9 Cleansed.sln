@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HappyGarden_9 Cleansed.CSharp", "HappyGarden_9 Cleansed.CSharp.csproj", "{EFE74143-5CD5-306C-64AE-3CA23491AFDC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EFE74143-5CD5-306C-64AE-3CA23491AFDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFE74143-5CD5-306C-64AE-3CA23491AFDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFE74143-5CD5-306C-64AE-3CA23491AFDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFE74143-5CD5-306C-64AE-3CA23491AFDC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
