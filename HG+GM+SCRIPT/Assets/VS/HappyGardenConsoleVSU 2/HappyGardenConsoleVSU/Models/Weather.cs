@@ -60,7 +60,7 @@ namespace HappyGardenConsoleVSU
         private void Initialize(int dg)
         {
             int dag = dg;
-            Debug.Log("initialiserer Weather. dag "+dag);
+            //Debug.Log("initialiserer Weather. dag "+dag);
 
 
             bool rainy = false;

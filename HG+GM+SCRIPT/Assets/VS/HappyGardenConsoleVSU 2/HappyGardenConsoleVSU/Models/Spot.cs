@@ -182,7 +182,7 @@ namespace HappyGardenConsoleVSU
         public void printVectors()
         {
             Debug.Log("PRINTVECTORS, v_index= "+v_index+", h_index= "+h_index+ ",  day "+tempDay);
-
+/*
             Debug.Log("");
 
             Debug.Log("waterMM      " +       waterMM[tempDay] +   "=" + (float)waterMM[tempDay].y);
@@ -191,6 +191,7 @@ namespace HappyGardenConsoleVSU
             Debug.Log("humusQuality " +  humusQuality[tempDay] +   "=" + (float)humusQuality[tempDay].y);
             Debug.Log("nitrogen     " +      nitrogen[tempDay] +   "=" + (float)nitrogen[tempDay].y);
             Debug.Log("organicMatter " + organicMatter[tempDay] +   "=" + (float)organicMatter[tempDay].y);
+ */      
         }
 
 

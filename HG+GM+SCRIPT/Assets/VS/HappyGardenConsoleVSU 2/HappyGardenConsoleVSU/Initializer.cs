@@ -10,7 +10,7 @@ namespace HappyGardenConsoleVSU
 {
     public class Initializer : MonoBehaviour
     {
-        private static bool graphUpdated=false;
+        private static bool graphUpdated;
         public Text myText;
         public Text whatText;
         //public MainController mainController;
@@ -30,18 +30,18 @@ namespace HappyGardenConsoleVSU
         Weather vaer;
 
         public static int dagenIdag;  //dagen som det skal simuleres fra. dvs input som fx vanning og kalking og planting
-
-        //public WMG_Axis_Graph grafen;
         public WMG_X_Tutor wmgTut;
+
 
 
         void Start()
         {
+            graphUpdated = false;
             Debug.Log("HAPPY GARDEN MAIN");
 
             environments = new Environments();
             gameFrame = new GameFrame(whatText);  //This is not good mvc. here we hand the view to the model, and intend to change the view from the model. No listeners.
-            wmgTut.initiateSecondGraph();
+
         }
 
 
@@ -104,10 +104,12 @@ namespace HappyGardenConsoleVSU
 
         public void UpdateMonth(int dagenidag)
         {
+            
+graphUpdated = true;
             dagenIdag = dagenidag;
             Weather vair = Weather.ThisDay;
 
-
+/*
             for (int day = 0; day < 7; day ++)
             { Debug.Log(day+"x dag   [|||||||||||||||||||||||||||||||||||>");
 
@@ -121,12 +123,11 @@ namespace HappyGardenConsoleVSU
 
                 Debug.Log(day + "x dag slutt     <||||||||||||||||||]");
             }
+*/
+            graphUpdated = true; //denne sjekkes fra viewet vha 'GraphUpdated'
 
             Debug.Log("END OF UPDATE.  MAKE A NEW GRAF");
-           
-            //WMG_X_Tutor nygraf = new WMG_X_Tutor();
 
-            wmgTut.initiateSecondGraph();
         }
 
 

@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Farmscene069.unity
+- path: Assets/Farmscene072 GraphUpdated bool sjekker om oppdatert.unity
   isLoaded: 1
   isActive: 1

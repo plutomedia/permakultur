@@ -167,7 +167,7 @@ namespace HappyGardenConsoleVSU
 
             for (int i = 0; i < planterHentet2.Count; i++)
             {
-                Debug.Log("Plante"+i+": " + plantene[i].name_no);
+                //Debug.Log("Plante"+i+": " + plantene[i].name_no);
 
                 //Plant testplante = Flora2.Plant["kgh"];
 

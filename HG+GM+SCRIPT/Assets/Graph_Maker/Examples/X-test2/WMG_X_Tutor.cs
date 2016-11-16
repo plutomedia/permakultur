@@ -26,8 +26,8 @@ namespace HappyGardenConsoleVSU
 
 
         public List<Vector2> series1Data, testData, waterData, tilf1Data, tilf2Data;
-        //public List<Vector2> series1DataN, testDataN, waterDataN, tilf1DataN, tilf2DataN;
-        public static List<Vector2> soltimer, regnMM, soltimerN, regnMMN;
+        public static List<Vector2> soltimer, regnMM;
+      
         public GameObject ScriptContainer;   //containerValues
 
         /// Verdier fra Spot første siffer i vektor er dagnr
@@ -36,18 +36,35 @@ namespace HappyGardenConsoleVSU
         public Spot jordflekk;
         public List<Field> fields;
 
-        //dette gjelder utprøvingsfasen. ett field er tilgjengelig. muld
-        //public Farm farm;
 
         //public Field field = Farm.MuldTeig;
-        public bool  useData4;
-        public List<string> series1Data2; //streng variable. fx 1-28 dager
-        GameObject graphGO;
+        //public bool  useData4;
+        public List<string> series1Data2; //streng variable. fx dager eller uker
+
+        public Boolean notfirsttime;
 
 
          void Start()
         {
+            notfirsttime = false;
+            Debug.Log("            >>>>>>>>  WMG_X_TUTOR START   " + graph);
+
+            GameObject graphGO = GameObject.Instantiate(emptyGraphPrefab);
+            graphGO.transform.SetParent(this.transform, false);
+            graph = graphGO.GetComponent<WMG_Axis_Graph>();
+
+
+            
+
+
+
+
+
+            Debug.Log("1graph   " + graph);
+
             initiateSecondGraph();
+
+
 
 
           /*  zpots = Field.Spots; //array som har alle jordlappene 
@@ -151,17 +168,21 @@ namespace HappyGardenConsoleVSU
 
 
 
-        /*
+        
         void Update()
         {
+            //Debug.Log(Initializer.GraphUpdated);
             if (Initializer.GraphUpdated)
             {
                 Initializer.GraphUpdated = false;
+                notfirsttime = true;
+                Debug.Log("´Update graph ########################################################################################################################################################notfirsttime");
+
                 //updateGraphs();
-                Debug.Log("");
+                
             }
         }
-        */
+        
 
         /*
                 public void updateGraphs()
@@ -181,22 +202,19 @@ namespace HappyGardenConsoleVSU
         public void initiateSecondGraph()
         {
 
-            graphGO = GameObject.Instantiate(emptyGraphPrefab);
-  
+            Debug.Log("initiateSecondGraph metoden *********       *********       ************      *****"+zpots);
+            //graphGO.transform.SetParent(this.transform, false);
 
-            graphGO.transform.SetParent(this.transform, false);
-            graph = graphGO.GetComponent<WMG_Axis_Graph>();
-   /* */
+            //graph = graphGO.GetComponent<WMG_Axis_Graph>();
+            //graph.xAxis.AxisMaxValue = 28;
 
-            graph.xAxis.AxisMaxValue = 28;
+            zpots = Field.Spots;//array som har alle jordlappen
 
-            zpots           = Field.Spots;//array som har alle jordlappen
-
-            Debug.Log("zpots:::::::::::::::::"+zpots);
-            Debug.Log("zpots[0,0]:::::::::::::::::" + zpots[0,0]);
-            Debug.Log("zpots[0, 0].Air:::::::::::::::::" + zpots[0, 0].Air);
-            Debug.Log("zpots[0, 0].Air[0]:::::::::::::::::" + zpots[0, 0].Air[0]);
-            Debug.Log("zpots[0, 0].Air[0].y:::::::::::::::::" + zpots[0, 0].Air[0].y);
+            //Debug.Log("zpots:::::::::::::::::"+zpots);
+            //Debug.Log("zpots[0,0]:::::::::::::::::" + zpots[0,0]);
+            //Debug.Log("zpots[0, 0].Air:::::::::::::::::" + zpots[0, 0].Air);
+            //Debug.Log("zpots[0, 0].Air[0]:::::::::::::::::" + zpots[0, 0].Air[0]);
+            //Debug.Log("zpots[0, 0].Air[0].y:::::::::::::::::" + zpots[0, 0].Air[0].y);
 
             waterMM         = zpots[0, 0].WaterMM;
             air             = zpots[0, 0].Air;
@@ -223,21 +241,25 @@ namespace HappyGardenConsoleVSU
             //Debug.Log("????????\ntest for import av array fra spot. via farm. air:(float)air[0].y   ->" + air[0].y);
             //Debug.Log("test for import av array fra spot. via farm. air:(float)air[2].y     ->" + (float)air[2].y);
 
-           
 
+            
+            Debug.Log("2graph  " + graph);
 
             //PROBLEM. SER UT TIL Å SUMMERE SEG OPP
             //kan vi renske dataene først eller opprette en helt ny graf
-            series1 = graph.addSeries();    //legger inn series1. den hentes vha graphGO.Getcomponent se linje 20
+         series1 = 
+            graph.addSeries();    //legger inn series1. den hentes vha graphGO.Getcomponent se linje 20
+
             series2 = graph.addSeries();    // soltimer
             series3 = graph.addSeries();    // waterData
             series4 = graph.addSeries();
-         series5 = graph.addSeries();
+            series5 = graph.addSeries();
             series6 = graph.addSeries();
             series7 = graph.addSeries();
             series8 = graph.addSeries();
-            series9 = graph.addSeries(); 
+            series9 = graph.addSeries();
 
+            graph.xAxis.AxisMaxValue = 28;
 
             series1.pointValues.SetList(waterMM);
             series2.pointValues.SetList(soltimer);
@@ -249,7 +271,10 @@ namespace HappyGardenConsoleVSU
             series8.pointValues.SetList(nitrogen);
             series9.pointValues.SetList(organicMatter);
 
-
+if (notfirsttime)
+            {
+                Debug.Log("´########################################################################################################################################################notfirsttime");
+            }
             series1.seriesName = "Water";
             series2.seriesName = "Soltimer";
             series3.seriesName = "Rain mm";
@@ -278,8 +303,9 @@ namespace HappyGardenConsoleVSU
             Debug.Log("air"); printVector(air, 100);
             Debug.Log("humusQuality"); printVector(humusQuality, 100);
             Debug.Log("nitrogen"); printVector(nitrogen, 100);
-            Debug.Log("\n");  
+            Debug.Log("\n");
             /**/
+            graph.Refresh();
         }
 
         public void printVector(List<Vector2> flekk, float max)
@@ -304,20 +330,6 @@ namespace HappyGardenConsoleVSU
 
             return Nliste;
         }
-
-
-
-        //public static WMG_Axis_Graph Graph
-        //{
-        //    get
-        //    {
-        //        return graph;
-        //    }
-        //    set
-        //    {
-        //        graph = value;
-        //    }
-        //}
 
 
 

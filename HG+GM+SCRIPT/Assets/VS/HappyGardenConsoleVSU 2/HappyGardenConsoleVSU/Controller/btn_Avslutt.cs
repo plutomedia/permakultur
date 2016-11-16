@@ -12,7 +12,7 @@ namespace HappyGardenConsoleVSU
         public btn_Avslutt()
         {
 
-            result();
+            //result();
         }
 
         public void random()

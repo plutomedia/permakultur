@@ -9,7 +9,7 @@ using System;
 void Start()
     {
         //result();
-        random(0.7f, 1f);
+        //random(0.7f, 1f);
     }
 
 

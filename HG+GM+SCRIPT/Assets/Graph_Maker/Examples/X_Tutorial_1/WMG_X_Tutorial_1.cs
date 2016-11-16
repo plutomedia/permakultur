@@ -20,6 +20,7 @@ public class WMG_X_Tutorial_1 : MonoBehaviour {
 		graph = graphGO.GetComponent<WMG_Axis_Graph>();
 
 		series1 = graph.addSeries();
+       
 		graph.xAxis.AxisMaxValue = 5;
 
 		if (useData2) {
@@ -45,6 +46,8 @@ public class WMG_X_Tutorial_1 : MonoBehaviour {
 			series1.UseXDistBetweenToSpace = true;
 
 			series1.pointValues.SetList(data);
+
+            graph.Refresh();
 		}
 		else {
 			series1.pointValues.SetList(series1Data);
