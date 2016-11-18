@@ -13,7 +13,7 @@ public class containerValues : MonoBehaviour {
     System.Random rng = new System.Random();
 
 
-    void Starte () {
+    void Start () {
         Debug.Log(">>>>>>>>>>> CONTAINERVALUES START");
         //random(0.7f, 1f);
         System.Random rng = new System.Random();

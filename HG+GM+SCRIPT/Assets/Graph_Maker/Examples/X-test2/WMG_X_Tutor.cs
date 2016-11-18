@@ -10,31 +10,30 @@ namespace HappyGardenConsoleVSU
 {
     public class WMG_X_Tutor : MonoBehaviour
     {
-
+        public GameObject ScriptContainer;   //containerValues
         public GameObject emptyGraphPrefab;
         public  WMG_Axis_Graph graph;
 
         public WMG_Series series1;//1-28 serien kan hentes fra ...public
-        public WMG_Series series2;//1-28 serien kan hentes fra ...public
-        public WMG_Series series3;//1-28 serien kan hentes fra ...public
-        public WMG_Series series4;//1-28 serien kan hentes fra ...public
-        public WMG_Series series5;//1-28 serien kan hentes fra ...public
-        public WMG_Series series6;//1-28 serien kan hentes fra ...public
-        public WMG_Series series7;//1-28 serien kan hentes fra ...public
-        public WMG_Series series8;//1-28 serien kan hentes fra ...public
-        public WMG_Series series9;//1-28 serien kan hentes fra ...public
+        public WMG_Series series2;//
+        public WMG_Series series3;
+        public WMG_Series series4;
+        public WMG_Series series5;
+        public WMG_Series series6;
+        public WMG_Series series7;
+        public WMG_Series series8;
+        public WMG_Series series9;
 
 
         public List<Vector2> series1Data, testData, waterData, tilf1Data, tilf2Data;
         public static List<Vector2> soltimer, regnMM;
       
-        public GameObject ScriptContainer;   //containerValues
+        
 
         /// Verdier fra Spot første siffer i vektor er dagnr
         public List<Vector2> air, waterMM, smallLife, humusQuality, nitrogen, organicMatter;
+
         public static Spot[,] zpots;
-        public Spot jordflekk;
-        public List<Field> fields;
 
 
         //public Field field = Farm.MuldTeig;
@@ -43,127 +42,23 @@ namespace HappyGardenConsoleVSU
 
         public Boolean notfirsttime;
 
+        public bool showAll, showOnlyWeather, showOnlyEarth, showNothing;
+
 
          void Start()
         {
             notfirsttime = false;
-            Debug.Log("            >>>>>>>>  WMG_X_TUTOR START   " + graph);
 
             GameObject graphGO = GameObject.Instantiate(emptyGraphPrefab);
             graphGO.transform.SetParent(this.transform, false);
             graph = graphGO.GetComponent<WMG_Axis_Graph>();
 
-
-            
-
-
-
-
+            zpots = Field.Spots;
 
             Debug.Log("1graph   " + graph);
 
             initiateSecondGraph();
 
-
-
-
-          /*  zpots = Field.Spots; //array som har alle jordlappene 
-
-            testData = containerValues.MinVektorListe;// dette er måten eksterne vektorer kan bli tilgj
-            //waterData = containerValues.MinVektorListe2;
-            waterData = Weather.Rain;//vektorliste til graf
-            tilf1Data = containerValues.MinVektorListe3;
-            tilf2Data = containerValues.MinVektorListe4;
-            soltimer = Weather.Sun;//vektorliste til graf
-
-            */
-            /*
-            zpots = Field.Spots;
-            air = zpots[0, 0].Air;
-            smallLife = zpots[0, 0].SmallLife;
-            humusQuality = zpots[0, 0].HumusQuality; ;
-            nitrogen = zpots[0, 0].Nitrogen;
-            organicMatter = zpots[0, 0].OrganicMatter;
-            */
-
-       
-          /*  graphGO = GameObject.Instantiate(emptyGraphPrefab);
-            graphGO.transform.SetParent(this.transform, false);
-              graph = graphGO.GetComponent<WMG_Axis_Graph>();
-               graph.xAxis.AxisMaxValue = 28;
-            */
-
-           
-
-            /*
-                        series1 = graph.addSeries();    //legger inn series1. den hentes vha graphGO.Getcomponent se linje 20
-                        series2 = graph.addSeries();    // soltimer
-                        series3 = graph.addSeries();    // waterData
-                        series4 = graph.addSeries();
-                        series5 = graph.addSeries();
-                        series6 = graph.addSeries();
-                        series7 = graph.addSeries();
-                        series8 = graph.addSeries();
-                        series9 = graph.addSeries();
-
-
-                        series1.pointValues.SetList(waterMM);
-                        series2.pointValues.SetList(soltimer);
-                        series3.pointValues.SetList(waterData);
-                        series4.pointValues.SetList(air ); //her settes tilfeldige verdier serie en
-                        series5.pointValues.SetList(tilf2Data); //her settes tilfeldige verdier serie to
-                        series6.pointValues.SetList(smallLife);
-                        series7.pointValues.SetList(humusQuality);
-                        series8.pointValues.SetList(nitrogen);
-                        series9.pointValues.SetList(organicMatter);
-
-
-                        series1.seriesName = "Water";
-                        series2.seriesName = "Soltimer";
-                        series3.seriesName = "Rain mm";
-                        series4.seriesName = "Oxygen";
-                        series5.seriesName = "tilf2";
-                        series6.seriesName = "smallLife";
-                        series7.seriesName = "humusQuality";
-                        series8.seriesName = "Nitrogen";
-                        series9.seriesName = "organicMatter";
-
-
-                        series1.lineColor = Color.grey;
-                        series2.lineColor = Color.yellow;
-                        series3.lineColor = Color.blue;
-                        series4.lineColor = Color.cyan;
-                        series5.lineColor = Color.white;
-                        series6.lineColor = Color.black;
-                        series7.lineColor = Color.grey;
-                        series8.lineColor = Color.red;
-                        series9.lineColor = Color.magenta;
-
-                       series1.UseXDistBetweenToSpace = true;
-
-                        if (useData4)
-                        {
-                            // en bruk her er at vi kan velge ut grafer som skrives ut og ikke. useData2 er bool som gjør dette
-                            Debug.Log("if useData er true");
-                            List<string> groups = new List<string>();
-                            List<Vector2> data = new List<Vector2>();
-
-                            Debug.Log("for-løkke med series1Data2.Count=" + series1Data2.Count);
-                            for (int i = 0; i < series1Data2.Count; i++)
-                            {
-                                Debug.Log("i=" + i);
-                                Debug.Log("series1Data(" + i + "]:  " + series1Data[i]);
-                            }
-                            graph.groups.SetList(groups);
-                            graph.useGroups = true;
-                            graph.xAxis.LabelType = WMG_Axis.labelTypes.groups;//Label'ene er definert og hentes fra WMG_Axis.labelTypes.groups
-                            graph.xAxis.AxisNumTicks = groups.Count;
-
-                            series1.UseXDistBetweenToSpace = true;
-                            // series1.pointValues.SetList(data);///her setter vi pointValues til ?????ilordnes dette i det hele tatt???? T
-                            Debug.Log("series1.pointValues.SetList(testData); testData[0]=" + testData[0] + "   testData[1]=" + testData[1]);
-                        }
-               */
         }//start()
 
 
@@ -175,29 +70,11 @@ namespace HappyGardenConsoleVSU
             if (Initializer.GraphUpdated)
             {
                 Initializer.GraphUpdated = false;
-                notfirsttime = true;
-                Debug.Log("´Update graph ########################################################################################################################################################notfirsttime");
-
-                //updateGraphs();
-                
+                notfirsttime = true;             
             }
         }
         
 
-        /*
-                public void updateGraphs()
-                {
-                    Debug.Log("updateGraphs i WMG_X_Tutor       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-                    soltimer = Weather.Sun;
-
-                    initiateSecondGraph();
-
-                    series2.pointValues.SetList(soltimer);
-                    series3.pointValues.SetList(waterData); //      
-                                                            //series4.pointValues.SetList(tilf1Data); //her settes tilfeldige verdier serie en
-                                                            //series5.pointValues.SetList(tilf2Data); //her settes tilfeldige verdier serie to
-                }
-        */
 
         public void initiateSecondGraph()
         {
@@ -207,8 +84,6 @@ namespace HappyGardenConsoleVSU
 
             //graph = graphGO.GetComponent<WMG_Axis_Graph>();
             //graph.xAxis.AxisMaxValue = 28;
-
-            zpots = Field.Spots;//array som har alle jordlappen
 
             //Debug.Log("zpots:::::::::::::::::"+zpots);
             //Debug.Log("zpots[0,0]:::::::::::::::::" + zpots[0,0]);
@@ -227,29 +102,12 @@ namespace HappyGardenConsoleVSU
 
 
             tilf1Data = containerValues.MinVektorListe3;
-            
             soltimer = Weather.Sun;//vektorliste til graf
 
 
-
-            /* int zpotLengde = zpots.GetLength(1);
-            Debug.Log("int zpotLengde = zpots.GetLength(1);    zpotLengde=  " + zpots.GetLength(1));
-            ///disse må tilordnes
-            ///eksempel air= zpots[i,j].Air;*/
-            //Debug.Log("????????\ntest for import av array fra spot. via farm. air:(float)air        ->"  + air);
-            //Debug.Log("????????\ntest for import av array fra spot. via farm. air:(float)air[0]     ->" + air[0]);
-            //Debug.Log("????????\ntest for import av array fra spot. via farm. air:(float)air[0].y   ->" + air[0].y);
-            //Debug.Log("test for import av array fra spot. via farm. air:(float)air[2].y     ->" + (float)air[2].y);
-
-
-            
-            Debug.Log("2graph  " + graph);
-
-            //PROBLEM. SER UT TIL Å SUMMERE SEG OPP
-            //kan vi renske dataene først eller opprette en helt ny graf
-         series1 = 
-            graph.addSeries();    //legger inn series1. den hentes vha graphGO.Getcomponent se linje 20
-
+ 
+  
+            series1 = graph.addSeries();    //legger inn series1. den hentes vha graphGO.Getcomponent se linje 20
             series2 = graph.addSeries();    // soltimer
             series3 = graph.addSeries();    // waterData
             series4 = graph.addSeries();
@@ -261,20 +119,17 @@ namespace HappyGardenConsoleVSU
 
             graph.xAxis.AxisMaxValue = 28;
 
-            series1.pointValues.SetList(waterMM);
-            series2.pointValues.SetList(soltimer);
-            series3.pointValues.SetList(waterData);
-            series4.pointValues.SetList(air); //her settes tilfeldige verdier serie en
-            series5.pointValues.SetList(tilf2Data); //her settes tilfeldige verdier serie to
+            //series1.pointValues.SetList(waterMM);
+            //series2.pointValues.SetList(soltimer);
+            //series3.pointValues.SetList(waterData);
+            //series4.pointValues.SetList(air); //her settes tilfeldige verdier serie en
+         /*   series5.pointValues.SetList(tilf2Data); //her settes tilfeldige verdier serie to
             series6.pointValues.SetList(smallLife);
             series7.pointValues.SetList(humusQuality);
             series8.pointValues.SetList(nitrogen);
-            series9.pointValues.SetList(organicMatter);
+            series9.pointValues.SetList(organicMatter);*/
 
-if (notfirsttime)
-            {
-                Debug.Log("´########################################################################################################################################################notfirsttime");
-            }
+
             series1.seriesName = "Water";
             series2.seriesName = "Soltimer";
             series3.seriesName = "Rain mm";
@@ -295,7 +150,7 @@ if (notfirsttime)
             series7.lineColor = Color.grey;
             series8.lineColor = Color.red;
             series9.lineColor = Color.magenta;
-
+            /*
             Debug.Log("\n******************************************SKRIVER UT VEKTORER WATER SOL WATERD AIR HUMUSQ NITRO");
             Debug.Log("waterMM"); printVector(waterMM,100);
             Debug.Log("soltimer"); printVector(soltimer, 100);
@@ -303,10 +158,11 @@ if (notfirsttime)
             Debug.Log("air"); printVector(air, 100);
             Debug.Log("humusQuality"); printVector(humusQuality, 100);
             Debug.Log("nitrogen"); printVector(nitrogen, 100);
-            Debug.Log("\n");
+            Debug.Log("\n");*/
             /**/
             graph.Refresh();
         }
+
 
         public void printVector(List<Vector2> flekk, float max)
         {
@@ -317,6 +173,7 @@ if (notfirsttime)
                 Debug.Log("printVector  "+flekk[i].y);
             }
         }
+
 
         public List<Vector2> normaliserListe(List<Vector2> data, float max)
         {
@@ -331,9 +188,122 @@ if (notfirsttime)
             return Nliste;
         }
 
+        public void Oppdater()
+        {
+            if (true)
+            {
+                Debug.Log("valg gjort. eventuelt oppdatering");
+
+                List<string> groups = new List<string>();
+                List<Vector2> empty = new List<Vector2>();
+
+                if (showOnlyWeather)
+                {
+                    series1.pointValues.SetList(waterMM); //series1.pointValues.SetList(data);
+                    series2.pointValues.SetList(soltimer);
+                    series3.pointValues.SetList(waterData);
+
+                    series4.pointValues.SetList(empty);
+                    series6.pointValues.SetList(empty);
+                    series7.pointValues.SetList(empty);
+                    series8.pointValues.SetList(empty);
+                    series9.pointValues.SetList(empty);
+                }
+                else if (showOnlyEarth)
+                {
+                   series1.pointValues.SetList(waterMM); //series1.pointValues.SetList(data);
+                   series2.pointValues.SetList(empty);
+                    series3.pointValues.SetList(empty);
+                    series4.pointValues.SetList(air); //her settes tilfeldige verdier serie en
+                                                      //series5.pointValues.SetList(tilf2Data); //her settes tilfeldige verdier serie to
+                    series6.pointValues.SetList(smallLife);
+                    series7.pointValues.SetList(humusQuality);
+                    series8.pointValues.SetList(nitrogen);
+                    series9.pointValues.SetList(organicMatter);  /*  */
+                }
+                else if (showNothing)
+                {
+                    series1.pointValues.SetList(empty); //series1.pointValues.SetList(data);
+                    series2.pointValues.SetList(empty);
+                    series3.pointValues.SetList(empty);
+
+                    series4.pointValues.SetList(empty);
+                    series6.pointValues.SetList(empty);
+                    series7.pointValues.SetList(empty);
+                    series8.pointValues.SetList(empty);
+                    series9.pointValues.SetList(empty);  /*  */
+
+                }
+                else
+                {
+                    series1.pointValues.SetList(waterMM); //series1.pointValues.SetList(data);
+                    series2.pointValues.SetList(soltimer);
+                    series3.pointValues.SetList(waterData);
+                    series4.pointValues.SetList(air); //her settes tilfeldige verdier serie en
+                 //series5.pointValues.SetList(tilf2Data); //her settes tilfeldige verdier serie to
+                    series6.pointValues.SetList(smallLife);
+                   series7.pointValues.SetList(humusQuality);
+                    series8.pointValues.SetList(nitrogen);
+                    series9.pointValues.SetList(organicMatter);  /*  */
+                }
 
 
 
+                graph.Refresh();
+               
+            }
+        }
 
-    }
-}
+
+        public void nyeVerdier()
+        {
+            Debug.Log("nye verdier importeres eller oppdateres og så skriver jeg grafen");
+            
+        }
+
+
+        public void gamleVerdierf()
+        {
+            //lager en temp-array
+            List<Vector2> data3 = new List<Vector2>();
+
+            data3.Add(new Vector2(3, 20));
+            data3.Add(new Vector2(9, 86));
+            data3.Add(new Vector2(13, 95));
+            data3.Add(new Vector2(20, 80));
+            data3.Add(new Vector2(21, 60));
+            data3.Add(new Vector2(22, 0));
+            Debug.Log("gammel graf skrives opp igjen");
+
+            //series1.pointValues.SetList(series1Data);
+
+            //series2.pointValues.SetList(waterMM);
+
+            /*   if (waterMM.Count > 1)
+               {
+                   series2.pointValues.SetList(waterMM);
+                   for (int i=0; i < 7; i++)
+                   {
+                       Debug.Log(waterMM[i].y);
+                   }
+               }
+               else
+               {
+                   soltimer = Weather.Sun;
+                   series2.pointValues.SetList(soltimer);
+                   for (int i = 0; i < 7; i++)
+                   {
+                       Debug.Log("soltimer (x,y): "+soltimer[i].x+" ,  "+ soltimer[i].y);
+                   }
+               }*/
+
+            //series2.pointValues.SetList(soltimer);
+            //waterMM = Weather.Rain;
+            //series3.pointValues.SetList(waterMM);
+            series1.pointValues.SetList(data3);
+
+        }
+
+
+    }//class
+}//namespace

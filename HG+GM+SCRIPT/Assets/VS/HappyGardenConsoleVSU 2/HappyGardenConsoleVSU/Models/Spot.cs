@@ -30,6 +30,9 @@ namespace HappyGardenConsoleVSU
         public  List<Vector2> humusQuality = new List<Vector2>();
         public  List<Vector2> nitrogen = new List<Vector2>();
 
+        public List<Vector2> sun = Weather.Sun; //denne hentes fra Weather.Sun
+        public List<Vector2> rain = Weather.Rain; //denne hentes fra Weather.Rain
+
         public List<Vector2> temp = new List<Vector2>();
 
 
@@ -181,17 +184,33 @@ namespace HappyGardenConsoleVSU
 
         public void printVectors()
         {
+            /*
             Debug.Log("PRINTVECTORS, v_index= "+v_index+", h_index= "+h_index+ ",  day "+tempDay);
-/*
-            Debug.Log("");
+
+            Debug.Log("tempday "+tempDay);
 
             Debug.Log("waterMM      " +       waterMM[tempDay] +   "=" + (float)waterMM[tempDay].y);
             Debug.Log("air          " +           air[tempDay] +   "=" + (float)air[tempDay].y);
             Debug.Log("smallLife    " +     smallLife[tempDay] +   "=" + (float)smallLife[tempDay].y);
             Debug.Log("humusQuality " +  humusQuality[tempDay] +   "=" + (float)humusQuality[tempDay].y);
             Debug.Log("nitrogen     " +      nitrogen[tempDay] +   "=" + (float)nitrogen[tempDay].y);
-            Debug.Log("organicMatter " + organicMatter[tempDay] +   "=" + (float)organicMatter[tempDay].y);
- */      
+            Debug.Log("organicMatter " + organicMatter[tempDay] +   "=" + (float)organicMatter[tempDay].y);*/
+
+            if (tempDay==27)
+            {
+                Debug.Log("\n");
+                for (int j = 0; j < tempDay + 1; j++)
+                {
+                    Debug.Log("waterMM      " + waterMM[j] + "=" + (float)waterMM[j].y);
+                    Debug.Log("air          " + air[j] + "=" + (float)air[j].y);
+                    Debug.Log("smallLife    " + smallLife[j] + "=" + (float)smallLife[j].y);
+                    Debug.Log("humusQuality " + humusQuality[j] + "=" + (float)humusQuality[j].y);
+                    Debug.Log("nitrogen     " + nitrogen[j] + "=" + (float)nitrogen[j].y);
+                    Debug.Log("organicMatter " + organicMatter[j] + "=" + (float)organicMatter[j].y);
+                }
+            }
+
+     
         }
 
 
@@ -242,10 +261,10 @@ namespace HappyGardenConsoleVSU
 
                     waterMM.Add(new Vector2(0, _water*100));  //ganger med hundre pga grafen
                     air.Add(new Vector2(0, (float)_air*100));
-                    smallLife.Add(new Vector2(0, _smallLife));
-                    humusQuality.Add(new Vector2(0, _humusQuality));
-                    nitrogen.Add(new Vector2(0, _nitrogen));
-                    organicMatter.Add(new Vector2(0,_organicMatter));
+                    smallLife.Add(new Vector2(0, _smallLife*100));
+                    humusQuality.Add(new Vector2(0, _humusQuality*100));
+                    nitrogen.Add(new Vector2(0, _nitrogen*100));
+                    organicMatter.Add(new Vector2(0,_organicMatter*100));
 
                     break;
                 case "myrJord":
@@ -354,14 +373,14 @@ namespace HappyGardenConsoleVSU
             fraDag = Initializer.DagenIdag;
             tempDay = Initializer.DagenIdag; //holde rede på index
 
-            Debug.Log("FØRST i iterasjon. iterasjon "+iterasjon);
+            Debug.Log("          \nIterasjon "+iterasjon);
 
             printVectors();
 
             switch (iterasjon)
             {
                 case 1:
-                    ////Debug.Log("Environmental variables gathered. Calculate new values of Spot");
+                    Debug.Log("ZZZZZZZZZZZZZZZZZZZZZz   Environmental variables gathered. Calculate new values of Spot");
 
 
 
@@ -539,8 +558,8 @@ namespace HappyGardenConsoleVSU
 
                     ///¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤
 
-
-
+                    waterMM.Add(new Vector2(tempDay, (float)water_H2O * 100));
+                    Debug.Log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  TEMPDAY="+tempDay);
 
 
                     break;
@@ -595,7 +614,7 @@ namespace HappyGardenConsoleVSU
                     Debug.Log("_____Spot oppdateres dag " + tempDay + " > (" + v_index + " , " + h_index + " )");
                     Debug.Log("air  tempday  _air=" + _air);
 
-                    waterMM.Add         (new Vector2(tempDay, (float)water_H2O*100));
+                    
                     air.Add             (new Vector2(tempDay, (float)_air*100));
                     smallLife.Add       (new Vector2(tempDay, (float)_smallLife*100));
                     humusQuality.Add    (new Vector2(tempDay, (float)_humusQuality*100));
@@ -730,6 +749,14 @@ namespace HappyGardenConsoleVSU
                 default:
                     break;
 
+                    Debug.Log("\n iterasjon  "+iterasjon+"*********************************SKRIVER UT VEKTORER WATER SOL WATERD AIR HUMUSQ NITRO");
+                    Debug.Log("waterMM"); printVector(waterMM, 100);
+                    Debug.Log("soltimer"); printVector(sun, 100);
+                    Debug.Log("waterData"); printVector(rain, 100);
+                    Debug.Log("air"); printVector(air, 100);
+                    Debug.Log("humusQuality"); printVector(humusQuality, 100);
+                    Debug.Log("nitrogen"); printVector(nitrogen, 100);
+                    Debug.Log("\n");
 
 
 
@@ -739,6 +766,20 @@ namespace HappyGardenConsoleVSU
             //
             Debug.Log("\n");
         }//Update
+
+
+
+
+        public void printVector(List<Vector2> flekk, float max)
+        {
+            int range = flekk.Count;
+            Debug.Log("lengde: " + range);
+            for (int i = 0; i < range; i++)
+            {
+                Debug.Log("printVector  " + flekk[i].y);
+            }
+        }
+
 
 
         public void PourWater()

@@ -18,7 +18,7 @@ namespace HappyGardenConsoleVSU
         //HappyGardenConsole console;
 
         public float lastFrameTime = 0.0f;
-        public float thisInterval=0.0f;
+        public float thisInterval = 0.0f;
         public float lastFixed = 0.0f;
   
         //private Game game;
@@ -109,8 +109,8 @@ graphUpdated = true;
             dagenIdag = dagenidag;
             Weather vair = Weather.ThisDay;
 
-/*
-            for (int day = 0; day < 7; day ++)
+//*
+            for (int day = 0; day < 28; day ++)
             { Debug.Log(day+"x dag   [|||||||||||||||||||||||||||||||||||>");
 
                 Weather.ThisDay.WhichDay = day;
@@ -123,7 +123,10 @@ graphUpdated = true;
 
                 Debug.Log(day + "x dag slutt     <||||||||||||||||||]");
             }
-*/
+            //*/
+
+
+
             graphUpdated = true; //denne sjekkes fra viewet vha 'GraphUpdated'
 
             Debug.Log("END OF UPDATE.  MAKE A NEW GRAF");

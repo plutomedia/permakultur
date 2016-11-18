@@ -95,7 +95,7 @@ namespace HappyGardenConsoleVSU
 
             Debug.Log("rainMM["+dag+"]="+rainMM[dag]);
             rain.Add(new Vector2(dag, rainMM[dag]));
-            sun.Add(new Vector2(dag, sunH[dag]));
+            sun.Add(new Vector2(dag, sunH[dag]*10));//ganger med 10 for å skalere det bedre til grafen
 
 
 

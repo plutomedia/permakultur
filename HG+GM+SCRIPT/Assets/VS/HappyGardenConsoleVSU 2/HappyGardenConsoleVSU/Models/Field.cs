@@ -36,8 +36,8 @@ namespace HappyGardenConsoleVSU
 
         public Field(int nr, Text myText)
         {
-            rows = 2;
-            columns = 2;
+            rows = 1;
+            columns = 1;
 
             fieldText = myText;
             Fieldnr = nr;
