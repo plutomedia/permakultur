@@ -154,6 +154,12 @@
     <Compile Include="Assets\VS\HappyGardenConsoleVSU 2\HappyGardenConsoleVSU\Controller\btn_Water1.cs" />
     <Compile Include="Assets\VS\HappyGardenConsoleVSU 2\HappyGardenConsoleVSU\Controller\btn_Water2.cs" />
     <Compile Include="Assets\VS\HappyGardenConsoleVSU 2\HappyGardenConsoleVSU\Controller\btn_Water3.cs" />
+    <Compile Include="Assets\VS\HappyGardenConsoleVSU 2\HappyGardenConsoleVSU\Controller\slider_day.cs" />
+    <Compile Include="Assets\VS\HappyGardenConsoleVSU 2\HappyGardenConsoleVSU\Controller\tog_Earth.cs" />
+    <Compile Include="Assets\VS\HappyGardenConsoleVSU 2\HappyGardenConsoleVSU\Controller\tog_Weather.cs" />
+    <Compile Include="Assets\VS\HappyGardenConsoleVSU 2\HappyGardenConsoleVSU\Controller\trig_boxes.cs" />
+    <Compile Include="Assets\VS\HappyGardenConsoleVSU 2\HappyGardenConsoleVSU\Controller\trig_sprite.cs" />
+    <Compile Include="Assets\VS\HappyGardenConsoleVSU 2\HappyGardenConsoleVSU\Controller\txt_DayAndSpot.cs" />
     <Compile Include="Assets\VS\HappyGardenConsoleVSU 2\HappyGardenConsoleVSU\Initializer.cs" />
     <Compile Include="Assets\VS\HappyGardenConsoleVSU 2\HappyGardenConsoleVSU\LesFraFil.cs" />
     <Compile Include="Assets\VS\HappyGardenConsoleVSU 2\HappyGardenConsoleVSU\Models\DayCollection.cs" />

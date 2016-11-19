@@ -36,8 +36,8 @@ namespace HappyGardenConsoleVSU
 
         public Field(int nr, Text myText)
         {
-            rows = 1;
-            columns = 1;
+            rows = 4;
+            columns = 4;
 
             fieldText = myText;
             Fieldnr = nr;
@@ -55,8 +55,29 @@ namespace HappyGardenConsoleVSU
                 }
             }
 
+            //default valgt verdi som kan oppdateres til wievet
+            WMG_X_Tutor.ChosenSpot = spots[0, 0];
+
         }
 
+
+        public void InitializeEarthType()
+        {
+            for (int i = 0; i < rows; i++)
+            {
+
+                for (int j = 0; j < columns; j++)
+                {
+
+                    Debug.Log("initierer spot (f,x,y)  " + Fieldnr + " , " + i + " , " + j);
+
+                    jordbit = spots[i, j];
+                    jordbit.InitializeEarthType();
+
+                }
+            }
+
+        }
 
 
         public void Update(int iterasj)
@@ -65,18 +86,35 @@ namespace HappyGardenConsoleVSU
             //MessageBox.Show("Spot Update");
             //Debug.Log("----Field "+ Fieldnr + " Update, iterasjon "+iterasjon+"--------------------");
 
-            for (int i = 0; i < rows; i++)
-            {
-                
-                for (int j = 0; j < columns; j++)
-                {
-                    
-                    //Debug.Log("oppdaterer spot (f,x,y)  "+Fieldnr+" , " + i + " , " + j);
+             bool updateAll = false;// hvis alle spot skal oppdateres
+            //oppdatere alle innebærer nesten 'frys'. ca 10 min
 
-                    jordbit = spots[i, j];
-                    jordbit.Update(iterasjon);
+            if (updateAll)
+            {
+                for (int i = 0; i < rows; i++)
+                {
+                
+                    for (int j = 0; j < columns; j++)
+                    {
+                    
+                        Debug.Log("oppdaterer spot (f,x,y)  "+Fieldnr+" , " + i + " , " + j);
+
+                        jordbit = spots[i, j];
+                        jordbit.Update(iterasjon);
+
+                        //if (jordbit == WMG_X_Tutor.ChosenSpot)
+                        //    jordbit.Update(iterasjon);
+                        //else Debug.Log("oppdaterer  IKKE  spot (f,x,y)  " + Fieldnr + " , " + i + " , " + j);
+                    }
                 }
             }
+            else
+            {
+                Debug.Log("oppdaterer spot WMG_X_Tutor.ChosenSpot.  " + WMG_X_Tutor.ChosenSpot.v_index+";" + WMG_X_Tutor.ChosenSpot.h_index);
+
+                WMG_X_Tutor.ChosenSpot.Update(iterasjon);
+            }
+            
         }
 
 
@@ -132,14 +170,14 @@ namespace HappyGardenConsoleVSU
 
             //nytekst = String.Format("\nTeig{2}, spot({0},{1}):  ", ii, jj, i.Fieldnr);
 
-
-
-            for (int fnr=0; fnr<3;fnr++)
+            
+            //this version we have only one field, with one earth type
+            for (int fnr=0; fnr<1;fnr++)
             {
 
                 //spotts = new Spot[10, 10];
                 //spotts = this.spots;
-                string earthType = "default";// default, to prevent error messages. Should be replaced with exception in switch.
+                string earthType = "Our garden bed";// default, to prevent error messages. Should be replaced with exception in switch.
 /*                Debug.Log("i.fieldNr=" + i.Fieldnr);
                 switch (fnr)
                 {
@@ -172,7 +210,7 @@ namespace HappyGardenConsoleVSU
                     }
                 }
 
-                myText.text += " \n";
+                //myText.text += " \n";
             }
 
         }

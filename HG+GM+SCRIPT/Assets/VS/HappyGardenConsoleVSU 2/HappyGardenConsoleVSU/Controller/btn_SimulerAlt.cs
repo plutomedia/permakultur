@@ -15,10 +15,14 @@ namespace HappyGardenConsoleVSU
 
         public int dayIndex;
         public int simulateFromDay;
+        public int dayChosen;
+
+
 
         void start()
         {
             simulateFromDay = 0;
+            
             //dette betyr at alle simuleringer skal gjøres fra dag 0
             //dette vil endres når input legges inn på visse dager
         }
@@ -28,9 +32,11 @@ namespace HappyGardenConsoleVSU
 
         public void UpdateAll()
         {
-            Debug.Log("E T T E R    UPDATEMONTH. NOW WE MAKE ANOTHER GRAPH");
+            dayChosen = WMG_X_Tutor.ChosenDay;
 
-            initializer.UpdateMonth(simulateFromDay);
+            Debug.Log("F Ø R UpdateMonth. dayChosen er "+dayChosen );
+
+           initializer.UpdateMonth(simulateFromDay);
             
             Debug.Log("E T T E R     MAKE ANOTHER GRAPH. END OF UPDATEALL BUTTON");
             

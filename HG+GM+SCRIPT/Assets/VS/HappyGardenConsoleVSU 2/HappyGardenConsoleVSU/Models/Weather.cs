@@ -11,8 +11,8 @@ namespace HappyGardenConsoleVSU
         private static List<Vector2> sun = new List<Vector2>();
 
 
-        private int nedboer;
-        private int sunHours;
+        private static int nedboer;
+        private static int sunHours;
         private int lightHours;
         private string name;
         private int meanTemp;
@@ -133,7 +133,7 @@ namespace HappyGardenConsoleVSU
             set { sunH[WhichDay] = value; }
         }
 
-        public float Nedboer
+        public  float Nedboer
         {
             //this function makes age public to the controller
             get { return rainMM[WhichDay]; }

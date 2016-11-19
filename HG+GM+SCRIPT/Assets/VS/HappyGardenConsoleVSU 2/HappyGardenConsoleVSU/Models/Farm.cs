@@ -11,12 +11,10 @@ namespace HappyGardenConsoleVSU
     {
         public  Field teig;
         public static Field muldTeig;
-
         public static List<Field> fields;
-
         Text myTekst;
 
-        //public GameObject teig_;
+
 
         public Farm(Text myText)
         {
@@ -24,21 +22,27 @@ namespace HappyGardenConsoleVSU
             //Debug.Log("("---------------------Farm Model>");
 
             fields = new List<Field>();
-
             myTekst.text = "Happy Garden System Simulator";
-     
-            for (int i = 0; i < 1; i++)
-            {
-                teig = new Field(i,  myTekst);
-                if (i==0) { muldTeig = teig; };
-                fields.Add(teig);
-            }
 
-           
+            /*  for (int i = 0; i < 1; i++)
+              {
+                  teig = new Field(i,  myTekst);
+                  if (i==0) { muldTeig = teig; };
+                  fields.Add(teig);
+              }  */
+
+            teig = new Field(0, myTekst);
+            fields.Add(teig);
         }
 
 
-
+        public void InitializeEarthType()
+        {
+            foreach (Field tg in fields)
+            {
+                tg.InitializeEarthType();
+            }
+        }
 
 
         public void Update(int iterasj)
@@ -57,6 +61,7 @@ namespace HappyGardenConsoleVSU
         {
             foreach (Field tg in fields)
             {
+                Debug.Log("xxxxxxxxxxxxxxxx foreach field tg in fields" + tg.Fieldnr);
                 tg.WriteEarthValues(myText);
             }
             

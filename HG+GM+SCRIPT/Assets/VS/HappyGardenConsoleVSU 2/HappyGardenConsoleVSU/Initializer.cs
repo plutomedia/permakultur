@@ -25,11 +25,12 @@ namespace HappyGardenConsoleVSU
         //private Farm frm;
         //private  List<Field> flds;
         public Spot[,] spotts;
+        private static Spot spotValgt;
 
         public Environments environments;
         Weather vaer;
 
-        public static int dagenIdag;  //dagen som det skal simuleres fra. dvs input som fx vanning og kalking og planting
+        public static int dagenIdag, dagValgt;  //dagen som det skal simuleres fra. dvs input som fx vanning og kalking og planting
         public WMG_X_Tutor wmgTut;
 
 
@@ -42,6 +43,10 @@ namespace HappyGardenConsoleVSU
             environments = new Environments();
             gameFrame = new GameFrame(whatText);  //This is not good mvc. here we hand the view to the model, and intend to change the view from the model. No listeners.
 
+            InitializeEarthValues();
+            //startverdier for get-set
+            dagValgt = 0; //DVS dag 0
+            spotValgt = Field.Spots[0, 0];
         }
 
 
@@ -70,6 +75,8 @@ namespace HappyGardenConsoleVSU
 
             string tempstring = String.Format("HappyGarden, Day {0}:   ", vaer.WhichDay);
 
+            //InitializeEarthValues(); //Fills the Vector2 arrays with default data
+
             whatText.text = tempstring;
 
             gameFrame.Oppdater(iterasjon);
@@ -88,7 +95,6 @@ namespace HappyGardenConsoleVSU
         public void PourWater(int fieldn)
         {
             int fieldnr = fieldn;
-
             gameFrame.PourWater(fieldnr);
         }
 
@@ -96,41 +102,42 @@ namespace HappyGardenConsoleVSU
 
         public void Plant(string plantname, int fieldNr, int spotX, int spotY)
         {
-
             gameFrame.Plant(plantname, fieldNr, spotX, spotY);
-
         }
 
+
+        public void InitializeEarthValues()
+        {
+            gameFrame.InitializeEarthType();
+
+        }
 
         public void UpdateMonth(int dagenidag)
         {
             
-graphUpdated = true;
-            dagenIdag = dagenidag;
+            graphUpdated = true;
+            dagenIdag = dagenidag;           
             Weather vair = Weather.ThisDay;
 
-//*
+
             for (int day = 0; day < 28; day ++)
-            { Debug.Log(day+"x dag   [|||||||||||||||||||||||||||||||||||>");
+            {
+                Debug.Log(day+"x dag   [||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||>");
 
                 Weather.ThisDay.WhichDay = day;
                 dagenIdag = day;//brukes fra Spot for å holde rede på dag-index
-        
+
                 gameFrame.Oppdater(1);
                 gameFrame.Oppdater(2);
                 gameFrame.Oppdater(3);
                 gameFrame.Oppdater(4);
 
-                Debug.Log(day + "x dag slutt     <||||||||||||||||||]");
+                Debug.Log(day + "x dag slutt     <||||||||||||||||||||||||||||||||||||||||||||||||||||||]");
             }
-            //*/
-
-
+           
 
             graphUpdated = true; //denne sjekkes fra viewet vha 'GraphUpdated'
-
             Debug.Log("END OF UPDATE.  MAKE A NEW GRAF");
-
         }
 
 
@@ -169,6 +176,32 @@ graphUpdated = true;
             }
         }
 
+
+
+
+        public static int DagValgt
+        {
+            get
+            {
+                return dagValgt;
+            }
+            set
+            {
+                dagValgt = value;
+            }
+        }
+
+        public static Spot SpotValgt
+        {
+            get
+            {
+                return spotValgt;
+            }
+            set
+            {
+                spotValgt = value;
+            }
+        }
 
     }//class Initializer
 }//namespace

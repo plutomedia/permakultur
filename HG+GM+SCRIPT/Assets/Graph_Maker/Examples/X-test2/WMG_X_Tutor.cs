@@ -13,6 +13,7 @@ namespace HappyGardenConsoleVSU
         public GameObject ScriptContainer;   //containerValues
         public GameObject emptyGraphPrefab;
         public  WMG_Axis_Graph graph;
+        public GameObject daySlider;
 
         public WMG_Series series1;//1-28 serien kan hentes fra ...public
         public WMG_Series series2;//
@@ -34,6 +35,9 @@ namespace HappyGardenConsoleVSU
         public List<Vector2> air, waterMM, smallLife, humusQuality, nitrogen, organicMatter;
 
         public static Spot[,] zpots;
+        public Spot thisSpot;  //denne har brukt ulike måter å bli tilordnet
+        // har laget Initializer.SpotValgt[0,0] som default spot og
+        //      Initializer.DagValgt (=0) som default dag
 
 
         //public Field field = Farm.MuldTeig;
@@ -43,17 +47,48 @@ namespace HappyGardenConsoleVSU
         public Boolean notfirsttime;
 
         public bool showAll, showOnlyWeather, showOnlyEarth, showNothing;
+        public bool spot00, spot01;
+
+        public static Spot chosenSpot;
+        public static int chosenDay;
 
 
          void Start()
         {
+
+
+            zpots = Field.Spots;
+            chosenSpot = zpots[0, 0];  //default start på spot(0,0)
+
+            //  alternativt: chosenSpot=Initializer.valgSpot;
+
+            
+
             notfirsttime = false;
 
             GameObject graphGO = GameObject.Instantiate(emptyGraphPrefab);
             graphGO.transform.SetParent(this.transform, false);
             graph = graphGO.GetComponent<WMG_Axis_Graph>();
 
-            zpots = Field.Spots;
+            Debug.Log("INITIALISER FRA START. Jordflekk OG zpots");
+
+
+/* 
+            if (spot00)
+            {
+                thisSpot = zpots[0, 0];
+                Debug.Log("INITIALISER FRA START. Jordflekk (0,0), dvs zpots[0,0]");
+            }
+            else if (spot01)
+            {
+                thisSpot = zpots[0, 1];
+                Debug.Log("INITIALISER FRA START. Jordflekk (0,1), dvs zpots[0,1]");
+            }
+*/
+            thisSpot = chosenSpot;
+            Debug.Log("FRA START WMGTUTOR, VALGT SPOT=chosenSpot:   " + chosenSpot.v_index+","+chosenSpot.h_index);
+
+
 
             Debug.Log("1graph   " + graph);
 
@@ -80,30 +115,23 @@ namespace HappyGardenConsoleVSU
         {
 
             Debug.Log("initiateSecondGraph metoden *********       *********       ************      *****"+zpots);
-            //graphGO.transform.SetParent(this.transform, false);
 
-            //graph = graphGO.GetComponent<WMG_Axis_Graph>();
-            //graph.xAxis.AxisMaxValue = 28;
+            thisSpot = chosenSpot;
 
-            //Debug.Log("zpots:::::::::::::::::"+zpots);
-            //Debug.Log("zpots[0,0]:::::::::::::::::" + zpots[0,0]);
-            //Debug.Log("zpots[0, 0].Air:::::::::::::::::" + zpots[0, 0].Air);
-            //Debug.Log("zpots[0, 0].Air[0]:::::::::::::::::" + zpots[0, 0].Air[0]);
-            //Debug.Log("zpots[0, 0].Air[0].y:::::::::::::::::" + zpots[0, 0].Air[0].y);
-
-            waterMM         = zpots[0, 0].WaterMM;
-            air             = zpots[0, 0].Air;
-            smallLife       = zpots[0, 0].SmallLife;
-            humusQuality    = zpots[0, 0].HumusQuality; ;
-            nitrogen        = zpots[0, 0].Nitrogen;
-            organicMatter   = zpots[0, 0].OrganicMatter;
-            testData        = containerValues.MinVektorListe;// dette er kanskje måten eksterne vektorer kan bli tilgjengelige
-            waterData       = Weather.Rain;//vannmengde i jordbiten
+            
+            Debug.Log("InitiateSecndGraph. SJEKKER AT WATERMM IKKE ER TOMwatermm antall " + waterMM.Count);
+            air = thisSpot.Air;
+            smallLife = thisSpot.SmallLife;
+            humusQuality = thisSpot.HumusQuality; ;
+            nitrogen = thisSpot.Nitrogen;
+            organicMatter = thisSpot.OrganicMatter;
+            //testData = containerValues.MinVektorListe;// dette er kanskje måten eksterne vektorer kan bli tilgjengelige
+            waterData = Weather.Rain;//mm nedbør
 
 
-            tilf1Data = containerValues.MinVektorListe3;
+            //tilf1Data = containerValues.MinVektorListe3;
             soltimer = Weather.Sun;//vektorliste til graf
-
+            waterMM = thisSpot.WaterMM; 
 
  
   
@@ -118,17 +146,6 @@ namespace HappyGardenConsoleVSU
             series9 = graph.addSeries();
 
             graph.xAxis.AxisMaxValue = 28;
-
-            //series1.pointValues.SetList(waterMM);
-            //series2.pointValues.SetList(soltimer);
-            //series3.pointValues.SetList(waterData);
-            //series4.pointValues.SetList(air); //her settes tilfeldige verdier serie en
-         /*   series5.pointValues.SetList(tilf2Data); //her settes tilfeldige verdier serie to
-            series6.pointValues.SetList(smallLife);
-            series7.pointValues.SetList(humusQuality);
-            series8.pointValues.SetList(nitrogen);
-            series9.pointValues.SetList(organicMatter);*/
-
 
             series1.seriesName = "Water";
             series2.seriesName = "Soltimer";
@@ -150,16 +167,7 @@ namespace HappyGardenConsoleVSU
             series7.lineColor = Color.grey;
             series8.lineColor = Color.red;
             series9.lineColor = Color.magenta;
-            /*
-            Debug.Log("\n******************************************SKRIVER UT VEKTORER WATER SOL WATERD AIR HUMUSQ NITRO");
-            Debug.Log("waterMM"); printVector(waterMM,100);
-            Debug.Log("soltimer"); printVector(soltimer, 100);
-            Debug.Log("waterData"); printVector(waterData, 100);
-            Debug.Log("air"); printVector(air, 100);
-            Debug.Log("humusQuality"); printVector(humusQuality, 100);
-            Debug.Log("nitrogen"); printVector(nitrogen, 100);
-            Debug.Log("\n");*/
-            /**/
+
             graph.Refresh();
         }
 
@@ -197,6 +205,29 @@ namespace HappyGardenConsoleVSU
                 List<string> groups = new List<string>();
                 List<Vector2> empty = new List<Vector2>();
 
+                chosenSpot = Initializer.SpotValgt;
+                thisSpot = chosenSpot;
+
+                //PROBLEM MED WATERMM. SER UT TIL AT VERDIENE IKKE KAN HENTES HER I OPPDATER().
+
+                waterMM = thisSpot.WaterMM;
+                soltimer = Weather.Sun;
+                waterData = Weather.Rain;
+                air = thisSpot.Air;
+                smallLife = thisSpot.SmallLife;
+                humusQuality = thisSpot.HumusQuality; ;
+                nitrogen = thisSpot.Nitrogen;
+                organicMatter = thisSpot.OrganicMatter;
+
+
+                Debug.Log("watermm antall " + waterMM.Count);
+                Debug.Log("air antall " + air.Count);
+                Debug.Log("smallLife antall " + smallLife.Count);
+                Debug.Log("humusQuality antall " + humusQuality.Count);
+                Debug.Log("nitrogen antall " + nitrogen.Count);
+                Debug.Log("organicMatter antall " + organicMatter.Count);
+
+             
                 if (showOnlyWeather)
                 {
                     series1.pointValues.SetList(waterMM); //series1.pointValues.SetList(data);
@@ -257,8 +288,19 @@ namespace HappyGardenConsoleVSU
 
         public void nyeVerdier()
         {
-            Debug.Log("nye verdier importeres eller oppdateres og så skriver jeg grafen");
-            
+            Debug.Log("Her forandrer jeg fra et spot til et annet");
+
+            if (spot00)
+            {
+                thisSpot = zpots[0, 0];
+                Debug.Log("Jordflekk (0,0), dvs zpots[0,0]");
+            }
+            else if (spot01)
+            {
+                thisSpot = zpots[0, 1];
+                Debug.Log("Jordflekk (0,1), dvs zpots[0,1]");
+            }
+
         }
 
 
@@ -304,6 +346,33 @@ namespace HappyGardenConsoleVSU
 
         }
 
+
+
+        public static Spot ChosenSpot
+        {
+            get
+            {
+                return chosenSpot;
+            }
+            set
+            {
+                chosenSpot = value;
+            }
+        }
+
+
+
+        public static int ChosenDay
+        {
+            get
+            {
+                return chosenDay;
+            }
+            set
+            {
+                chosenDay = value;
+            }
+        }
 
     }//class
 }//namespace

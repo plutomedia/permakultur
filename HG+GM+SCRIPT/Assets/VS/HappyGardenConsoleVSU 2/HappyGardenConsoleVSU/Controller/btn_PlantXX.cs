@@ -12,14 +12,22 @@ namespace HappyGardenConsoleVSU
 
 
 
+
         public void Plant()
         {
             //fieldnr = 1;
             //spotx = 2;
             //spoty = 2;
 
+            // 1 find day and spot chosen
+            Spot valgtSpot = WMG_X_Tutor.ChosenSpot;
+            int valgtDag = WMG_X_Tutor.ChosenDay;
+
+            Debug.Log("Planter på dag " + valgtDag + " og på spot ( " + valgtSpot.v_index+" ,  "+valgtSpot.h_index+" )");
             Debug.Log("planting-----------------------------------------------------------------");
-            initializer.Plant("Reddik",1, 2, 2);
+
+            initializer.Plant("Reddik", 0, valgtSpot.v_index, valgtSpot.h_index);
+           /* initializer.Plant("Reddik",1, 2, 2);
             initializer.Plant("Reddik",1, 2, 1);
             initializer.Plant("Reddik",1, 2, 0);
             initializer.Plant("Reddik",1, 1, 2);
@@ -32,7 +40,7 @@ namespace HappyGardenConsoleVSU
             initializer.Plant("Bønner", 1, 0, 2);
             initializer.Plant("Bønner", 0, 2, 1);
             initializer.Plant("Bønner", 0, 2, 0);
-            initializer.Plant("Bønner", 0, 1, 2);
+            initializer.Plant("Bønner", 0, 1, 2);*/
 
         }
     }

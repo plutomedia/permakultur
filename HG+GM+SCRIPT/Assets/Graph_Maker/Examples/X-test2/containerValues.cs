@@ -15,7 +15,7 @@ public class containerValues : MonoBehaviour {
 
     void Start () {
         Debug.Log(">>>>>>>>>>> CONTAINERVALUES START");
-        //random(0.7f, 1f);
+  /*      //random(0.7f, 1f);
         System.Random rng = new System.Random();
 
         minVektorListe.Add(new Vector2(0, 1));
@@ -47,7 +47,7 @@ public class containerValues : MonoBehaviour {
 
         for (int i=0; i<5; i++)
         {
-            Debug.Log("minVektorListe[i]" + minVektorListe[i]);
+            //Debug.Log("minVektorListe[i]" + minVektorListe[i]);
         }
 
 
@@ -67,7 +67,7 @@ public class containerValues : MonoBehaviour {
 
             minVektorListe4.Add(new Vector2(i, tilftall * 60));
         }
-
+*/
 
     }
 

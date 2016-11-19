@@ -74,51 +74,54 @@ namespace HappyGardenConsoleVSU
 
         //Macro næringsstoffer
         public double water_H2O;
-        public double nutr_C;
-        public double nutr_O;
-        public double nutr_H;
-        public double nutr_N;
-        public double nutr_K;
-        public double nutr_Ca;
-        public double nutr_Ph;
-        public double nutr_S;
-        public double nutr_Mg;
-
-        //Micro næringsstoffer. I will not use this in this simulation.
-        public double min_Fe;
-        public double min_Mn;
-        public double min_Zn; //this list will be updated later.
-            public decimal min_B;
-        public double min_Cu;
-        public double min_Mo;
-        
-
-
-        //Other Chemicals;
-        //public double min_Hg;
-        public double nutr_Pot;
-        public double nutr_Sulfur;
-
-        //To avoid labour at a later stage I create these 'superfluous' variables.
-        //Why? These variables will be a result of calculations and mathematics.
-        //this will be done in other classes at a later stage.
         public double water;
-        public double valC; // 
-        public double valO; // 
-        public double valH;  // 
-        public double valN; // 
-        public double valK;  // 
-        public double valCa; // 
-        public double valPh;  // 
-        public double valS;  // 
-        public double valMg;  // 
 
-        public double valFe;    //
-        public double valMn;    //
-        public double valZn;    //
-         public decimal valB;    // kanskje jeg kan bruke decimal i stedet for double. fordeler?
-        public double valCu;    //
-        public double valMo;    //
+         public double nutr_C;
+            public double nutr_O;
+            public double nutr_H;
+            public double nutr_N;
+            public double nutr_K;
+            public double nutr_Ca;
+            public double nutr_Ph;
+            public double nutr_S;
+            public double nutr_Mg;
+ /*  
+            //Micro næringsstoffer. I will not use this in this simulation.
+            public double min_Fe;
+            public double min_Mn;
+            public double min_Zn; //this list will be updated later.
+                public decimal min_B;
+            public double min_Cu;
+            public double min_Mo;
+
+
+
+            //Other Chemicals;
+            //public double min_Hg;
+            public double nutr_Pot;
+            public double nutr_Sulfur;
+
+            //To avoid labour at a later stage I create these 'superfluous' variables.
+            //Why? These variables will be a result of calculations and mathematics.
+            //this will be done in other classes at a later stage.
+            public double water;
+            public double valC; // 
+            public double valO; // 
+            public double valH;  // 
+            public double valN; // 
+            public double valK;  // 
+            public double valCa; // 
+            public double valPh;  // 
+            public double valS;  // 
+            public double valMg;  // 
+
+            public double valFe;    //
+            public double valMn;    //
+            public double valZn;    //
+             public decimal valB;    // kanskje jeg kan bruke decimal i stedet for double. fordeler?
+            public double valCu;    //
+            public double valMo;    //*/
+
 
         private int sunHours;   //These values are gathered from Environments via get set
         private int Nedboer;
@@ -156,29 +159,62 @@ namespace HappyGardenConsoleVSU
 
             Debug.Log("..............................................................................Spot Initialiseres> (" + vert + " , " + hor + " )");
 
+            /*
+                        switch (fieldnr)
+                        {
+                            case 0:
+                                earthType = "muldJord";
+                                break;
+                            case 1:
+                                earthType = "moreneJord";
+                                break;
+                            case 2:
+                                earthType = "myrJord";
+                                break;
+                        }
+            */
 
-            switch (fieldnr)
-            {
-                case 0:
-                    earthType = "muldJord";
-                    break;
-                case 1:
-                    earthType = "moreneJord";
-                    break;
-                case 2:
-                    earthType = "myrJord";
-                    break;
-            }
+
+            //InitializeType(earthType); //other earth typew may be implemented later
+            InitializeType("muldJord");
 
 
-
-            InitializeType(earthType); //other earth typew may be implemented later
-
-            //printVectors();
-           
             InitializeSpot(); //start-dummy values. If game loaded, values will be loaded
             printVectors();
+
         } ///public Spot Constructor
+
+
+
+        public void InitializeEarthType()
+        {
+            //hensikt: for hver spot skal vi lage fulle Vector2 array (6 stk, 0-27 dager)
+            //siden vi kanskje skal utvide dagantallet i fremtiden, fyller vi ut litt ekstra (til 30)
+/*
+            for (int dag = 1; dag < 10; dag++)
+            {
+                waterMM.Add(new Vector2(dag, 10));
+                air.Add(new Vector2(dag, 20));
+                smallLife.Add(new Vector2(dag, 30));
+                humusQuality.Add(new Vector2(dag, 40));
+                nitrogen.Add(new Vector2(dag, 50));
+                organicMatter.Add(new Vector2(dag, 60));
+            }
+
+            for (int j = 0; j < 30; j++)
+            {
+                Debug.Log("\nwaterMM      " + waterMM[j] + "=" + (float)waterMM[j].y);
+                Debug.Log("air          " + air[j] + "=" + (float)air[j].y);
+                Debug.Log("smallLife    " + smallLife[j] + "=" + (float)smallLife[j].y);
+                Debug.Log("humusQuality " + humusQuality[j] + "=" + (float)humusQuality[j].y);
+                Debug.Log("nitrogen     " + nitrogen[j] + "=" + (float)nitrogen[j].y);
+                Debug.Log("organicMatter " + organicMatter[j] + "=" + (float)organicMatter[j].y);
+            }
+*/
+
+        }
+
+
 
 
 
@@ -196,22 +232,24 @@ namespace HappyGardenConsoleVSU
             Debug.Log("nitrogen     " +      nitrogen[tempDay] +   "=" + (float)nitrogen[tempDay].y);
             Debug.Log("organicMatter " + organicMatter[tempDay] +   "=" + (float)organicMatter[tempDay].y);*/
 
-            if (tempDay==27)
+            if (true)
             {
                 Debug.Log("\n");
-                for (int j = 0; j < tempDay + 1; j++)
+                for (int j = 0; j < 1; j++)
                 {
-                    Debug.Log("waterMM      " + waterMM[j] + "=" + (float)waterMM[j].y);
+                    //Debug.Log("\nwaterMM      " + waterMM[j] + "=" + (float)waterMM[j].y);
                     Debug.Log("air          " + air[j] + "=" + (float)air[j].y);
                     Debug.Log("smallLife    " + smallLife[j] + "=" + (float)smallLife[j].y);
                     Debug.Log("humusQuality " + humusQuality[j] + "=" + (float)humusQuality[j].y);
                     Debug.Log("nitrogen     " + nitrogen[j] + "=" + (float)nitrogen[j].y);
                     Debug.Log("organicMatter " + organicMatter[j] + "=" + (float)organicMatter[j].y);
                 }
+                Debug.Log("\n");
             }
 
      
         }
+
 
 
         public void InitializeType(string jordType)
@@ -331,6 +369,7 @@ namespace HappyGardenConsoleVSU
             plantName = "Ubeplantet";
             planted = false;
             plantet = planted;
+
         }
 
 
@@ -380,7 +419,7 @@ namespace HappyGardenConsoleVSU
             switch (iterasjon)
             {
                 case 1:
-                    Debug.Log("ZZZZZZZZZZZZZZZZZZZZZz   Environmental variables gathered. Calculate new values of Spot");
+                    //Debug.Log("ZZZZZZZZZZZZZZZZZZZZZz   Environmental variables gathered. Calculate new values of Spot");
 
 
 
@@ -440,42 +479,42 @@ namespace HappyGardenConsoleVSU
                     double Ny;
                     if (rainmm > 70)
                     {
-                        Ny = Nyverdi(0.6, 1); Debug.Log("regn > 70mm. vanntillegg: " + Ny);
+                        Ny = Nyverdi(0.6, 1); // Debug.Log("regn > 70mm. vanntillegg: " + Ny);
                         water_H2O = Ny;//this is maximum
                     }
                     else if (rainmm > 50)
                     {
-                        Ny = Nyverdi(0.5, 1); Debug.Log("regn > 50mm. vanntillegg: " + Ny);
+                        Ny = Nyverdi(0.5, 1); // Debug.Log("regn > 50mm. vanntillegg: " + Ny);
                         water_H2O = water_H2O + Ny;
                     }
                     else if (rainmm > 40)
                     {
-                        Ny = Nyverdi(0.3, 1); Debug.Log("regn > 40mm. vanntillegg: " + Ny);
+                        Ny = Nyverdi(0.3, 1); // Debug.Log("regn > 40mm. vanntillegg: " + Ny);
                         water_H2O = water_H2O + Ny;
                     }
                     else if (rainmm > 30)
                     {
-                        Ny = Nyverdi(0.20, 1); Debug.Log("regn > 30mm. vanntillegg: " + Ny);
+                        Ny = Nyverdi(0.20, 1); // Debug.Log("regn > 30mm. vanntillegg: " + Ny);
                         water_H2O = water_H2O + Ny;
                     }
                     else if (rainmm > 20)
                     {
-                        Ny = Nyverdi(0.15, 1); Debug.Log("regn > 20mm. vanntillegg: " + Ny);
+                        Ny = Nyverdi(0.15, 1); // Debug.Log("regn > 20mm. vanntillegg: " + Ny);
                         water_H2O = water_H2O + Ny;
                     }
                     else if (rainmm > 10)
                     {
-                        Ny = Nyverdi(0.1, 1); Debug.Log("regn > 10mm. vanntillegg: " + Ny);
+                        Ny = Nyverdi(0.1, 1); // Debug.Log("regn > 10mm. vanntillegg: " + Ny);
                         water_H2O = water_H2O + Ny;
                     }
                     else if (rainmm > 5)
                     {
-                        Ny = Nyverdi(0.05, 1); Debug.Log("regn > 5 mm. vanntillegg: " + Ny);
+                        Ny = Nyverdi(0.05, 1); // Debug.Log("regn > 5 mm. vanntillegg: " + Ny);
                         water_H2O = water_H2O + Ny;
                     }
                     else if (rainmm > 2)
                     {
-                        Ny = Nyverdi(0.02, 1); Debug.Log("regn > 2 mm. vanntillegg: " + Ny);
+                        Ny = Nyverdi(0.02, 1); // Debug.Log("regn > 2 mm. vanntillegg: " + Ny);
                         water_H2O = water_H2O + Ny;
                     }
                     else if (rainmm == 0)
@@ -553,13 +592,13 @@ namespace HappyGardenConsoleVSU
                     Debug.Log("...............................Spot (" + h_index + "," + v_index + ").Water_H2O først:  " + oldWatervalue + " ETTER rainwater: " + tempWater + ", ETTER soltimeuttørking(new walue): " + water_H2O + "  (rainmm: " + rainmm + ")");
 
 
-                    Debug.Log("Water_H2O   " + (float)water_H2O);
+                    // Debug.Log("Water_H2O   " + (float)water_H2O);
 
 
                     ///¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤
 
                     waterMM.Add(new Vector2(tempDay, (float)water_H2O * 100));
-                    Debug.Log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  TEMPDAY="+tempDay);
+                    //Debug.Log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  TEMPDAY="+tempDay);
 
 
                     break;
@@ -611,7 +650,7 @@ namespace HappyGardenConsoleVSU
 
 
 
-                    Debug.Log("_____Spot oppdateres dag " + tempDay + " > (" + v_index + " , " + h_index + " )");
+                    Debug.Log("\n___________________________________________________________Spot oppdateres dag " + tempDay + " > (" + v_index + " , " + h_index + " )");
                     Debug.Log("air  tempday  _air=" + _air);
 
                     
@@ -621,14 +660,9 @@ namespace HappyGardenConsoleVSU
                     nitrogen.Add        (new Vector2(tempDay, (float)_nitrogen*100));
                     organicMatter.Add   (new Vector2(tempDay, (float)_organicMatter*100));
 
-                    Debug.Log("air  tempday  _air=" + _air);
 
-
-
-                    //Debug.Log("iterasjon. jordverdier. dag=" + tempDay + ", Vector2utskrifter");
-
-                    Debug.Log(".....  waterMM="+ waterMM[tempDay] + "   waterMM["+tempDay+"].y= " + waterMM[tempDay].y);
-                   Debug.Log(".....  air    " + air[tempDay].y);
+                    Debug.Log(".....  waterMM="+ waterMM[tempDay] + "   waterMM["+tempDay+"].y= " + waterMM[tempDay].y+ ".....  air    " + air[tempDay].y);
+               
                  /*    Debug.Log("smallLife    " + smallLife[tempDay].y);
                     Debug.Log("humusQuality    " + humusQuality[tempDay].y);
                     Debug.Log("nitrogen    " + nitrogen[tempDay].y);
@@ -749,7 +783,18 @@ namespace HappyGardenConsoleVSU
                 default:
                     break;
 
-                    Debug.Log("\n iterasjon  "+iterasjon+"*********************************SKRIVER UT VEKTORER WATER SOL WATERD AIR HUMUSQ NITRO");
+
+
+
+
+            }//switch
+            int dagg = Weather.ThisDay.WhichDay;
+            //Debug.Log("\n Weather.ThisDay.WhichDay  " + Weather.ThisDay.WhichDay);
+
+            if ((iterasjon == 4)&&(dagg==4))
+            {
+                Debug.Log("\n Weather.ThisDay.WhichDay  " + Weather.ThisDay.WhichDay);
+                Debug.Log("\n Alle iterasjoner gjort. siste iterasjon  "+iterasjon+"*********************************SKRIVER UT VEKTORER WATER SOL WATERD AIR HUMUSQ NITRO");
                     Debug.Log("waterMM"); printVector(waterMM, 100);
                     Debug.Log("soltimer"); printVector(sun, 100);
                     Debug.Log("waterData"); printVector(rain, 100);
@@ -757,10 +802,8 @@ namespace HappyGardenConsoleVSU
                     Debug.Log("humusQuality"); printVector(humusQuality, 100);
                     Debug.Log("nitrogen"); printVector(nitrogen, 100);
                     Debug.Log("\n");
+            }
 
-
-
-            }//switch
 
             //dette utføres etter hver iterasjon 
             //
