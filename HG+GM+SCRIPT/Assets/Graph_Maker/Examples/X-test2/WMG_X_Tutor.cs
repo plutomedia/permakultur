@@ -120,18 +120,20 @@ namespace HappyGardenConsoleVSU
 
             
             Debug.Log("InitiateSecndGraph. SJEKKER AT WATERMM IKKE ER TOMwatermm antall " + waterMM.Count);
+
+            waterMM = thisSpot.WaterMM; 
             air = thisSpot.Air;
             smallLife = thisSpot.SmallLife;
             humusQuality = thisSpot.HumusQuality; ;
             nitrogen = thisSpot.Nitrogen;
             organicMatter = thisSpot.OrganicMatter;
             //testData = containerValues.MinVektorListe;// dette er kanskje måten eksterne vektorer kan bli tilgjengelige
-            waterData = Weather.Rain;//mm nedbør
+            
 
 
             //tilf1Data = containerValues.MinVektorListe3;
             soltimer = Weather.Sun;//vektorliste til graf
-            waterMM = thisSpot.WaterMM; 
+            waterData = Weather.Rain;//mm nedbør
 
  
   
@@ -200,7 +202,8 @@ namespace HappyGardenConsoleVSU
         {
             if (true)
             {
-                Debug.Log("valg gjort. eventuelt oppdatering");
+                Debug.Log("GRAF OPPDATERING. spot: " + Initializer.SpotValgt.v_index);
+                Debug.Log("GRAF OPPDATERING. spot: " +Initializer.SpotValgt.v_index+","+Initializer.SpotValgt.h_index +" ");
 
                 List<string> groups = new List<string>();
                 List<Vector2> empty = new List<Vector2>();

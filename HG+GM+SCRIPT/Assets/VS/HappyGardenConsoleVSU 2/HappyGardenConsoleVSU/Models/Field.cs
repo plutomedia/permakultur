@@ -83,8 +83,9 @@ namespace HappyGardenConsoleVSU
         public void Update(int iterasj)
         {
             int iterasjon = iterasj;
-            //MessageBox.Show("Spot Update");
-            //Debug.Log("----Field "+ Fieldnr + " Update, iterasjon "+iterasjon+"--------------------");
+            
+
+            Debug.Log("----Field "+ Fieldnr + " Update, iterasjon "+iterasjon+"--------------------");
 
              bool updateAll = false;// hvis alle spot skal oppdateres
             //oppdatere alle innebærer nesten 'frys'. ca 10 min
@@ -137,6 +138,8 @@ namespace HappyGardenConsoleVSU
         public void Plant(string namn, int fieldNr, int spotX, int spotY)
         {
             //Debug.Log("Plant. Field. Plant funksjonen");
+
+            //spots[spotX,spotY] er aktuell 'Spot'. Kaller på dennes Plant-funksjon
             spots[spotX, spotY].Plant(namn, fieldNr, spotX, spotY);
 
             //for (int i = 0; i < 3; i++)

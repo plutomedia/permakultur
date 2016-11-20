@@ -35,6 +35,9 @@ namespace HappyGardenConsoleVSU
 
         public List<Vector2> temp = new List<Vector2>();
 
+        public List<Vector2> pHeight = new List<Vector2>(); //hver spot har en slik liste. den er tom inntil vi skaper en plante
+        //når planten lages, initieres listen med 0,0 verdier inntil dayPlanted hvis nødvendig. prøv:[6,0][7,2][8,4][9,5][10,8][11,10]
+
 
 
         System.Random rnd = new System.Random();
@@ -237,7 +240,7 @@ namespace HappyGardenConsoleVSU
                 Debug.Log("\n");
                 for (int j = 0; j < 1; j++)
                 {
-                    //Debug.Log("\nwaterMM      " + waterMM[j] + "=" + (float)waterMM[j].y);
+                    Debug.Log("\nwaterMM      " + waterMM[j] + "=" + (float)waterMM[j].y);
                     Debug.Log("air          " + air[j] + "=" + (float)air[j].y);
                     Debug.Log("smallLife    " + smallLife[j] + "=" + (float)smallLife[j].y);
                     Debug.Log("humusQuality " + humusQuality[j] + "=" + (float)humusQuality[j].y);
@@ -409,10 +412,10 @@ namespace HappyGardenConsoleVSU
             plantet = this.Planted;
             Weather vaer = Weather.ThisDay;
             soltimer = vaer.SunHours;
-            fraDag = Initializer.DagenIdag;
+            fraDag = Initializer.DagValgt;
             tempDay = Initializer.DagenIdag; //holde rede på index
 
-            Debug.Log("          \nIterasjon "+iterasjon);
+            Debug.Log("          \nIterasjon "+iterasjon+ "  tempDay = Initializer.DagenIdag, tempDay= " + tempDay+"  fraDag=  "+fraDag+"   Weather.ThisDay=   "+Weather.ThisDay);
 
             printVectors();
 
@@ -592,7 +595,7 @@ namespace HappyGardenConsoleVSU
                     Debug.Log("...............................Spot (" + h_index + "," + v_index + ").Water_H2O først:  " + oldWatervalue + " ETTER rainwater: " + tempWater + ", ETTER soltimeuttørking(new walue): " + water_H2O + "  (rainmm: " + rainmm + ")");
 
 
-                    // Debug.Log("Water_H2O   " + (float)water_H2O);
+                   Debug.Log("Water_H2O   " + (float)water_H2O);
 
 
                     ///¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤
@@ -676,7 +679,9 @@ namespace HappyGardenConsoleVSU
 
 
                     break;
-                case 3:     //planten
+                case 3:    
+ /*                   
+                    //planten
                     //Debug.Log("---------------------------------------------------plant update");
                     //Debug.Log("Iterationi 3: Calculating influence on each spot from Plants. Not implemented");
                     //Debug.Log("oppdaterer spot (x,y)  "+ v_index + " , " + h_index);
@@ -746,6 +751,9 @@ namespace HappyGardenConsoleVSU
                     String ut = String.Format("spot ({4},{5}) {6}. New earth water Level:   OldWaterlevel( {0} ) - waterNeedPlant({1}) * waterNeedSun-factor({2}) = newwaterdrink {3}", water_H2O, waterNeedPlantOld, waterNeedSun, water_H2O - waterNeedPlant, h_index, v_index, planten.name_no);
                     Debug.Log(ut);
 
+                    //   U P D A T E.  Maybe ok, but check if tempDay is right
+                    pHeight.Add(new Vector2(tempDay, (float)plantHeight));
+
                     //if it is too dry (water_H2O < 0.15) two things will happen:
                     //the plant will suffer, getting dryer. A dryout-index will control the health state. The health state will consist of different faktors (water, minerals)
                     //dryout effect will also reduce the growth
@@ -768,7 +776,7 @@ namespace HappyGardenConsoleVSU
                     }
 
 
-
+*/
                     break;
                 case 4:
                     //Debug.Log("Iteration 4: Calculating new equilibrum. Not implemented");
@@ -1040,11 +1048,16 @@ namespace HappyGardenConsoleVSU
             // lager en peker til objektet
 
             planted = true; //ikke så robust, må huske å forandre verdien hvis planten fjernes eller dør.
+            planten = new Plant(Initializer.DagValgt, plantName, fieldNr,spotX, spotY);
 
-            planten = new Plant(plantName, fieldNr,spotX, spotY);
+            //planteparametre kan kreeres her:
+            pHeight.Add(new Vector2(Initializer.DagValgt, 0f)); //0 fordi høyden er null
+
+
+
+
 
   ////        Plant[] plantane = flora2.planter;
-
   ///          Debug.Log("lager plante: " + plantane[6].name_no);
 
             //Debug.Log("etter at planten er opprettet. planted=" + planted);
@@ -1075,7 +1088,7 @@ namespace HappyGardenConsoleVSU
         }
 
 
-        public  List<Vector2> WaterMM
+        public List<Vector2> WaterMM
         {
             get
             {

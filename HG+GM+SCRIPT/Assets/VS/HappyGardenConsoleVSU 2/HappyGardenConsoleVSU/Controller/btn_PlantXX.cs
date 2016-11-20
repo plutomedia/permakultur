@@ -15,18 +15,20 @@ namespace HappyGardenConsoleVSU
 
         public void Plant()
         {
-            //fieldnr = 1;
-            //spotx = 2;
-            //spoty = 2;
+            int fieldnr = 0; // i denne versjon 0.1, har vi bare ett 'field' med 4x4 spot
+
 
             // 1 find day and spot chosen
-            Spot valgtSpot = WMG_X_Tutor.ChosenSpot;
-            int valgtDag = WMG_X_Tutor.ChosenDay;
+            //Spot valgtSpot = WMG_X_Tutor.ChosenSpot;
+            //int valgtDag = WMG_X_Tutor.ChosenDay;
+
+            Spot valgtSpot = Initializer.SpotValgt;
+            int valgtDag = Initializer.DagValgt;
 
             Debug.Log("Planter på dag " + valgtDag + " og på spot ( " + valgtSpot.v_index+" ,  "+valgtSpot.h_index+" )");
-            Debug.Log("planting-----------------------------------------------------------------");
+            Debug.Log("planting              ---------------------------------------------------");
 
-            initializer.Plant("Reddik", 0, valgtSpot.v_index, valgtSpot.h_index);
+            initializer.Plant("Reddik", fieldnr, valgtSpot.v_index, valgtSpot.h_index);
            /* initializer.Plant("Reddik",1, 2, 2);
             initializer.Plant("Reddik",1, 2, 1);
             initializer.Plant("Reddik",1, 2, 0);

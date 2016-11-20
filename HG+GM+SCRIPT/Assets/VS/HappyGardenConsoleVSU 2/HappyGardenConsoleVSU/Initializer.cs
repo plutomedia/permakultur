@@ -79,6 +79,7 @@ namespace HappyGardenConsoleVSU
 
             whatText.text = tempstring;
 
+         
             gameFrame.Oppdater(iterasjon);
 
 
@@ -87,6 +88,10 @@ namespace HappyGardenConsoleVSU
 
         public void WriteEarthValues()
         {
+            myText.text = "###";
+            Debug.Log("myText: "+myText.text);
+
+            //myText is irrelevant. It's initialized with "" in Field.WriteEarthValues()
             gameFrame.WriteEarthValues(myText);
           
         }
@@ -112,25 +117,26 @@ namespace HappyGardenConsoleVSU
 
         }
 
-        public void UpdateMonth(int dagenidag)
+        public void UpdateMonth(int enDag)
         {
             
             graphUpdated = true;
-            dagenIdag = dagenidag;           
-            Weather vair = Weather.ThisDay;
+            //dagenIdag = dagenidag;           
+            //Weather vair = Weather.ThisDay;
 
 
             for (int day = 0; day < 28; day ++)
             {
                 Debug.Log(day+"x dag   [||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||>");
 
-                Weather.ThisDay.WhichDay = day;
+                //Weather.ThisDay.WhichDay = day;
                 dagenIdag = day;//brukes fra Spot for å holde rede på dag-index
+ //her skal alle spot oppdateres og initieres med alle vektorer
 
-                gameFrame.Oppdater(1);
-                gameFrame.Oppdater(2);
-                gameFrame.Oppdater(3);
-                gameFrame.Oppdater(4);
+                gameFrame.Oppdater(1); // water 
+                gameFrame.Oppdater(2); // earth
+                gameFrame.Oppdater(3); // plant
+                gameFrame.Oppdater(4); // 
 
                 Debug.Log(day + "x dag slutt     <||||||||||||||||||||||||||||||||||||||||||||||||||||||]");
             }

@@ -50,10 +50,12 @@ namespace HappyGardenConsoleVSU
             int iterasjon = iterasj;
             //Debug.Log("Farm.Update Iterasjon" + iterasjon);
 
-            foreach (Field tg in fields)
-            {
-                tg.Update(iterasjon);
-            }
+            //foreach (Field tg in fields)
+            //{
+            //    tg.Update(iterasjon);
+            //}
+
+            fields[0].Update(iterasjon);
         }
 
 

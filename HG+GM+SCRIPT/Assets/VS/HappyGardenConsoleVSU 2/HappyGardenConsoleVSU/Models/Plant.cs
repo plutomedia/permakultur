@@ -24,7 +24,10 @@ namespace HappyGardenConsoleVSU
         public string name_lat;
 
         public int fieldNr, spotX, spotY;  //koordinater og plassering
-
+        public int dayPlanted; // relative to day 0. QUESTION: maybe fill out day 0 to dayPlanted in List<Vector2> plant
+                               // Every Spot has a list List<Vector2> plant. Can be empty or not. First we don't implement these empty ones
+                               // but creating new in Spot.Plant. To make it simple, we initialize these Vectors with 00 values 
+                               //from day 0 to day 'dayPlanted'
         public double distance;
         public double maxHeight;
         public double maxDepth;
@@ -60,8 +63,9 @@ namespace HappyGardenConsoleVSU
 
 
         //OVERLOADED
-        public Plant(string namn, int fnr, int sx, int sy)
+        public Plant(int dChosen,string namn, int fnr, int sx, int sy)
         {
+            dayPlanted = dChosen;
             name_no = namn;
             fieldNr = fnr;
             spotX = sx;

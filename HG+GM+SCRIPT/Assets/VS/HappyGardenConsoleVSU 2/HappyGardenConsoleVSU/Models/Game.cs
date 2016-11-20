@@ -38,11 +38,13 @@ namespace HappyGardenConsoleVSU
             farmen.Update(iterasjon);
         }
 
+
         public void WriteEarthValues(Text myText)
         {
 
             farmen.WriteEarthValues(myText);
         }
+
 
         public void PourWater(int fieldn)
         {

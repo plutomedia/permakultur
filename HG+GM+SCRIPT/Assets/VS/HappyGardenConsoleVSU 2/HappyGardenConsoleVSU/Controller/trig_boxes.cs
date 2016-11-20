@@ -96,29 +96,34 @@ public class trig_boxes : MonoBehaviour {
                 break;
         }
 
-        //spotChosenTXT2.text = spotChosen2; //
 
+        Initializer.SpotValgt = Field.Spots[choseSpot.v_index, choseSpot.h_index];
 
 
         Debug.Log(">  "+choseSpot.v_index + "  " + choseSpot.h_index+"  ");
-        WMG_X_Tutor.chosenSpot = choseSpot;
-        Initializer.SpotValgt = Field.Spots[v,h];
 
-       
+       // WMG_X_Tutor.chosenSpot = choseSpot; //Jeg vil gå bort i fra WMG_X_Tutor som container for verdier
+        //Initializer.SpotValgt = Field.Spots[v,h];
+
+        Debug.Log("sjekker om verdier finnes i denne spot. Field.Spots[v,h]=" + Field.Spots[v, h].air.Count);
+
+        Debug.Log("watermm antall " + Initializer.SpotValgt.waterMM.Count);
+        Debug.Log("air antall " + Initializer.SpotValgt.air.Count);
+        Debug.Log("smallLife antall " + Initializer.SpotValgt.smallLife.Count);
+        Debug.Log("humusQuality antall " + Initializer.SpotValgt.humusQuality.Count);
+        Debug.Log("nitrogen antall " + Initializer.SpotValgt.nitrogen.Count);
+        Debug.Log("organicMatter antall " + Initializer.SpotValgt.organicMatter.Count);
+
+        //sjekker om denne spot har noe data i det hele tatt.
+
+
+
         spotstring = System.String.Format("({0},{1})", choseSpot.v_index, choseSpot.h_index);
-
         myText.text = spotstring;
-
         Debug.Log(">>>>>>spotstring>>>>>>>>>  "+spotstring);
-
         v = choseSpot.v_index;
         h = choseSpot.h_index;
-
         nytekst = String.Format("({0},{1})", v, h);
-
-
-        //Rosinen i pølsa. Bruker Initializer for å lagre valgt dag og spot
-        Initializer.SpotValgt = Field.Spots[v, h];
 
     }
 

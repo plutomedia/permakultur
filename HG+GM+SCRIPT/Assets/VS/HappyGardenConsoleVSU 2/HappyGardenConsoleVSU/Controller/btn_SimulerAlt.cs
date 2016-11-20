@@ -32,11 +32,11 @@ namespace HappyGardenConsoleVSU
 
         public void UpdateAll()
         {
-            dayChosen = WMG_X_Tutor.ChosenDay;
+            dayChosen = Initializer.DagValgt;
 
-            Debug.Log("F Ø R UpdateMonth. dayChosen er "+dayChosen );
+            Debug.Log("F Ø R UpdateMonth. dayChosen er "+dayChosen +" men her skal bare ALLE spot initialiseres of regnesut");
 
-           initializer.UpdateMonth(simulateFromDay);
+           initializer.UpdateMonth(0);
             
             Debug.Log("E T T E R     MAKE ANOTHER GRAPH. END OF UPDATEALL BUTTON");
             
