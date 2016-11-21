@@ -30,7 +30,7 @@ namespace HappyGardenConsoleVSU
       
         
         /// Verdier fra Spot første siffer i vektor er dagnr
-        public List<Vector2> air, waterMM, smallLife, humusQuality, nitrogen, organicMatter;
+        public List<Vector2> air, waterMM, plantHeight, smallLife, humusQuality, nitrogen, organicMatter;
 
         public static Spot[,] zpots;
         public Spot thisSpot;  //denne har brukt ulike måter å bli tilordnet
@@ -62,8 +62,10 @@ namespace HappyGardenConsoleVSU
             graph = graphGO.GetComponent<WMG_Axis_Graph>();
 
             notfirsttime = false;
-            thisSpot = chosenSpot;
-            initiateSecondGraph();
+            //thisSpot = chosenSpot;
+            thisSpot = Initializer.SpotValgt;
+
+            InitierGraf();
 
             //showE = tog_Earth.On;
             //showW = tog_Weather.On;
@@ -107,21 +109,18 @@ namespace HappyGardenConsoleVSU
         
 
 
-        public void initiateSecondGraph()
+        public void InitierGraf()
         {
-            Debug.Log("InitiateSecndGraph. SJEKKER AT WATERMM IKKE ER TOMwatermm antall " + waterMM.Count);
 
-            thisSpot = chosenSpot;
-
+            //initialisering. skjer også i 'void Oppdater()'
             waterMM = thisSpot.WaterMM; 
             air = thisSpot.Air;
             smallLife = thisSpot.SmallLife;
+            plantHeight = thisSpot.PHeight;
             humusQuality = thisSpot.HumusQuality; ;
             nitrogen = thisSpot.Nitrogen;
             organicMatter = thisSpot.OrganicMatter;
             //testData = containerValues.MinVektorListe;// dette er kanskje måten eksterne vektorer kan bli tilgjengelige
-            
-
 
             //tilf1Data = containerValues.MinVektorListe3;
             soltimer = Weather.Sun;//vektorliste til graf
@@ -145,7 +144,7 @@ namespace HappyGardenConsoleVSU
             series2.seriesName = "Soltimer";
             series3.seriesName = "Rain mm";
             series4.seriesName = "Oxygen";
-            series5.seriesName = "tilf2";
+            series5.seriesName = "plant height";
             series6.seriesName = "smallLife";
             series7.seriesName = "humusQuality";
             series8.seriesName = "Nitrogen";
@@ -156,7 +155,7 @@ namespace HappyGardenConsoleVSU
             series2.lineColor = Color.yellow;
             series3.lineColor = Color.blue;
             series4.lineColor = Color.cyan;
-            series5.lineColor = Color.white;
+            series5.lineColor = Color.green; //plant height
             series6.lineColor = Color.black;
             series7.lineColor = Color.grey;
             series8.lineColor = Color.red;
@@ -165,16 +164,6 @@ namespace HappyGardenConsoleVSU
             graph.Refresh();
         }
 
-
-        //public void printVector(List<Vector2> flekk, float max)
-        //{
-        //    int range = flekk.Count;
-        //    Debug.Log("lengde: " + range);
-        //    for (int i = 0; i < range; i++)
-        //    {
-        //        Debug.Log("printVector  "+flekk[i].y);
-        //    }
-        //}
 
 
         public List<Vector2> normaliserListe(List<Vector2> data, float max)
@@ -190,33 +179,39 @@ namespace HappyGardenConsoleVSU
             return Nliste;
         }
 
+
         public void Oppdater()
         {
             if (true)
             {
-                Debug.Log("GRAF OPPDATERING. spot: " + Initializer.SpotValgt.v_index);
-                Debug.Log("GRAF OPPDATERING. spot: " +Initializer.SpotValgt.v_index+","+Initializer.SpotValgt.h_index +" ");
+                Debug.Log("GRAF OPPDATERING. spot: " + Initializer.SpotValgt.SpotID);
+                //Debug.Log("GRAF OPPDATERING. spot: " +Initializer.SpotValgt.v_index+","+Initializer.SpotValgt.h_index +" ");
 
                 List<string> groups = new List<string>();
                 List<Vector2> empty = new List<Vector2>();
 
-                chosenSpot = Initializer.SpotValgt;
-                thisSpot = chosenSpot;
+                //chosenSpot = Initializer.SpotValgt;
+                //thisSpot = chosenSpot;
+                thisSpot = Initializer.SpotValgt;
+                Debug.Log("i WMGxtutor.Oppdater: thisSpot=" + thisSpot.v_index + "," + thisSpot.h_index);
 
-                //PROBLEM MED WATERMM. SER UT TIL AT VERDIENE IKKE KAN HENTES HER I OPPDATER().
 
+                //initialisering. skjer også i 'InitierGraf()'
                 waterMM = thisSpot.WaterMM;
                 soltimer = Weather.Sun;
                 waterData = Weather.Rain;
                 air = thisSpot.Air;
+                plantHeight = thisSpot.PHeight;
                 smallLife = thisSpot.SmallLife;
                 humusQuality = thisSpot.HumusQuality; ;
                 nitrogen = thisSpot.Nitrogen;
                 organicMatter = thisSpot.OrganicMatter;
 
 
+
                 Debug.Log("watermm antall " + waterMM.Count);
                 Debug.Log("air antall " + air.Count);
+                Debug.Log("plant height antall " + plantHeight.Count);
                 Debug.Log("smallLife antall " + smallLife.Count);
                 Debug.Log("humusQuality antall " + humusQuality.Count);
                 Debug.Log("nitrogen antall " + nitrogen.Count);
@@ -231,8 +226,8 @@ namespace HappyGardenConsoleVSU
                        series1.pointValues.SetList(waterMM); //series1.pointValues.SetList(data);
                        series2.pointValues.SetList(soltimer);
                        series3.pointValues.SetList(waterData);
-
                        series4.pointValues.SetList(empty);
+                    series5.pointValues.SetList(plantHeight); 
                        series6.pointValues.SetList(empty);
                        series7.pointValues.SetList(empty);
                        series8.pointValues.SetList(empty);
@@ -241,10 +236,10 @@ namespace HappyGardenConsoleVSU
                    else if (showE)
                    {
                        series1.pointValues.SetList(waterMM); //series1.pointValues.SetList(data);
-                      series2.pointValues.SetList(empty);
+                       series2.pointValues.SetList(empty);
                        series3.pointValues.SetList(empty);
                        series4.pointValues.SetList(air); //her settes tilfeldige verdier serie en
-                                                         //series5.pointValues.SetList(tilf2Data); //her settes tilfeldige verdier serie to
+                       series5.pointValues.SetList(plantHeight);     //plantehøyde
                        series6.pointValues.SetList(smallLife);
                        series7.pointValues.SetList(humusQuality);
                        series8.pointValues.SetList(nitrogen);
@@ -258,6 +253,7 @@ namespace HappyGardenConsoleVSU
                     series3.pointValues.SetList(empty);
 
                     series4.pointValues.SetList(empty);
+                    series5.pointValues.SetList(plantHeight);
                     series6.pointValues.SetList(empty);
                     series7.pointValues.SetList(empty);
                     series8.pointValues.SetList(empty);

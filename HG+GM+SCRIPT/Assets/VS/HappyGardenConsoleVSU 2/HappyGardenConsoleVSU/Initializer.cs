@@ -43,10 +43,10 @@ namespace HappyGardenConsoleVSU
             environments = new Environments();
             gameFrame = new GameFrame(whatText);  //This is not good mvc. here we hand the view to the model, and intend to change the view from the model. No listeners.
 
-            InitializeEarthValues();
+            //InitializeEarthTypes();
             //startverdier for get-set
             dagValgt = 0; //DVS dag 0
-            spotValgt = Field.Spots[0, 0];
+            spotValgt = Field.Spots[0, 0];//blir oppdatert hvis spot-array-boksene velges
         }
 
 
@@ -75,7 +75,7 @@ namespace HappyGardenConsoleVSU
 
             string tempstring = String.Format("HappyGarden, Day {0}:   ", vaer.WhichDay);
 
-            //InitializeEarthValues(); //Fills the Vector2 arrays with default data
+            //InitializeEarthTypes(); //Fills the Vector2 arrays with default data
 
             whatText.text = tempstring;
 
@@ -111,7 +111,7 @@ namespace HappyGardenConsoleVSU
         }
 
 
-        public void InitializeEarthValues()
+        public void InitializeEarthTypes()
         {
             gameFrame.InitializeEarthType();
 
@@ -122,12 +122,16 @@ namespace HappyGardenConsoleVSU
             
             graphUpdated = true;
             //dagenIdag = dagenidag;           
-            //Weather vair = Weather.ThisDay;
+            //Weather vair = Weather.ThisDay;  //remninscenser fra tidligere versjon.
 
 
-            for (int day = 0; day < 28; day ++)
+            for (int day = 1; day < 28; day ++)
             {
-                Debug.Log(day+"x dag   [||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||>");
+                //IMPOPRTANT: FIRST DAY ALREADY INITIALIZED
+                // WHEN UPDATING EACH DAY, REMEMBER TO USE THE WEATHER OF PREVIOUS DAY
+                // -> check 'Oppdater()' og tilordninger
+
+                Debug.Log(day+" dag   [||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||>");
 
                 //Weather.ThisDay.WhichDay = day;
                 dagenIdag = day;//brukes fra Spot for å holde rede på dag-index
@@ -138,7 +142,7 @@ namespace HappyGardenConsoleVSU
                 gameFrame.Oppdater(3); // plant
                 gameFrame.Oppdater(4); // 
 
-                Debug.Log(day + "x dag slutt     <||||||||||||||||||||||||||||||||||||||||||||||||||||||]");
+                Debug.Log(day + " dag slutt     <||||||||||||||||||||||||||||||||||||||||||||||||||||||]");
             }
            
 

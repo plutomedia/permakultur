@@ -18,7 +18,7 @@ public class txt_DayAndSpot : MonoBehaviour {
 	void Start ()
     {
         spotChosen = "I,J";
-        Debug.Log("tekstfeltet" + tekstfeltet.GetComponent<GUIText>());
+        Debug.Log("tekstfeltet " + tekstfeltet.GetComponent<GUIText>());
         //GetComponent<GUIText>();
 
         //Debug.Log("spotChosenTXT:  " + spotChosenTXT);

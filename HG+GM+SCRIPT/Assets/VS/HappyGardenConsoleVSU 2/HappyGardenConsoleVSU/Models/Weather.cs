@@ -9,11 +9,12 @@ namespace HappyGardenConsoleVSU
 
         private static List<Vector2> rain = new List<Vector2>();
         private static List<Vector2> sun = new List<Vector2>();
-
+        private static List<Vector2> light = new List<Vector2>();
+        //private static List<Vector2> medtemp = new List<Vector2>(); //implement this maybe later
 
         private static int nedboer;
         private static int sunHours;
-        private int lightHours;
+        private static int lightHours;
         private string name;
         private int meanTemp;
 
@@ -93,10 +94,10 @@ namespace HappyGardenConsoleVSU
 
             }
 
-            Debug.Log("rainMM["+dag+"]="+rainMM[dag]);
-            rain.Add(new Vector2(dag, rainMM[dag]));
-            sun.Add(new Vector2(dag, sunH[dag]*10));//ganger med 10 for å skalere det bedre til grafen
-
+           // Debug.Log("rainMM["+dag+"]="+rainMM[dag]);
+            rain.Add    (new Vector2(dag, rainMM[dag]));    //opptil over 100 mm: passe skala. Ikke multiplisere med 10
+            sun.Add     (new Vector2(dag, sunH[dag]*10));//ganger med 10 for å skalere det bedre til grafen
+            light.Add   (new Vector2(dag, lightH[dag] * 10));
 
 
 
@@ -140,7 +141,7 @@ namespace HappyGardenConsoleVSU
             set { rainMM[WhichDay] = value; }
         }
 
-        public int LightHours
+        public  int LightHours
         {
             //this function makes age public to the controller
             get { return lightH[WhichDay]; }
@@ -179,6 +180,13 @@ namespace HappyGardenConsoleVSU
         {
             get { return rain; }
             set { rain = value; }
+        }
+
+        public static List<Vector2> Light
+        {
+            //this function makes age public to the controller
+            get { return light; }
+            set { light = value; }
         }
     }
 }

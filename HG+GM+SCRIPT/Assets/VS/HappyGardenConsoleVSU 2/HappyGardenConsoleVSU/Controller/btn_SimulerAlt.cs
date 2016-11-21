@@ -34,7 +34,7 @@ namespace HappyGardenConsoleVSU
         {
             dayChosen = Initializer.DagValgt;
 
-            Debug.Log("F Ø R UpdateMonth. dayChosen er "+dayChosen +" men her skal bare ALLE spot initialiseres of regnesut");
+            Debug.Log("F Ø R UpdateMonth. dayChosen er "+dayChosen +" men her skal bare ALLE spot initialiseres og regnesut");
 
            initializer.UpdateMonth(0);
             

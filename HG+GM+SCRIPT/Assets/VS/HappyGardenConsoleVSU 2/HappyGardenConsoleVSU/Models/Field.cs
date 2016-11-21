@@ -86,7 +86,8 @@ namespace HappyGardenConsoleVSU
 
             //dagenIdag = Initializer.dagenIdag;
 
-            Debug.Log("----Field "+ Fieldnr + " Update, iterasjon "+iterasjon+"--------------------");
+            Debug.Log("############  Field "+ Fieldnr + " Update, iterasjon "+iterasjon+
+                "  ###########################################################");
 
              bool updateAll = false;// hvis alle spot skal oppdateres
             //oppdatere alle innebærer nesten 'frys'. ca 10 min
@@ -112,9 +113,11 @@ namespace HappyGardenConsoleVSU
             }
             else
             {
-                Debug.Log("oppdaterer spot WMG_X_Tutor.ChosenSpot.  " + WMG_X_Tutor.ChosenSpot.v_index+";" + WMG_X_Tutor.ChosenSpot.h_index);
+                //Debug.Log("oppdaterer bare spot WMG_X_Tutor.ChosenSpot.  " + WMG_X_Tutor.ChosenSpot.v_index+";" + WMG_X_Tutor.ChosenSpot.h_index);
+                Debug.Log("oppdaterer bare spot Initializer.SpotValgt.  " + Initializer.SpotValgt.SpotID);
 
-                WMG_X_Tutor.ChosenSpot.Update(iterasjon);
+                //WMG_X_Tutor.ChosenSpot.Update(iterasjon);
+                Initializer.SpotValgt.Update(iterasjon);
             }
             
         }

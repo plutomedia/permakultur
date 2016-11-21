@@ -98,7 +98,8 @@ public class trig_boxes : MonoBehaviour {
 
 
         Initializer.SpotValgt = Field.Spots[choseSpot.v_index, choseSpot.h_index];
-
+        //valgtSpot = Initializer.SpotValgt; //kan velge hvilken vi skal rydde bort
+        // tror jeg skal fjerne 'valgtSpot' etterhvert?
 
         Debug.Log(">  "+choseSpot.v_index + "  " + choseSpot.h_index+"  ");
 
@@ -164,7 +165,7 @@ public class trig_boxes : MonoBehaviour {
             h = value;
         }
     }
-
+/*
     public  static Spot ValgtSpot
     {
         get
@@ -176,6 +177,6 @@ public class trig_boxes : MonoBehaviour {
             valgtSpot = value;
         }
     }
-
+*/
 
 }
