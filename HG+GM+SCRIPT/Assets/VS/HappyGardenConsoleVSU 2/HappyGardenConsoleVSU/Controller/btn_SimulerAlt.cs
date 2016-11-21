@@ -36,7 +36,7 @@ namespace HappyGardenConsoleVSU
 
             Debug.Log("F Ø R UpdateMonth. dayChosen er "+dayChosen +" men her skal bare ALLE spot initialiseres og regnesut");
 
-           initializer.UpdateMonth(0);
+           initializer.UpdateMonth();
             
             Debug.Log("E T T E R     MAKE ANOTHER GRAPH. END OF UPDATEALL BUTTON");
             

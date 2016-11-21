@@ -55,6 +55,7 @@ namespace HappyGardenConsoleVSU
          void Start()
         {
             chosenSpot = Field.Spots[0, 0];//startverdi [0,0] i muldteig
+
             muldTeig = Farm.muldTeig; //bare ett jordstykke i oppgaven. muldteig      
 
             GameObject graphGO = GameObject.Instantiate(emptyGraphPrefab);
@@ -62,14 +63,10 @@ namespace HappyGardenConsoleVSU
             graph = graphGO.GetComponent<WMG_Axis_Graph>();
 
             notfirsttime = false;
-            //thisSpot = chosenSpot;
             thisSpot = Initializer.SpotValgt;
 
             InitierGraf();
 
-            //showE = tog_Earth.On;
-            //showW = tog_Weather.On;
-            //showP = tog_Plant.On;
 
         }//start()
 
@@ -182,70 +179,72 @@ namespace HappyGardenConsoleVSU
 
         public void Oppdater()
         {
-            if (true)
-            {
-                Debug.Log("GRAF OPPDATERING. spot: " + Initializer.SpotValgt.SpotID);
-                //Debug.Log("GRAF OPPDATERING. spot: " +Initializer.SpotValgt.v_index+","+Initializer.SpotValgt.h_index +" ");
+           
+            Debug.Log("GRAF OPPDATERING. spot: " + Initializer.SpotValgt.SpotID);
 
-                List<string> groups = new List<string>();
-                List<Vector2> empty = new List<Vector2>();
+            List<string> groups = new List<string>();
+            List<Vector2> empty = new List<Vector2>();
 
-                //chosenSpot = Initializer.SpotValgt;
-                //thisSpot = chosenSpot;
-                thisSpot = Initializer.SpotValgt;
-                Debug.Log("i WMGxtutor.Oppdater: thisSpot=" + thisSpot.v_index + "," + thisSpot.h_index);
+            thisSpot = Initializer.SpotValgt;
+            Debug.Log("i WMGxtutor.Oppdater: thisSpot=" + thisSpot.v_index + "," + thisSpot.h_index);
 
 
-                //initialisering. skjer også i 'InitierGraf()'
-                waterMM = thisSpot.WaterMM;
-                soltimer = Weather.Sun;
-                waterData = Weather.Rain;
-                air = thisSpot.Air;
-                plantHeight = thisSpot.PHeight;
-                smallLife = thisSpot.SmallLife;
-                humusQuality = thisSpot.HumusQuality; ;
-                nitrogen = thisSpot.Nitrogen;
-                organicMatter = thisSpot.OrganicMatter;
+            //initialisering. skjer også i 'InitierGraf()'
+            waterMM = thisSpot.WaterMM;
+            soltimer = Weather.Sun;
+            waterData = Weather.Rain;
+            air = thisSpot.Air;
+            plantHeight = thisSpot.PHeight;
+            smallLife = thisSpot.SmallLife;
+            humusQuality = thisSpot.HumusQuality; ;
+            nitrogen = thisSpot.Nitrogen;
+            organicMatter = thisSpot.OrganicMatter;
 
+            Debug.Log("watermm antall " + waterMM.Count);
+            Debug.Log("air antall " + air.Count);
+            Debug.Log("plant height antall " + plantHeight.Count);
+            Debug.Log("smallLife antall " + smallLife.Count);
+            Debug.Log("humusQuality antall " + humusQuality.Count);
+            Debug.Log("nitrogen antall " + nitrogen.Count);
+            Debug.Log("organicMatter antall " + organicMatter.Count);
 
+            series1.pointValues.SetList(empty); //series1.pointValues.SetList(data);
+            series2.pointValues.SetList(empty);
+            series3.pointValues.SetList(empty);
+            series4.pointValues.SetList(empty);
+            series5 .pointValues.SetList(empty);
+            series6.pointValues.SetList(empty);
+            series7.pointValues.SetList(empty);
+            series8.pointValues.SetList(empty);
+            series9.pointValues.SetList(empty);
 
-                Debug.Log("watermm antall " + waterMM.Count);
-                Debug.Log("air antall " + air.Count);
-                Debug.Log("plant height antall " + plantHeight.Count);
-                Debug.Log("smallLife antall " + smallLife.Count);
-                Debug.Log("humusQuality antall " + humusQuality.Count);
-                Debug.Log("nitrogen antall " + nitrogen.Count);
-                Debug.Log("organicMatter antall " + organicMatter.Count);
+            if (showW)
+                {
+                    series1.pointValues.SetList(waterMM); //series1.pointValues.SetList(data);
+                    series2.pointValues.SetList(soltimer);
+                    series3.pointValues.SetList(waterData);
+                    series4.pointValues.SetList(empty);
+                    series5.pointValues.SetList(empty); 
+                    series6.pointValues.SetList(empty);
+                    series7.pointValues.SetList(empty);
+                    series8.pointValues.SetList(empty);
+                    series9.pointValues.SetList(empty);
+                }
 
-      /*         showE = tog_Earth.On;
-               showW = tog_Weather.On;
-               showP = tog_Plant.On;*/
-
-                       if(showW)
-                   {
-                       series1.pointValues.SetList(waterMM); //series1.pointValues.SetList(data);
-                       series2.pointValues.SetList(soltimer);
-                       series3.pointValues.SetList(waterData);
-                       series4.pointValues.SetList(empty);
-                    series5.pointValues.SetList(plantHeight); 
-                       series6.pointValues.SetList(empty);
-                       series7.pointValues.SetList(empty);
-                       series8.pointValues.SetList(empty);
-                       series9.pointValues.SetList(empty);
-                   }
-                   else if (showE)
-                   {
-                       series1.pointValues.SetList(waterMM); //series1.pointValues.SetList(data);
-                       series2.pointValues.SetList(empty);
-                       series3.pointValues.SetList(empty);
-                       series4.pointValues.SetList(air); //her settes tilfeldige verdier serie en
-                       series5.pointValues.SetList(plantHeight);     //plantehøyde
-                       series6.pointValues.SetList(smallLife);
-                       series7.pointValues.SetList(humusQuality);
-                       series8.pointValues.SetList(nitrogen);
-                       series9.pointValues.SetList(organicMatter);  /*  */
+            if (showE)
+                {
+                    series1.pointValues.SetList(empty); //series1.pointValues.SetList(data);
+                    series2.pointValues.SetList(empty);
+                    series3.pointValues.SetList(empty);
+                    series4.pointValues.SetList(air); //her settes tilfeldige verdier serie en
+                    series5.pointValues.SetList(empty);     //plantehøyde
+                    series6.pointValues.SetList(smallLife);
+                    series7.pointValues.SetList(humusQuality);
+                    series8.pointValues.SetList(nitrogen);
+                    series9.pointValues.SetList(organicMatter);  /*  */
             }
-            else if (showP)
+
+            if (showP)
                 {
                     Debug.Log("vise plantegraf");
                     series1.pointValues.SetList(empty); //series1.pointValues.SetList(data);
@@ -259,39 +258,28 @@ namespace HappyGardenConsoleVSU
                     series8.pointValues.SetList(empty);
                     series9.pointValues.SetList(empty);  /*  */
 
-                }
-                else 
-                {
-                    series1.pointValues.SetList(empty); //series1.pointValues.SetList(data);
-                    series2.pointValues.SetList(empty);
-                    series3.pointValues.SetList(empty);
+            }
+            if ((showE==false)&&(showW==false)&&(showP==false)) 
+            {
+                series1.pointValues.SetList(empty); //series1.pointValues.SetList(data);
+                series2.pointValues.SetList(empty);
+                series3.pointValues.SetList(empty);
 
-                    series4.pointValues.SetList(empty);
-                    series6.pointValues.SetList(empty);
-                    series7.pointValues.SetList(empty);
-                    series8.pointValues.SetList(empty);
-                    series9.pointValues.SetList(empty);  /*  */
+                series4.pointValues.SetList(empty);
+                series6.pointValues.SetList(empty);
+                series7.pointValues.SetList(empty);
+                series8.pointValues.SetList(empty);
+                series9.pointValues.SetList(empty);  /*  */
 
-                }
-             /*   else
-                {
-                    series1.pointValues.SetList(waterMM); //series1.pointValues.SetList(data);
-                    series2.pointValues.SetList(soltimer);
-                    series3.pointValues.SetList(waterData);
-                    series4.pointValues.SetList(air); //her settes tilfeldige verdier serie en
-                 //series5.pointValues.SetList(tilf2Data); //her settes tilfeldige verdier serie to
-                    series6.pointValues.SetList(smallLife);
-                   series7.pointValues.SetList(humusQuality);
-                    series8.pointValues.SetList(nitrogen);
-                    series9.pointValues.SetList(organicMatter);  
-                }*/
+            }
+
 
 
 
                 graph.Refresh();
                
-            }
-        }
+          
+        }//Oppdater()
 
 
         public void nyeVerdier()

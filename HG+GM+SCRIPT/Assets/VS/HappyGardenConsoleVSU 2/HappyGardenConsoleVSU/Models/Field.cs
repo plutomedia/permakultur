@@ -16,11 +16,8 @@ namespace HappyGardenConsoleVSU
     {
         public Spot jordbit;
         public int Fieldnr;
-
         public static Spot[,] spots;
-
         public Text fieldText;
-
         public static int rows, columns;
 
         //public List<Vector2> jordflekker;
@@ -31,8 +28,7 @@ namespace HappyGardenConsoleVSU
         public String whatText;
         //private List<Field> flds;
 
-        /*from http://stackoverflow.com/questions/18865574/multidimensional-array-of-object-c-sharp#18865697   
-        */
+
 
         public Field(int nr, Text myText)
         {
@@ -50,8 +46,10 @@ namespace HappyGardenConsoleVSU
                 for (int j = 0; j < columns; j++)
                 {
                     spots[i, j] = new Spot(nr,i,j,myText);
-
-                    ///Debug.Log("jordbit " + i + "  " + j);
+                    if ((i == 0) && (j == 0))
+                    {
+                        spots[i, j].Marked = true;
+                    }
                 }
             }
 
@@ -63,6 +61,10 @@ namespace HappyGardenConsoleVSU
 
         public void InitializeEarthType()
         {
+
+            //jordbit = spots[0, 0];
+            //jordbit.Marked = true;
+
             for (int i = 0; i < rows; i++)
             {
 
@@ -77,6 +79,7 @@ namespace HappyGardenConsoleVSU
                 }
             }
 
+            //spots[0, 0].Marked = true; //default avmerket felt, som alltid skal simuleres
         }
 
 
@@ -89,8 +92,20 @@ namespace HappyGardenConsoleVSU
             Debug.Log("############  Field "+ Fieldnr + " Update, iterasjon "+iterasjon+
                 "  ###########################################################");
 
-             bool updateAll = false;// hvis alle spot skal oppdateres
+             bool updateAll = true;// hvis alle spot skal oppdateres
             //oppdatere alle innebærer nesten 'frys'. ca 10 min
+
+
+            //for (int i = 0; i < rows; i++)
+            //{
+            //   for (int j = 0; j < columns; j++)
+            //    {
+            //       jordbit = spots[i, j];
+            //        Debug.Log("jordbit "+jordbit.SpotID+"    "+ "  .Marked="+jordbit.Marked);
+
+            //    } //alle som er trykket på
+            //}
+
 
             if (updateAll)
             {
@@ -99,16 +114,17 @@ namespace HappyGardenConsoleVSU
                 
                     for (int j = 0; j < columns; j++)
                     {
-                    
-                        Debug.Log("oppdaterer spot (f,x,y)  "+Fieldnr+" , " + i + " , " + j);
+
+
 
                         jordbit = spots[i, j];
-                        jordbit.Update(iterasjon);
 
-                        //if (jordbit == WMG_X_Tutor.ChosenSpot)
-                        //    jordbit.Update(iterasjon);
-                        //else Debug.Log("oppdaterer  IKKE  spot (f,x,y)  " + Fieldnr + " , " + i + " , " + j);
-                    }
+                        if (jordbit.Marked)
+                        {
+                            //Debug.Log("oppdaterer spot (f,x,y)  "+Fieldnr+" , " + i + " , " + j);
+                            jordbit.Update(iterasjon);
+                        } //alle som er trykket på
+                        else Debug.Log("oppdagerer ikke " + jordbit.SpotID);                    }
                 }
             }
             else
@@ -244,5 +260,7 @@ namespace HappyGardenConsoleVSU
                 spots = value;
             }
         }
+
+
     }//class Field
 }

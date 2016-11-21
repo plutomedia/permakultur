@@ -165,8 +165,8 @@ namespace HappyGardenConsoleVSU
             //første test under update er at i alle fall planten skal vokse
             //og suge ut ting og tang fra jorden - eventuelt gi tilbake
 
-           // height += 2; //2 cm hver oppdatering
-
+            // height += 2; //2 cm hver oppdatering
+            Debug.Log("plant.update: plantehelse:" + health);
             if (health < 3)
             {
                 Debug.Log("The plant dies soon. Give water and prey.");

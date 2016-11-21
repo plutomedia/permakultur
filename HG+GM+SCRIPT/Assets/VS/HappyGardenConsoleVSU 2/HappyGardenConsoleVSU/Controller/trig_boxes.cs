@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 public class trig_boxes : MonoBehaviour {
 
-    public static  Spot choseSpot, valgtSpot;
+    public static  Spot choseSpot, valgtSpot, merketSpot;
     public static Spot[,] zpots;
     private static string spotstring;
     public static int h, v;
@@ -26,16 +26,16 @@ public class trig_boxes : MonoBehaviour {
     {
         myText = tekstfelt.GetComponent<Text>();
         choseSpot = WMG_X_Tutor.ChosenSpot;
-        WMG_X_Tutor.chosenSpot = choseSpot;
+
+        //WMG_X_Tutor.chosenSpot = choseSpot;
 
         spotstring = "0,0";
         myText.text = spotstring;
 
-
         //myText.text="0,0";
         //myInput = String.Format("dummy {0}",myText);
-
     }
+
 
     public void OnMouseDown()
     {
@@ -96,6 +96,8 @@ public class trig_boxes : MonoBehaviour {
                 break;
         }
 
+        merketSpot=choseSpot;   //alle som er valgt og markert, blir merket for simulering
+        merketSpot.Marked = true;
 
         Initializer.SpotValgt = Field.Spots[choseSpot.v_index, choseSpot.h_index];
         //valgtSpot = Initializer.SpotValgt; //kan velge hvilken vi skal rydde bort
@@ -125,6 +127,7 @@ public class trig_boxes : MonoBehaviour {
         v = choseSpot.v_index;
         h = choseSpot.h_index;
         nytekst = String.Format("({0},{1})", v, h);
+
 
     }
 

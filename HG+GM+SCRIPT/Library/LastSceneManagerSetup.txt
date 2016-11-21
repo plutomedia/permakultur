@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Farmscene096 plantegraf.unity
+- path: Assets/Farmscene097 selektiv oppdatering.unity
   isLoaded: 1
   isActive: 1

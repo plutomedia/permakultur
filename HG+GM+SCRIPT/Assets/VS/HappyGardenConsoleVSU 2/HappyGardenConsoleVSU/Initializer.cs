@@ -25,6 +25,7 @@ namespace HappyGardenConsoleVSU
         //private Farm frm;
         //private  List<Field> flds;
         public Spot[,] spotts;
+
         private static Spot spotValgt;
 
         public Environments environments;
@@ -114,18 +115,17 @@ namespace HappyGardenConsoleVSU
         public void InitializeEarthTypes()
         {
             gameFrame.InitializeEarthType();
-
         }
 
-        public void UpdateMonth(int enDag)
+        public void UpdateMonth()
         {
             
             graphUpdated = true;
             //dagenIdag = dagenidag;           
             //Weather vair = Weather.ThisDay;  //remninscenser fra tidligere versjon.
 
-
-            for (int day = 1; day < 28; day ++)
+            int timeSpan = 28;//ellers28
+            for (int day = 1; day < timeSpan; day ++)
             {
                 //IMPOPRTANT: FIRST DAY ALREADY INITIALIZED
                 // WHEN UPDATING EACH DAY, REMEMBER TO USE THE WEATHER OF PREVIOUS DAY
@@ -160,7 +160,6 @@ namespace HappyGardenConsoleVSU
             }
         }
 
-
         public static bool GraphUpdated
         {
             get
@@ -173,7 +172,6 @@ namespace HappyGardenConsoleVSU
             }
         }
 
-
         public static int DagenIdag
         {
             get
@@ -185,9 +183,6 @@ namespace HappyGardenConsoleVSU
                 dagenIdag = value;
             }
         }
-
-
-
 
         public static int DagValgt
         {

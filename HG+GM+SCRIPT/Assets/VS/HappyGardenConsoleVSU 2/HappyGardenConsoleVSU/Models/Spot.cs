@@ -69,6 +69,9 @@ namespace HappyGardenConsoleVSU
         public int h_index;
         private int fieldnr;
         public  string spotID; //skal forenkle utskrift av v og h-indekser
+        private  bool marked;     //alle som har blitt valgt før eller siden er merket
+                                        // disse vil bli simulert.
+
 
         //Plant related
         Plant planten;
@@ -146,7 +149,8 @@ namespace HappyGardenConsoleVSU
 
         public Spot(int fnr, int vert, int hor, Text myTex)
         {
-           
+            if ((hor == 0) && (vert == 0)) marked = true;
+
             vaer = Weather.ThisDay;
 
             //int tempDay;
@@ -334,7 +338,6 @@ namespace HappyGardenConsoleVSU
             plantName = "Ubeplantet";
             planted = false;
             plantet = planted;
-
         }
 
 
@@ -579,12 +582,12 @@ namespace HappyGardenConsoleVSU
                         " ETTER rainwater: " + tempWater + ", ETTER soltimeuttørking(new walue): " + water_H2O + "  (rainmm: " + rainmm + ")");
 
 
-                   Debug.Log("Water_H2O   " + (float)water_H2O);
+                   Debug.Log("[ETTER ITERASJON 1]:Water_H2O   " + (float)water_H2O);
 
 
-
-                    waterMM.Add(new Vector2(dagenIdag, (float)water_H2O * 100));
-                    Debug.Log("waterMM[dagenIdag].y     " + waterMM[dagenIdag].y + ",    waterMM[dagenIdag-1]  " + waterMM[dagenIdag-1].y);
+                    //disse tilordnes i iterasjon 4 og kan derfor ikke lenger skrives ut her slik det var i en tidlignere versjon av dette prod.
+                    //waterMM.Add(new Vector2(dagenIdag, (float)water_H2O * 100));
+                    //Debug.Log("waterMM[dagenIdag].y     " + waterMM[dagenIdag].y + ",    waterMM[dagenIdag-1]  " + waterMM[dagenIdag-1].y);
 
 
 
@@ -647,7 +650,7 @@ namespace HappyGardenConsoleVSU
                     //Debug.Log("\n___________________________________________________________Spot oppdateres dag " + dagenIdag + " > (" + v_index + " , " + h_index + " )");
                    //d Debug.Log("air  dagenIdag  _air=" + _air);
 
-                    
+                    //disse push-uppene skal legges i case 4 = iterasjon 4, fordi flere faktorrer gjennom iterasj påvirker dem, så som planten
                     air.Add             (new Vector2(dagenIdag, (float)_air*100));
                     smallLife.Add       (new Vector2(dagenIdag, (float)_smallLife*100));
                     humusQuality.Add    (new Vector2(dagenIdag, (float)_humusQuality*100));
@@ -655,9 +658,11 @@ namespace HappyGardenConsoleVSU
                     organicMatter.Add   (new Vector2(dagenIdag, (float)_organicMatter*100));
 
 
-                    Debug.Log(".....  waterMM="+ waterMM[dagenIdag] + "   waterMM["+ dagenIdag + "].y= " + waterMM[dagenIdag].y+ ".....  air    " + air[tempDay].y);
+                    //Debug.Log(".....  waterMM="+ waterMM[dagenIdag] + "   waterMM["+ dagenIdag + "].y= " + waterMM[dagenIdag].y+ ".....  air    " + air[tempDay].y);
 
-                    Debug.Log("waterMM[dagenIdag].y     " + waterMM[dagenIdag].y + ",    waterMM[dagenIdag-1]  " + waterMM[dagenIdag - 1].y);
+                    //Debug.Log("waterMM[dagenIdag].y     " + waterMM[dagenIdag].y + ",    waterMM[dagenIdag-1]  " + waterMM[dagenIdag - 1].y);
+
+                    Debug.Log("[ETTER ITERASJON 2]:Water_H2O   " + (float)water_H2O);
 
                     break;
                 case 3:
@@ -681,18 +686,18 @@ namespace HappyGardenConsoleVSU
 
 
 
-                    if (dagenIdag >= fraDag)
+                    if (dagenIdag > fraDag)
                     {
                         Debug.Log("oppdaterer planten. dagenIdag=" + dagenIdag + ",  fraDag(plantet dag)=" + fraDag);
                         planten.Oppdater(this);
 
-                        pHeight.Add(new Vector2(dagenIdag, (float)planten.Height)); //13 fordi jeg bare vil prøve ut selve grafen
+                        pHeight.Add(new Vector2(dagenIdag, (float)planten.Height)); // fordi jeg bare vil prøve ut selve grafen
 
                     }
 
                  
 
- /* 
+
                     if (planten.Dead)
                     {
                         String ut2 = String.Format("spot ({0},{1}) {2}. is  no a late {2}. It died by heat and lack of water.", h_index, v_index, planten.name_no);
@@ -714,7 +719,7 @@ namespace HappyGardenConsoleVSU
 
                     double plantHeight = planten.Height;
 
-                  
+               
 
                     //the 'dryout-factor' depends on Plant height and sunHours. 
                     //the purpose is to see in which amount the water will be sucked from the ground (the newwaterdry formula)
@@ -724,15 +729,19 @@ namespace HappyGardenConsoleVSU
                     //double newwaterdry=(water_H2O - water_H2O * dryout);//temporary functional variable. Replace will be with the calculation in iteration 1 (weather factors)
 
 
-                    //if there is much sun, the plant needs more water. 
+                    //if there is much sun, the plant needs more water. Make a Faktor
                     double waterNeedSun = 1 + (double)soltimer / 10;   //e.g 30cm and 4 hours: 3*4/1000=0.12
-                    double waterNeedEveryDay = 1;
+                   //?   double waterNeedEveryDay = 1; //trenges denne? hvisikkeslett
+                    Debug.Log("planteiterasjonen. waterNeedSun=" + waterNeedSun); //utgangspunkt-index 
 
-
-                    //Water need according to plant height
+   
+                    //Water need according to plant height. Make a Faktor
                     double waterNeedPlant = (plantHeight / 2) * (plantHeight / 2) / 1000;
+                    waterNeedPlant *= 0.5; //just to tweak it before I make another formula 
+                    Debug.Log("planteiterasjonen. waterNeedPlant=" + waterNeedPlant);
+                 
 
-
+                    
                     //factor, waterNeedSun will be multiplied by the 'sun' factor. If much sun, the greater the factor. Influence the thirst of the Plant
                     double waterNeedPlantOld= waterNeedPlant;
                     waterNeedPlant *= waterNeedSun;//waterNeedSun is a factor decided by the dryness and sunhours
@@ -742,7 +751,7 @@ namespace HappyGardenConsoleVSU
                     String ut0 = String.Format("spot ({4},{5}) {6}. Soltimer={0} gives waterNeedSun-factor={1}. PlantHeight={2} waterNeedPlant=PlantHeight**2/1000={3}", soltimer, waterNeedSun, planten.Height, waterNeedPlant,h_index,v_index,planten.name_no);
                     Debug.Log(ut0);
 
-                    String ut1 = String.Format("waterNeed {0} * ", sunHours, waterNeedSun, planten.Height);
+                   // String ut1 = String.Format("waterNeed {0} * ", sunHours, waterNeedSun, planten.Height);
                   //  Debug.Log(ut0);
 
 
@@ -750,13 +759,13 @@ namespace HappyGardenConsoleVSU
                     Debug.Log(ut);
 
                     //   U P D A T E.  Maybe ok, but check if tempDay is right
-                    pHeight.Add(new Vector2(tempDay, (float)plantHeight));
+                    // // // // pHeight.Add(new Vector2(tempDay, (float)plantHeight));
 
                     //if it is too dry (water_H2O < 0.15) two things will happen:
                     //the plant will suffer, getting dryer. A dryout-index will control the health state. The health state will consist of different faktors (water, minerals)
                     //dryout effect will also reduce the growth
                     //here is an algorithm/condition that will deal with this case
-
+ 
                     if (water_H2O- waterNeedPlant < 0.1)
                     {
                         Debug.Log("Too dry. Plant will grow slower and start to detoriate/suffer.");
@@ -773,8 +782,11 @@ namespace HappyGardenConsoleVSU
                         water_H2O = water_H2O - waterNeedPlant;
                     }
 
+                    /*
+                    */
+                    Debug.Log("[ETTER ITERASJON 3]:Water_H2O   " + (float)water_H2O);
 
-*/
+
                     break;
                 case 4:
                     //Debug.Log("Iteration 4: Calculating new equilibrum. Not implemented");
@@ -784,7 +796,24 @@ namespace HappyGardenConsoleVSU
 
 
 
-                   // The last thing we do is to update the day
+                    // The last thing we do is to update the day
+
+
+
+
+
+
+
+
+
+
+                    //OG TIL SIST, I SISTE ITERASJON. VI PUSHER OPP NY VECTOR2, DETTE SKAL IKKE GJØRES UNDERVEIS. 
+                    //UNDERVEIS OPPDATERES BARE DE MIDLERTIDIGE, LOKALE VARIABLE
+
+
+                    waterMM.Add(new Vector2(dagenIdag, (float)water_H2O * 100));
+                    Debug.Log("waterMM[dagenIdag].y     " + waterMM[dagenIdag].y + ",    waterMM[dagenIdag-1]  " + waterMM[dagenIdag - 1].y);
+
                     break;
                 default:
                     break;
@@ -796,7 +825,7 @@ namespace HappyGardenConsoleVSU
             }//switch
             int dagg = Weather.ThisDay.WhichDay;
             //Debug.Log("\n Weather.ThisDay.WhichDay  " + Weather.ThisDay.WhichDay);
-
+/*
             if (iterasjon == 4)
             {
                 Debug.Log("\n Weather.ThisDay.WhichDay  " + Weather.ThisDay.WhichDay);
@@ -811,7 +840,7 @@ namespace HappyGardenConsoleVSU
 
                 Debug.Log("\n");
             }
-
+            */
 
             //dette utføres etter hver iterasjon 
             //
@@ -1052,7 +1081,7 @@ namespace HappyGardenConsoleVSU
             planten = new Plant(Initializer.DagValgt, plantName, fieldNr,spotX, spotY);
 
             //planteparametre kan kreeres her:
-            pHeight.Add(new Vector2(fraDag, 0f)); //fraDag er dagen som er valgt, når planten settes
+            //pHeight.Add(new Vector2(fraDag, 0f)); //fraDag er dagen som er valgt, når planten settes
 
 
 
@@ -1186,6 +1215,20 @@ namespace HappyGardenConsoleVSU
             set
             {
                 spotID = value;
+            }
+        }
+
+
+
+        public  bool Marked
+        {
+            get
+            {
+                return marked;
+            }
+            set
+            {
+                marked = value;
             }
         }
 
