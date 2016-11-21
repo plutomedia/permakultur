@@ -9,6 +9,7 @@ namespace HappyGardenConsoleVSU
 {
     public class Spot
     {
+        public int dagenIdag=0;
         public int tempDay=0; //for storing day value temporary. We have both
                             //iteration by the Simulate all prodecure and
                             //day update by only the update button.
@@ -147,8 +148,8 @@ namespace HappyGardenConsoleVSU
            
             vaer = Weather.ThisDay;
 
-            int tempDay;
-            tempDay = vaer.WhichDay;
+            //int tempDay;
+            //tempDay = vaer.WhichDay;
             
            
 
@@ -183,7 +184,7 @@ namespace HappyGardenConsoleVSU
 
 
             InitializeSpot(); //start-dummy values. If game loaded, values will be loaded
-            printVectors();
+            //printVectors(1);
 
         } ///public Spot Constructor
 
@@ -221,7 +222,7 @@ namespace HappyGardenConsoleVSU
 
 
 
-        public void printVectors()
+        public void printVectors(int max)
         {
             /*
             Debug.Log("PRINTVECTORS, v_index= "+v_index+", h_index= "+h_index+ ",  day "+tempDay);
@@ -238,7 +239,7 @@ namespace HappyGardenConsoleVSU
             if (true)
             {
                 Debug.Log("\n");
-                for (int j = 0; j < 1; j++)
+                for (int j = 0; j < max; j++)
                 {
                     Debug.Log("\nwaterMM      " + waterMM[j] + "=" + (float)waterMM[j].y);
                     Debug.Log("air          " + air[j] + "=" + (float)air[j].y);
@@ -405,6 +406,8 @@ namespace HappyGardenConsoleVSU
 
         public void Update(int iterasjon)
         {
+            dagenIdag = Initializer.DagenIdag;
+
             //Debug.Log("      -->  spot, update-iterasjon"+iterasjon+":   " + v_index + "  " + h_index);
             double rainmm;
 
@@ -413,11 +416,11 @@ namespace HappyGardenConsoleVSU
             Weather vaer = Weather.ThisDay;
             soltimer = vaer.SunHours;
             fraDag = Initializer.DagValgt;
-            tempDay = Initializer.DagenIdag; //holde rede på index
+            //tempDay = Initializer.DagenIdag; //holde rede på index
 
-            Debug.Log("          \nIterasjon "+iterasjon+ "  tempDay = Initializer.DagenIdag, tempDay= " + tempDay+"  fraDag=  "+fraDag+"   Weather.ThisDay=   "+Weather.ThisDay);
+            Debug.Log("          \nIterasjon "+iterasjon+ "  dagenIdag = Initializer.DagenIdag, dagenIdag= " + dagenIdag + "  fraDag=  "+fraDag+"   Weather.ThisDay=   "+Weather.ThisDay);
 
-            printVectors();
+            printVectors(dagenIdag);
 
             switch (iterasjon)
             {
@@ -434,12 +437,12 @@ namespace HappyGardenConsoleVSU
                     double waterValueBeforeSun;
 
                     soltimer = vaer.SunHours;
-                    //Debug.Log("soltimer " + soltimer);
+                    Debug.Log("soltimer " + soltimer);
 
-                    //Debug.Log("---------------------------------------------------environment update");
-                    //Debug.Log("Water before this environment update:    " + water_H2O);
+                    Debug.Log("---------------------------------------------------environment update");
+                    Debug.Log("Water before this environment update:    " + water_H2O);
 
-                    String nytekst = String.Format("Environment. Simulation day {0}, with weather.:   mm Nedbør {1},  Soltimer {2},  Dagslystimer {3},  Gj.Sn temp {4}", vaer.WhichDay, vaer.Nedboer, vaer.SunHours, vaer.LightHours, vaer.MeanTemp);
+                    String nytekst = String.Format("\nEnvironment. Simulation day {0}, with weather.:   mm Nedbør {1},  Soltimer {2},  Dagslystimer {3},  Gj.Sn temp {4}", vaer.WhichDay, vaer.Nedboer, vaer.SunHours, vaer.LightHours, vaer.MeanTemp);
                     if ((h_index == 0) && (v_index == 0)) Debug.Log(nytekst); //begrensning til bare en gang per Field
 
 
@@ -531,10 +534,11 @@ namespace HappyGardenConsoleVSU
                     waterValueBeforeSun = water_H2O;
 
 
-                    //Debug.Log("waterValueBeforeSun "+waterValueBeforeSun);
-                    //Debug.Log("soltimer " + soltimer);
+                    Debug.Log("waterValueBeforeSun "+waterValueBeforeSun);
+                    Debug.Log("soltimer " + soltimer);
 
-                    //Debug.Log("Water_H2O FØR:  " +oldWatervalue+    " ETTER regnvannberegning: "+water_H2O+ "  rainmm: "+rainmm) ;
+                    Debug.Log("Water_H2O FØR:  " +oldWatervalue+    " ETTER regnvannberegning: "+water_H2O+ "  rainmm: "+rainmm) ;
+
                     double tempWater = water_H2O;
 
 
@@ -592,7 +596,8 @@ namespace HappyGardenConsoleVSU
 
 
 
-                    Debug.Log("...............................Spot (" + h_index + "," + v_index + ").Water_H2O først:  " + oldWatervalue + " ETTER rainwater: " + tempWater + ", ETTER soltimeuttørking(new walue): " + water_H2O + "  (rainmm: " + rainmm + ")");
+                    Debug.Log("...................Spot (" + h_index + "," + v_index + ").Water_H2O først:  " + oldWatervalue + 
+                        " ETTER rainwater: " + tempWater + ", ETTER soltimeuttørking(new walue): " + water_H2O + "  (rainmm: " + rainmm + ")");
 
 
                    Debug.Log("Water_H2O   " + (float)water_H2O);
@@ -600,7 +605,8 @@ namespace HappyGardenConsoleVSU
 
                     ///¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤
 
-                    waterMM.Add(new Vector2(tempDay, (float)water_H2O * 100));
+                    waterMM.Add(new Vector2(dagenIdag, (float)water_H2O * 100));
+                    //waterMM.Add(new Vector2(dagenIdag, 77));
                     //Debug.Log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  TEMPDAY="+tempDay);
 
 
@@ -653,18 +659,18 @@ namespace HappyGardenConsoleVSU
 
 
 
-                    Debug.Log("\n___________________________________________________________Spot oppdateres dag " + tempDay + " > (" + v_index + " , " + h_index + " )");
-                    Debug.Log("air  tempday  _air=" + _air);
+                    Debug.Log("\n___________________________________________________________Spot oppdateres dag " + dagenIdag + " > (" + v_index + " , " + h_index + " )");
+                    Debug.Log("air  dagenIdag  _air=" + _air);
 
                     
-                    air.Add             (new Vector2(tempDay, (float)_air*100));
-                    smallLife.Add       (new Vector2(tempDay, (float)_smallLife*100));
-                    humusQuality.Add    (new Vector2(tempDay, (float)_humusQuality*100));
-                    nitrogen.Add        (new Vector2(tempDay, (float)_nitrogen*100));
-                    organicMatter.Add   (new Vector2(tempDay, (float)_organicMatter*100));
+                    air.Add             (new Vector2(dagenIdag, (float)_air*100));
+                    smallLife.Add       (new Vector2(dagenIdag, (float)_smallLife*100));
+                    humusQuality.Add    (new Vector2(dagenIdag, (float)_humusQuality*100));
+                    nitrogen.Add        (new Vector2(dagenIdag, (float)_nitrogen*100));
+                    organicMatter.Add   (new Vector2(dagenIdag, (float)_organicMatter*100));
 
 
-                    Debug.Log(".....  waterMM="+ waterMM[tempDay] + "   waterMM["+tempDay+"].y= " + waterMM[tempDay].y+ ".....  air    " + air[tempDay].y);
+                    Debug.Log(".....  waterMM="+ waterMM[dagenIdag] + "   waterMM["+ dagenIdag + "].y= " + waterMM[dagenIdag].y+ ".....  air    " + air[tempDay].y);
                
                  /*    Debug.Log("smallLife    " + smallLife[tempDay].y);
                     Debug.Log("humusQuality    " + humusQuality[tempDay].y);

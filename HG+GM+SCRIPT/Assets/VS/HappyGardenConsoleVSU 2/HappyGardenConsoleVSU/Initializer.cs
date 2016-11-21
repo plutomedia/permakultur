@@ -131,7 +131,7 @@ namespace HappyGardenConsoleVSU
 
                 //Weather.ThisDay.WhichDay = day;
                 dagenIdag = day;//brukes fra Spot for å holde rede på dag-index
- //her skal alle spot oppdateres og initieres med alle vektorer
+                //her skal alle spot oppdateres og initieres med alle vektorer
 
                 gameFrame.Oppdater(1); // water 
                 gameFrame.Oppdater(2); // earth

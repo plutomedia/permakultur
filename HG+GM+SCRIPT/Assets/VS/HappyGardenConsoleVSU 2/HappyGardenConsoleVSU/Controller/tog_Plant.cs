@@ -3,8 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using HappyGardenConsoleVSU;
 
-
-public class tog_Earth : MonoBehaviour
+public class tog_Plant : MonoBehaviour
 {
 
     private static bool ison;
@@ -12,17 +11,14 @@ public class tog_Earth : MonoBehaviour
     void Start()
     {
         ison = false;
-        WMG_X_Tutor.ShowE = ison;
-
+        WMG_X_Tutor.ShowP = ison;
     }
 
     public void toggleChanged()
-        {
+    {
         if (ison) ison = false; else ison = true;
-        WMG_X_Tutor.ShowE = ison;
-        Debug.Log("earth " + ison);
+        WMG_X_Tutor.ShowP = ison;
+        Debug.Log("plant "+ison);
     }
 
 }
-
-

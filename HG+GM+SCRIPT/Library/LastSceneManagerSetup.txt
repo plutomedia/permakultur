@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Farmscene090 grafOK, tweenOK.unity
+- path: Assets/Farmscene093.unity
   isLoaded: 1
   isActive: 1

@@ -156,6 +156,7 @@
     <Compile Include="Assets\VS\HappyGardenConsoleVSU 2\HappyGardenConsoleVSU\Controller\btn_Water3.cs" />
     <Compile Include="Assets\VS\HappyGardenConsoleVSU 2\HappyGardenConsoleVSU\Controller\slider_day.cs" />
     <Compile Include="Assets\VS\HappyGardenConsoleVSU 2\HappyGardenConsoleVSU\Controller\tog_Earth.cs" />
+    <Compile Include="Assets\VS\HappyGardenConsoleVSU 2\HappyGardenConsoleVSU\Controller\tog_Plant.cs" />
     <Compile Include="Assets\VS\HappyGardenConsoleVSU 2\HappyGardenConsoleVSU\Controller\tog_Weather.cs" />
     <Compile Include="Assets\VS\HappyGardenConsoleVSU 2\HappyGardenConsoleVSU\Controller\trig_boxes.cs" />
     <Compile Include="Assets\VS\HappyGardenConsoleVSU 2\HappyGardenConsoleVSU\Controller\trig_sprite.cs" />

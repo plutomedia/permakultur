@@ -29,7 +29,7 @@ namespace HappyGardenConsoleVSU
         public Text myText;
         //public Text whatText;
         public String whatText;
-        private List<Field> flds;
+        //private List<Field> flds;
 
         /*from http://stackoverflow.com/questions/18865574/multidimensional-array-of-object-c-sharp#18865697   
         */
@@ -83,7 +83,8 @@ namespace HappyGardenConsoleVSU
         public void Update(int iterasj)
         {
             int iterasjon = iterasj;
-            
+
+            //dagenIdag = Initializer.dagenIdag;
 
             Debug.Log("----Field "+ Fieldnr + " Update, iterasjon "+iterasjon+"--------------------");
 
@@ -157,7 +158,7 @@ namespace HappyGardenConsoleVSU
         public void WriteEarthValues(Text myText)
         {
 
-            flds = Farm.Fields;
+            //flds = Farm.Fields;
             String nytekst; //hmm hva er forskjellen på String og string.
             String tempstring;
             
@@ -178,23 +179,8 @@ namespace HappyGardenConsoleVSU
             for (int fnr=0; fnr<1;fnr++)
             {
 
-                //spotts = new Spot[10, 10];
-                //spotts = this.spots;
                 string earthType = "Our garden bed";// default, to prevent error messages. Should be replaced with exception in switch.
-/*                Debug.Log("i.fieldNr=" + i.Fieldnr);
-                switch (fnr)
-                {
-                    case 0:
-                        earthType = "muldJord";
-                        break;
-                    case 1:
-                        earthType = "moreneJord";
-                        break;
-                    case 2:
-                        earthType = "myrJord";
-                        break;
-                }
-                */
+
 
                 myText.text = myText.text + "\nTeig " + Fieldnr + "  -  " + earthType;
 

@@ -25,74 +25,49 @@ namespace HappyGardenConsoleVSU
         public WMG_Series series8;
         public WMG_Series series9;
 
-
         public List<Vector2> series1Data, testData, waterData, tilf1Data, tilf2Data;
         public static List<Vector2> soltimer, regnMM;
       
         
-
         /// Verdier fra Spot første siffer i vektor er dagnr
         public List<Vector2> air, waterMM, smallLife, humusQuality, nitrogen, organicMatter;
 
         public static Spot[,] zpots;
         public Spot thisSpot;  //denne har brukt ulike måter å bli tilordnet
-        // har laget Initializer.SpotValgt[0,0] som default spot og
-        //      Initializer.DagValgt (=0) som default dag
 
-
-        //public Field field = Farm.MuldTeig;
-        //public bool  useData4;
         public List<string> series1Data2; //streng variable. fx dager eller uker
 
         public Boolean notfirsttime;
 
-        public bool showAll, showOnlyWeather, showOnlyEarth, showNothing;
+        public bool showAll, showWeather, showEarth, showNothing,showPlant;
         public bool spot00, spot01;
 
         public static Spot chosenSpot;
         public static int chosenDay;
 
+        public static Field muldTeig;
+
+        private static bool showE;
+        private static bool showW;
+        private static bool showP;
+
 
          void Start()
         {
-
-
-            zpots = Field.Spots;
-            chosenSpot = zpots[0, 0];  //default start på spot(0,0)
-
-            //  alternativt: chosenSpot=Initializer.valgSpot;
-
-            
-
-            notfirsttime = false;
+            chosenSpot = Field.Spots[0, 0];//startverdi [0,0] i muldteig
+            muldTeig = Farm.muldTeig; //bare ett jordstykke i oppgaven. muldteig      
 
             GameObject graphGO = GameObject.Instantiate(emptyGraphPrefab);
             graphGO.transform.SetParent(this.transform, false);
             graph = graphGO.GetComponent<WMG_Axis_Graph>();
 
-            Debug.Log("INITIALISER FRA START. Jordflekk OG zpots");
-
-
-/* 
-            if (spot00)
-            {
-                thisSpot = zpots[0, 0];
-                Debug.Log("INITIALISER FRA START. Jordflekk (0,0), dvs zpots[0,0]");
-            }
-            else if (spot01)
-            {
-                thisSpot = zpots[0, 1];
-                Debug.Log("INITIALISER FRA START. Jordflekk (0,1), dvs zpots[0,1]");
-            }
-*/
+            notfirsttime = false;
             thisSpot = chosenSpot;
-            Debug.Log("FRA START WMGTUTOR, VALGT SPOT=chosenSpot:   " + chosenSpot.v_index+","+chosenSpot.h_index);
-
-
-
-            Debug.Log("1graph   " + graph);
-
             initiateSecondGraph();
+
+            //showE = tog_Earth.On;
+            //showW = tog_Weather.On;
+            //showP = tog_Plant.On;
 
         }//start()
 
@@ -107,19 +82,36 @@ namespace HappyGardenConsoleVSU
                 Initializer.GraphUpdated = false;
                 notfirsttime = true;             
             }
+
+            if (showE) showEarth = true; else showEarth = false;
+            if (showW) showWeather = true; else showWeather = false;
+            if (showP) showPlant = true; else showPlant = false;
+
+            if (showAll)
+            {
+                showEarth = true;
+                showWeather = true;
+                showNothing = false;
+                showPlant = true;
+            }
+            if (showNothing)
+            {
+                showEarth = false;
+                showWeather = false;
+                showNothing = false;
+                showPlant = true;
+                showAll = false;
+            }
+
         }
         
 
 
         public void initiateSecondGraph()
         {
-
-            Debug.Log("initiateSecondGraph metoden *********       *********       ************      *****"+zpots);
+            Debug.Log("InitiateSecndGraph. SJEKKER AT WATERMM IKKE ER TOMwatermm antall " + waterMM.Count);
 
             thisSpot = chosenSpot;
-
-            
-            Debug.Log("InitiateSecndGraph. SJEKKER AT WATERMM IKKE ER TOMwatermm antall " + waterMM.Count);
 
             waterMM = thisSpot.WaterMM; 
             air = thisSpot.Air;
@@ -174,15 +166,15 @@ namespace HappyGardenConsoleVSU
         }
 
 
-        public void printVector(List<Vector2> flekk, float max)
-        {
-            int range = flekk.Count;
-            Debug.Log("lengde: " + range);
-            for (int i = 0; i < range; i++)
-            {
-                Debug.Log("printVector  "+flekk[i].y);
-            }
-        }
+        //public void printVector(List<Vector2> flekk, float max)
+        //{
+        //    int range = flekk.Count;
+        //    Debug.Log("lengde: " + range);
+        //    for (int i = 0; i < range; i++)
+        //    {
+        //        Debug.Log("printVector  "+flekk[i].y);
+        //    }
+        //}
 
 
         public List<Vector2> normaliserListe(List<Vector2> data, float max)
@@ -230,32 +222,49 @@ namespace HappyGardenConsoleVSU
                 Debug.Log("nitrogen antall " + nitrogen.Count);
                 Debug.Log("organicMatter antall " + organicMatter.Count);
 
-             
-                if (showOnlyWeather)
+      /*         showE = tog_Earth.On;
+               showW = tog_Weather.On;
+               showP = tog_Plant.On;*/
+
+                       if(showW)
+                   {
+                       series1.pointValues.SetList(waterMM); //series1.pointValues.SetList(data);
+                       series2.pointValues.SetList(soltimer);
+                       series3.pointValues.SetList(waterData);
+
+                       series4.pointValues.SetList(empty);
+                       series6.pointValues.SetList(empty);
+                       series7.pointValues.SetList(empty);
+                       series8.pointValues.SetList(empty);
+                       series9.pointValues.SetList(empty);
+                   }
+                   else if (showE)
+                   {
+                       series1.pointValues.SetList(waterMM); //series1.pointValues.SetList(data);
+                      series2.pointValues.SetList(empty);
+                       series3.pointValues.SetList(empty);
+                       series4.pointValues.SetList(air); //her settes tilfeldige verdier serie en
+                                                         //series5.pointValues.SetList(tilf2Data); //her settes tilfeldige verdier serie to
+                       series6.pointValues.SetList(smallLife);
+                       series7.pointValues.SetList(humusQuality);
+                       series8.pointValues.SetList(nitrogen);
+                       series9.pointValues.SetList(organicMatter);  /*  */
+            }
+            else if (showP)
                 {
-                    series1.pointValues.SetList(waterMM); //series1.pointValues.SetList(data);
-                    series2.pointValues.SetList(soltimer);
-                    series3.pointValues.SetList(waterData);
+                    Debug.Log("vise plantegraf");
+                    series1.pointValues.SetList(empty); //series1.pointValues.SetList(data);
+                    series2.pointValues.SetList(empty);
+                    series3.pointValues.SetList(empty);
 
                     series4.pointValues.SetList(empty);
                     series6.pointValues.SetList(empty);
                     series7.pointValues.SetList(empty);
                     series8.pointValues.SetList(empty);
-                    series9.pointValues.SetList(empty);
+                    series9.pointValues.SetList(empty);  /*  */
+
                 }
-                else if (showOnlyEarth)
-                {
-                   series1.pointValues.SetList(waterMM); //series1.pointValues.SetList(data);
-                   series2.pointValues.SetList(empty);
-                    series3.pointValues.SetList(empty);
-                    series4.pointValues.SetList(air); //her settes tilfeldige verdier serie en
-                                                      //series5.pointValues.SetList(tilf2Data); //her settes tilfeldige verdier serie to
-                    series6.pointValues.SetList(smallLife);
-                    series7.pointValues.SetList(humusQuality);
-                    series8.pointValues.SetList(nitrogen);
-                    series9.pointValues.SetList(organicMatter);  /*  */
-                }
-                else if (showNothing)
+                else 
                 {
                     series1.pointValues.SetList(empty); //series1.pointValues.SetList(data);
                     series2.pointValues.SetList(empty);
@@ -268,7 +277,7 @@ namespace HappyGardenConsoleVSU
                     series9.pointValues.SetList(empty);  /*  */
 
                 }
-                else
+             /*   else
                 {
                     series1.pointValues.SetList(waterMM); //series1.pointValues.SetList(data);
                     series2.pointValues.SetList(soltimer);
@@ -278,8 +287,8 @@ namespace HappyGardenConsoleVSU
                     series6.pointValues.SetList(smallLife);
                    series7.pointValues.SetList(humusQuality);
                     series8.pointValues.SetList(nitrogen);
-                    series9.pointValues.SetList(organicMatter);  /*  */
-                }
+                    series9.pointValues.SetList(organicMatter);  
+                }*/
 
 
 
@@ -293,16 +302,16 @@ namespace HappyGardenConsoleVSU
         {
             Debug.Log("Her forandrer jeg fra et spot til et annet");
 
-            if (spot00)
-            {
-                thisSpot = zpots[0, 0];
-                Debug.Log("Jordflekk (0,0), dvs zpots[0,0]");
-            }
-            else if (spot01)
-            {
-                thisSpot = zpots[0, 1];
-                Debug.Log("Jordflekk (0,1), dvs zpots[0,1]");
-            }
+            //if (spot00)
+            //{
+            //    thisSpot = zpots[0, 0];
+            //    Debug.Log("Jordflekk (0,0), dvs zpots[0,0]");
+            //}
+            //else if (spot01)
+            //{
+            //    thisSpot = zpots[0, 1];
+            //    Debug.Log("Jordflekk (0,1), dvs zpots[0,1]");
+            //}
 
         }
 
@@ -376,6 +385,49 @@ namespace HappyGardenConsoleVSU
                 chosenDay = value;
             }
         }
+
+
+        public static bool ShowE
+        {
+            get
+            {
+                return showE;
+            }
+            set
+            {
+                showE = value;
+            }
+        }
+
+
+        public static bool ShowW
+        {
+            get
+            {
+                return showW;
+            }
+            set
+            {
+                showW = value;
+            }
+        }
+
+
+
+
+        public static bool ShowP
+        {
+            get
+            {
+                return showP;
+            }
+            set
+            {
+                showP = value;
+            }
+        }
+
+
 
     }//class
 }//namespace
