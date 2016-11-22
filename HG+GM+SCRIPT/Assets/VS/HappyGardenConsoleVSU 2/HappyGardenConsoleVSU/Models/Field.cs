@@ -59,28 +59,28 @@ namespace HappyGardenConsoleVSU
         }
 
 
-        public void InitializeEarthType()
-        {
+        //public void InitializeEarthType()
+        //{
 
-            //jordbit = spots[0, 0];
-            //jordbit.Marked = true;
+        //    //jordbit = spots[0, 0];
+        //    //jordbit.Marked = true;
 
-            for (int i = 0; i < rows; i++)
-            {
+        //    for (int i = 0; i < rows; i++)
+        //    {
 
-                for (int j = 0; j < columns; j++)
-                {
+        //        for (int j = 0; j < columns; j++)
+        //        {
 
-                    Debug.Log("initierer spot (f,x,y)  " + Fieldnr + " , " + i + " , " + j);
+        //            Debug.Log("QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQqinitierer spot (f,x,y)  " + Fieldnr + " , " + i + " , " + j);
 
-                    jordbit = spots[i, j];
-                    jordbit.InitializeEarthType();
+        //            jordbit = spots[i, j];
+        //            jordbit.InitializeEarthType();
 
-                }
-            }
+        //        }
+        //    }
 
-            //spots[0, 0].Marked = true; //default avmerket felt, som alltid skal simuleres
-        }
+        //    //spots[0, 0].Marked = true; //default avmerket felt, som alltid skal simuleres
+        //}
 
 
         public void Update(int iterasj)
@@ -92,22 +92,12 @@ namespace HappyGardenConsoleVSU
             Debug.Log("############  Field "+ Fieldnr + " Update, iterasjon "+iterasjon+
                 "  ###########################################################");
 
-             bool updateAll = true;// hvis alle spot skal oppdateres
-            //oppdatere alle innebærer nesten 'frys'. ca 10 min
+             bool firstTime = true;// 
 
 
-            //for (int i = 0; i < rows; i++)
-            //{
-            //   for (int j = 0; j < columns; j++)
-            //    {
-            //       jordbit = spots[i, j];
-            //        Debug.Log("jordbit "+jordbit.SpotID+"    "+ "  .Marked="+jordbit.Marked);
-
-            //    } //alle som er trykket på
-            //}
 
 
-            if (updateAll)
+            if (firstTime)
             {
                 for (int i = 0; i < rows; i++)
                 {
@@ -121,10 +111,10 @@ namespace HappyGardenConsoleVSU
 
                         if (jordbit.Marked)
                         {
-                            //Debug.Log("oppdaterer spot (f,x,y)  "+Fieldnr+" , " + i + " , " + j);
+                            Debug.Log("oppdaterer spot (f,x,y)  "+Fieldnr+" , " + i + " , " + j);
                             jordbit.Update(iterasjon);
                         } //alle som er trykket på
-                        else Debug.Log("oppdagerer ikke " + jordbit.SpotID);                    }
+                   }
                 }
             }
             else
@@ -133,6 +123,7 @@ namespace HappyGardenConsoleVSU
                 Debug.Log("oppdaterer bare spot Initializer.SpotValgt.  " + Initializer.SpotValgt.SpotID);
 
                 //WMG_X_Tutor.ChosenSpot.Update(iterasjon);
+
                 Initializer.SpotValgt.Update(iterasjon);
             }
             

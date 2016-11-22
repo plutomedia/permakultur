@@ -1,4 +1,5 @@
 sceneSetups:
-- path: Assets/Farmscene097 selektiv oppdatering.unity
+- path: Assets/Farmscene099 toggleOK, update graphs over several simulations, tween
+    between.unity
   isLoaded: 1
   isActive: 1

@@ -112,14 +112,18 @@ namespace HappyGardenConsoleVSU
         }
 
 
-        public void InitializeEarthTypes()
-        {
-            gameFrame.InitializeEarthType();
-        }
+        //public void InitializeEarthTypes()
+        //{
+        //    gameFrame.InitializeEarthType();
+        //}
 
         public void UpdateMonth()
         {
-            
+            //problem. andre gangs update, så legges dataene til.
+            //kvikk-fiks? hva med å initalisere alt på nytt (bare jordverdiene)
+            //Dette kan gjøres fra Update i Spot, hvis det gjøres fx i iterasjon1
+
+            //dagenIdag = 1;
             graphUpdated = true;
             //dagenIdag = dagenidag;           
             //Weather vair = Weather.ThisDay;  //remninscenser fra tidligere versjon.

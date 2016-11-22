@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
 using System.Collections.Generic;
 using UnityEngine.UI;
 //using System.Time.realTimeSinceStartup;
 
+
+
 namespace HappyGardenConsoleVSU
 {
     public class Spot
     {
+        //time, day, iteration related
+        public bool firstSimulation;    //er false inntil det er gjort en simulering på denne spot allerede
         public int dagenIdag=0;
         public int tempDay=0; //for storing day value temporary. We have both
                             //iteration by the Simulate all prodecure and
@@ -17,19 +20,26 @@ namespace HappyGardenConsoleVSU
 
         public int fraDag=0;  //fra denne dag skal det simuleres. default er null
 
-        public List<Plant> planter;
-        //Flora2 flora2;
-        public Plant plant;
+        //Her opprettes vektorene. De skal initieres videre i 1)InitializeType   og 2)Update
+        Vector2 waterMMVec;
+        Vector2 airVec;
+        Vector2 organicMatterVec;
+        Vector2 smallLifeVec;
+        Vector2 humusQualityVec;
+        Vector2 nitrogenVec;
 
+
+
+        //kompost, næring og annet
         public bool mulch = false; //lagt på jorddekke av kompost
 
         //for the graph display we make vector-lists from some essential values
-        public  List<Vector2> waterMM = new List<Vector2>();
-        public  List<Vector2> air = new List<Vector2>();
-        public  List<Vector2> organicMatter = new List<Vector2>();
-        public  List<Vector2> smallLife = new List<Vector2>();
-        public  List<Vector2> humusQuality = new List<Vector2>();
-        public  List<Vector2> nitrogen = new List<Vector2>();
+        public  List<Vector2> waterMM;
+        public  List<Vector2> air;
+        public  List<Vector2> organicMatter;
+        public  List<Vector2> smallLife;
+        public  List<Vector2> humusQuality;
+        public  List<Vector2> nitrogen;
 
         public List<Vector2> sun = Weather.Sun; //denne hentes fra Weather.Sun
         public List<Vector2> rain = Weather.Rain; //denne hentes fra Weather.Rain
@@ -73,12 +83,15 @@ namespace HappyGardenConsoleVSU
                                         // disse vil bli simulert.
 
 
-        //Plant related
+        //Plant related (rydd opp i dette)
         Plant planten;
         double plantGrowth;
         private string plantName;
         private bool planted;
         public bool plantet;
+        public List<Plant> planter;
+        public Plant plant;
+
 
         //Macro næringsstoffer
         public double water_H2O;
@@ -93,48 +106,7 @@ namespace HappyGardenConsoleVSU
         public double nutr_Ph;
         public double nutr_S;
         public double nutr_Mg;
- /*  
-            //Micro næringsstoffer. I will not use this in this simulation.
-            public double min_Fe;
-            public double min_Mn;
-            public double min_Zn; //this list will be updated later.
-                public decimal min_B;
-            public double min_Cu;
-            public double min_Mo;
 
-
-
-            //Other Chemicals;
-            //public double min_Hg;
-            public double nutr_Pot;
-            public double nutr_Sulfur;
-
-            //To avoid labour at a later stage I create these 'superfluous' variables.
-            //Why? These variables will be a result of calculations and mathematics.
-            //this will be done in other classes at a later stage.
-            public double water;
-            public double valC; // 
-            public double valO; // 
-            public double valH;  // 
-            public double valN; // 
-            public double valK;  // 
-            public double valCa; // 
-            public double valPh;  // 
-            public double valS;  // 
-            public double valMg;  // 
-
-            public double valFe;    //
-            public double valMn;    //
-            public double valZn;    //
-             public decimal valB;    // kanskje jeg kan bruke decimal i stedet for double. fordeler?
-            public double valCu;    //
-            public double valMo;    //*/
-
-
-        //private int sunHours;   //These values are gathered from Environments via get set
-        ////private int Nedboer;
-        //private int LightHours;
-        //private int MeanTemp;
 
         float _water,  _luftverdi, _smallLife, _nitrogen, _air, _humusQuality, _organicMatter; //brukes for å holde jordlappens verdier
 
@@ -149,14 +121,18 @@ namespace HappyGardenConsoleVSU
 
         public Spot(int fnr, int vert, int hor, Text myTex)
         {
-            if ((hor == 0) && (vert == 0)) marked = true;
+
+
+
+            if ((hor == 0) && (vert == 0)) marked = true;//denne er kanskje overflødig
+            //lager en initiering i field
 
             vaer = Weather.ThisDay;
 
             //int tempDay;
             //tempDay = vaer.WhichDay;
-            
-           
+
+            firstSimulation = true; //blir satt til true i iteration1 i update. Brukt for å bruke spotobjekt.Set(new Vector2) i stedet for Add)
 
             //headingText = myTex; //overskrift arvet fra initialize via farm
             h_index = hor;
@@ -180,33 +156,7 @@ namespace HappyGardenConsoleVSU
 
 
 
-        public void InitializeEarthType()
-        {
-            //hensikt: for hver spot skal vi lage fulle Vector2 array (6 stk, 0-27 dager)
-            //siden vi kanskje skal utvide dagantallet i fremtiden, fyller vi ut litt ekstra (til 30)
-/*
-            for (int dag = 1; dag < 10; dag++)
-            {
-                waterMM.Add(new Vector2(dag, 10));
-                air.Add(new Vector2(dag, 20));
-                smallLife.Add(new Vector2(dag, 30));
-                humusQuality.Add(new Vector2(dag, 40));
-                nitrogen.Add(new Vector2(dag, 50));
-                organicMatter.Add(new Vector2(dag, 60));
-            }
 
-            for (int j = 0; j < 30; j++)
-            {
-                Debug.Log("\nwaterMM      " + waterMM[j] + "=" + (float)waterMM[j].y);
-                Debug.Log("air          " + air[j] + "=" + (float)air[j].y);
-                Debug.Log("smallLife    " + smallLife[j] + "=" + (float)smallLife[j].y);
-                Debug.Log("humusQuality " + humusQuality[j] + "=" + (float)humusQuality[j].y);
-                Debug.Log("nitrogen     " + nitrogen[j] + "=" + (float)nitrogen[j].y);
-                Debug.Log("organicMatter " + organicMatter[j] + "=" + (float)organicMatter[j].y);
-            }
-*/
-
-        }
 
 
 
@@ -258,6 +208,20 @@ namespace HappyGardenConsoleVSU
             // InitializeSpot vil bare legge til noen forskjeller som avhenger av andre faktorer
             // som ...
 
+            waterMMVec = new Vector2(0, 0);
+            airVec = new Vector2(0, 0);
+            organicMatterVec = new Vector2(0, 0);
+            smallLifeVec = new Vector2(0, 0);
+            humusQualityVec = new Vector2(0, 0);
+            nitrogenVec = new Vector2(0, 0);
+
+
+            waterMM = new List<Vector2>();
+            air = new List<Vector2>();
+            organicMatter = new List<Vector2>();
+            smallLife = new List<Vector2>();
+            humusQuality = new List<Vector2>();
+            nitrogen = new List<Vector2>();
 
 
             switch (jordType)
@@ -291,12 +255,34 @@ namespace HappyGardenConsoleVSU
 
                     //initialization for the graph-values
 
-                    waterMM.Add(new Vector2(0, _water*100));  //ganger med hundre pga grafen
-                    air.Add(new Vector2(0, (float)_air*100));
-                    smallLife.Add(new Vector2(0, _smallLife*100));
-                    humusQuality.Add(new Vector2(0, _humusQuality*100));
-                    nitrogen.Add(new Vector2(0, _nitrogen*100));
-                    organicMatter.Add(new Vector2(0,_organicMatter*100));
+                    //waterMM.Add(new Vector2(0, _water*100));  //ganger med hundre pga grafen
+                    //air.Add(new Vector2(0, (float)_air*100));
+                    //smallLife.Add(new Vector2(0, _smallLife*100));
+                    //humusQuality.Add(new Vector2(0, _humusQuality*100));
+                    //nitrogen.Add(new Vector2(0, _nitrogen*100));
+                    //organicMatter.Add(new Vector2(0,_organicMatter*100));
+
+
+                    //vektorene skal tilpasses. her initieres de med 'nye verdier'
+                    waterMMVec.Set      (0, _water * 100);
+                    airVec.Set          (0, (float)_air * 100);
+                    organicMatterVec.Set(0, _organicMatter * 100);
+                    smallLifeVec.Set    (0, _smallLife * 100);
+                    humusQualityVec.Set (0, _humusQuality * 100);
+                    nitrogenVec.Set     (0, _nitrogen * 100);
+
+
+                    waterMM.Add(waterMMVec);  //ganger med hundre pga grafen
+                    air.Add(airVec);
+                    smallLife.Add(smallLifeVec);
+                    humusQuality.Add(humusQualityVec);
+                    nitrogen.Add(nitrogenVec);
+                    organicMatter.Add(organicMatterVec);
+
+
+
+
+
 
                     break;
                 case "myrJord":
@@ -325,7 +311,7 @@ namespace HappyGardenConsoleVSU
             int c = waterMM.Count;
             for (int i = 0; i < c; i++)
             {
-                Debug.Log(i+": init : waterMM      " + waterMM[i] + " = " + (float)waterMM[i].y);
+                //Debug.Log(i+": init : waterMM      " + waterMM[i] + " = " + (float)waterMM[i].y);
             }
 
 
@@ -338,6 +324,8 @@ namespace HappyGardenConsoleVSU
             plantName = "Ubeplantet";
             planted = false;
             plantet = planted;
+
+            firstSimulation = true; //blir satt til true i iteration1 i update. Brukt for å bruke spotobjekt.Set(new Vector2) i stedet for Add)
         }
 
 
@@ -370,6 +358,15 @@ namespace HappyGardenConsoleVSU
 
         public void Update(int iterasjon)
         {
+            // tilfelle 1: første gang. Arrayene er initiert i [0,0]
+            // tilfelle 2: vi har kjørt en simulering fra før
+            // hvis det er tilfelle 2, må vi
+            // istedetfor å si thisspot.Add(new Vecor2) må vi si
+            // tømme hele fx waterMM og lage nye vektorer
+            // et tillegg: input så som plante, vanning etc lagres separat
+            // så verdier som er puttet på fra før blir bevart. Slik kan vi legge til flere og flere ting etterhvert
+            // bruker kanskje rainMM[0].Add rainMM.Set
+
             dagenIdag = Initializer.DagenIdag; //current day-index to be updated
 
             Debug.Log("\nDay "+dagenIdag+".  Iteration "+iterasjon+".  Update Spot "+spotID);
@@ -399,6 +396,48 @@ namespace HappyGardenConsoleVSU
             switch (iterasjon)
             {
                 case 1:
+                    //First thign first. If spot is freshly initialized and never updated. then go on and add. 
+                    // if not :
+                    //checking first whether it is freshly made
+                    //this has to be checked for all vectors? No, by checking one, you checking all ..(?)
+
+
+
+                    Debug.Log("Vector waterMM[dagenIdag="+dagenIdag+ "] . waterMM.Count= " + waterMM.Count+ "firstSimulation="+ firstSimulation);
+
+                    if ((dagenIdag == 1) && (waterMM.Count == 1))
+                    {
+                        if (firstSimulation) {
+                            Debug.Log("ALLER FØRSTE SIMULERING");
+                            //firstSimulation = false; settes false i iteration4
+                        }
+                        //else
+                        //{
+                        //    Debug.Log("IKKE FØRSTE SIMULERING. ADD ERSTATTES AV 'SET'");
+                        //    //nuller ut alle vektor2-arrayene som har å gjøre med jord
+
+                        //    InitializeType("muldjord");
+                        //}
+         
+                    }
+                    else if ((dagenIdag == 1) && (waterMM.Count > 26))
+                    {
+                        Debug.Log("IKKE FØRSTE SIMULERING. initializerer jorda på ny");
+                        InitializeType("muldjord");
+
+                        //planten: denne må plantes om igjen på samme sted.
+                        //den må initieres på nytt
+
+                    if (planted)
+                        {
+                            string plantenavn = planten.name_no;
+                            planten = new HappyGardenConsoleVSU.Plant(dagenIdag, plantenavn, 0,v_index,h_index);
+                            Debug.Log("initerte ny plante, planten");
+                            pHeight = new List<Vector2>();
+    }
+                    }
+
+
 
                     //String todayIs = vaer.Name;  //debugging purpose
                     double absorbtion = 0;
@@ -518,15 +557,8 @@ namespace HappyGardenConsoleVSU
 
                     Debug.Log("waterValueBeforeSun "+waterValueBeforeSun);
                     Debug.Log("soltimer " + soltimer);
-
                     Debug.Log("Water_H2O før regnvannsberegning:  " +oldWatervalue+    " ETTER regnvannberegning: "+water_H2O+ "  rainmm: "+rainmm) ;
-
                     double tempWater = water_H2O;
-
-
-
-
-
 
 
                     //Sun will dry the earth.
@@ -788,31 +820,69 @@ namespace HappyGardenConsoleVSU
 
 
                     break;
+
+
+
+
+
+
+
                 case 4:
-                    //Debug.Log("Iteration 4: Calculating new equilibrum. Not implemented");
-                    //problem How to put the plant into the simulation?
-                    //Update plant from where - from spot??
 
+               
+                   // dagenIdag = Initializer.DagenIdag; //current day-index to be updated
 
+                    Debug.Log("\n[iterasjon "+iterasjon+"] Day " + dagenIdag + ".  Update Spot " + spotID);
 
+/*
+                    if (waterMM[dagenIdag] == null)
+                    {
+                        Debug.Log("Vector waterMM[dagenIdag] peker på null "+ waterMM[dagenIdag]);
+                    }
+                    else
+                    {
+                        Debug.Log("dagenIDag="+dagenIdag+" (første index er 1, finner data fra (dagenIDag-1)");
 
-                    // The last thing we do is to update the day
+                        Debug.Log("Vector  waterMM[" + 0 + "] har verdi allerede=" + waterMM[0]);
+                        Debug.Log("Vector  waterMM[" + 1 + "] har verdi allerede=" + waterMM[1]);
+                        Debug.Log("Vector  waterMM[" + 2 + "] har verdi allerede=" + waterMM[2]);
 
-
-
-
-
-
-
-
-
+                    }
+*/
 
                     //OG TIL SIST, I SISTE ITERASJON. VI PUSHER OPP NY VECTOR2, DETTE SKAL IKKE GJØRES UNDERVEIS. 
                     //UNDERVEIS OPPDATERES BARE DE MIDLERTIDIGE, LOKALE VARIABLE
 
+                    //if (firstSimulation)
+                    //{
+                    //    //Vector2 lokalvektor = waterMMVec;   // add og modifiser eventuelt denne her
+                    //    waterMMVec.Set(dagenIdag, _water * 100);
+                    //    Debug.Log("waterMMVec  "+waterMMVec);
 
-                    waterMM.Add(new Vector2(dagenIdag, (float)water_H2O * 100));
-                    Debug.Log("waterMM[dagenIdag].y     " + waterMM[dagenIdag].y + ",    waterMM[dagenIdag-1]  " + waterMM[dagenIdag - 1].y);
+                    //    waterMM.Add(waterMMVec);
+                    //}
+                    //else
+                    {
+                    //    Debug.Log("bytter verdier. dagenIdag=" + dagenIdag + " waterMMVec " + waterMMVec+"waterMM.Count =" +waterMM.Count);
+                    //    waterMMVec.Set(dagenIdag, _water * 100);
+                    //    waterMM.RemoveAt(dagenIdag);
+                    //    waterMM.Add(waterMMVec);
+
+
+                    }
+
+                    //Debug.Log(",    waterMM[dagenIdag-1]  " + waterMM[dagenIdag - 1].y);
+
+                    //Debug.Log("waterMM[dagenIdag].y     " + waterMM[dagenIdag].y );
+
+                    waterMMVec.Set(dagenIdag, (float)water_H2O*100);
+                    waterMM.Add(waterMMVec);
+
+                    Debug.Log("waterMM"); printVector(waterMM, 100);
+
+
+
+
 
                     break;
                 default:

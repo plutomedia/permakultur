@@ -27,10 +27,10 @@ namespace HappyGardenConsoleVSU
         }// public GameFrame Constructor
 
 
-        public void InitializeEarthType()
-        {
-            game.InitializeEarthType();
-        }
+        //public void InitializeEarthType()
+        //{
+        //    game.InitializeEarthType();
+        //}
 
 
         public void Oppdater(int iterasj)

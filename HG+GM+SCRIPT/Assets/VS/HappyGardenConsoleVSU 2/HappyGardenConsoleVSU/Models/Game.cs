@@ -23,10 +23,10 @@ namespace HappyGardenConsoleVSU
             flora = new Flora();
         }
 
-        public void InitializeEarthType()
-        {
-            farmen.InitializeEarthType();
-        }
+        //public void InitializeEarthType()
+        //{
+        //    farmen.InitializeEarthType();
+        //}
 
 
 

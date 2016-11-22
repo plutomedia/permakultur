@@ -39,15 +39,15 @@ namespace HappyGardenConsoleVSU
         }
 
 
-        public void InitializeEarthType()
-        {
-            //foreach (Field tg in fields)
-            //{
-            //    tg.InitializeEarthType();
-            //}
+        //public void InitializeEarthType()
+        //{
+        //    //foreach (Field tg in fields)
+        //    //{
+        //    //    tg.InitializeEarthType();
+        //    //}
 
-            muldTeig.InitializeEarthType();
-        }
+        //    muldTeig.InitializeEarthType();
+        //}
 
 
         public void Update(int iterasj)

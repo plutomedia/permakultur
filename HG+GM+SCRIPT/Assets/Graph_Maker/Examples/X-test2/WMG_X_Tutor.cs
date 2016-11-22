@@ -223,19 +223,19 @@ namespace HappyGardenConsoleVSU
                     series1.pointValues.SetList(waterMM); //series1.pointValues.SetList(data);
                     series2.pointValues.SetList(soltimer);
                     series3.pointValues.SetList(waterData);
-                    series4.pointValues.SetList(empty);
+                /*    series4.pointValues.SetList(empty);
                     series5.pointValues.SetList(empty); 
                     series6.pointValues.SetList(empty);
                     series7.pointValues.SetList(empty);
                     series8.pointValues.SetList(empty);
-                    series9.pointValues.SetList(empty);
+                    series9.pointValues.SetList(empty);*/
                 }
 
             if (showE)
                 {
-                    series1.pointValues.SetList(empty); //series1.pointValues.SetList(data);
+              /*      series1.pointValues.SetList(empty); //series1.pointValues.SetList(data);
                     series2.pointValues.SetList(empty);
-                    series3.pointValues.SetList(empty);
+                    series3.pointValues.SetList(empty);*/
                     series4.pointValues.SetList(air); //her settes tilfeldige verdier serie en
                     series5.pointValues.SetList(empty);     //plantehøyde
                     series6.pointValues.SetList(smallLife);
@@ -246,17 +246,19 @@ namespace HappyGardenConsoleVSU
 
             if (showP)
                 {
-                    Debug.Log("vise plantegraf");
-                    series1.pointValues.SetList(empty); //series1.pointValues.SetList(data);
-                    series2.pointValues.SetList(empty);
-                    series3.pointValues.SetList(empty);
+                series5.pointValues.SetList(plantHeight);
 
-                    series4.pointValues.SetList(empty);
-                    series5.pointValues.SetList(plantHeight);
-                    series6.pointValues.SetList(empty);
-                    series7.pointValues.SetList(empty);
-                    series8.pointValues.SetList(empty);
-                    series9.pointValues.SetList(empty);  /*  */
+                /*      Debug.Log("vise plantegraf");
+                      series1.pointValues.SetList(empty); //series1.pointValues.SetList(data);
+                      series2.pointValues.SetList(empty);
+                      series3.pointValues.SetList(empty);
+
+                      series4.pointValues.SetList(empty);
+                      series5.pointValues.SetList(plantHeight);
+                      series6.pointValues.SetList(empty);
+                      series7.pointValues.SetList(empty);
+                      series8.pointValues.SetList(empty);
+                      series9.pointValues.SetList(empty);  '  */
 
             }
             if ((showE==false)&&(showW==false)&&(showP==false)) 
