@@ -46,7 +46,8 @@ namespace HappyGardenConsoleVSU
 
         public List<Vector2> temp = new List<Vector2>();
 
-        public List<Vector2> pHeight = new List<Vector2>(); //hver spot har en slik liste. den er tom inntil vi skaper en plante
+        //planterelatert
+        public List<Vector2> pHeight; //hver spot har en slik liste. den er tom inntil vi skaper en plante
         //når planten lages, initieres listen med 0,0 verdier inntil dayPlanted hvis nødvendig. prøv:[6,0][7,2][8,4][9,5][10,8][11,10]
 
 
@@ -84,11 +85,13 @@ namespace HappyGardenConsoleVSU
 
 
         //Plant related (rydd opp i dette)
-        Plant planten;
+        private Plant planten;
         double plantGrowth;
         private string plantName;
+
         private bool planted;
-        public bool plantet;
+ 
+
         public List<Plant> planter;
         public Plant plant;
 
@@ -323,7 +326,7 @@ namespace HappyGardenConsoleVSU
             //Default is not planted. Plant Name is 'ubeplantet'
             plantName = "Ubeplantet";
             planted = false;
-            plantet = planted;
+            
 
             firstSimulation = true; //blir satt til true i iteration1 i update. Brukt for å bruke spotobjekt.Set(new Vector2) i stedet for Add)
         }
@@ -374,7 +377,7 @@ namespace HappyGardenConsoleVSU
             int dagslystimer;
 
             //This is the same for every iteration. 4 iterations each day/period
-            plantet = this.Planted;
+           
            // Weather vaer = Weather.ThisDay;
 
             fraDag = Initializer.DagValgt;
@@ -428,7 +431,7 @@ namespace HappyGardenConsoleVSU
                         //planten: denne må plantes om igjen på samme sted.
                         //den må initieres på nytt
 
-                    if (planted)
+                    if (false)
                         {
                             string plantenavn = planten.name_no;
                             planten = new HappyGardenConsoleVSU.Plant(dagenIdag, plantenavn, 0,v_index,h_index);
@@ -711,7 +714,7 @@ namespace HappyGardenConsoleVSU
 
 
 
-                    if (plantet == false) break;
+                    if (planted == false) break;
                     Debug.Log("plantet er true, regner ut spot og plante-influens");
 
                     Debug.Log("[iterasjon 3] Plante. soltimer " + soltimer + ".  Planted=" + planted + "   Plantehøyde    " + planten.Height);
@@ -735,7 +738,7 @@ namespace HappyGardenConsoleVSU
                         String ut2 = String.Format("spot ({0},{1}) {2}. is  no a late {2}. It died by heat and lack of water.", h_index, v_index, planten.name_no);
                         
                         Debug.Log(ut2);
-                        planten = null;
+                        //planten = null;
 
                         break;
                     }
@@ -878,7 +881,7 @@ namespace HappyGardenConsoleVSU
                     waterMMVec.Set(dagenIdag, (float)water_H2O*100);
                     waterMM.Add(waterMMVec);
 
-                    Debug.Log("waterMM"); printVector(waterMM, 100);
+                    //Debug.Log("waterMM"); printVector(waterMM, 100);
 
 
 
@@ -1141,7 +1144,9 @@ namespace HappyGardenConsoleVSU
         public void Plant(string namn, int fieldNr, int spotX, int spotY)
         {
             plantName = namn;
-            Debug.Log(" HER PLANTES PLANTEN: " + namn);
+            pHeight = new List<Vector2>();
+
+            Debug.Log(" Spot: HER PLANTES PLANTEN: "+spotX+","+spotY+"  " + namn);
             //Debug.Log("Spot, Plant-funksjonen fieldnr/spotx/spoty  "+fieldNr + spotX + spotY);
 
             // enten lages planten og tilordnes herfra, eller så gjøres det før iterasjonen fra kontrolleren
@@ -1153,16 +1158,10 @@ namespace HappyGardenConsoleVSU
             //planteparametre kan kreeres her:
             //pHeight.Add(new Vector2(fraDag, 0f)); //fraDag er dagen som er valgt, når planten settes
 
+            pHeight.Add(new Vector2(Initializer.DagValgt, 0));
 
 
 
-
-  ////        Plant[] plantane = flora2.planter;
-  ///          Debug.Log("lager plante: " + plantane[6].name_no);
-
-            //Debug.Log("etter at planten er opprettet. planted=" + planted);
-            //alternative: når planten lages, så får den informasjon om hvor den er plantet.
-            //
         }
 
 
@@ -1289,8 +1288,20 @@ namespace HappyGardenConsoleVSU
         }
 
 
+        public Plant Planten
+        {
+            get
+            {
+                return planten;
+            }
+            set
+            {
+                planten = value;
+            }
+        }
 
-        public  bool Marked
+
+        public bool Marked
         {
             get
             {
@@ -1301,7 +1312,5 @@ namespace HappyGardenConsoleVSU
                 marked = value;
             }
         }
-
-
     }//class Spot
 }

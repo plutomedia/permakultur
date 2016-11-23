@@ -166,18 +166,28 @@ namespace HappyGardenConsoleVSU
             //og suge ut ting og tang fra jorden - eventuelt gi tilbake
 
             // height += 2; //2 cm hver oppdatering
+
+
             Debug.Log("plant.update: plantehelse:" + health);
-            if (health < 3)
+
+            if ((health < 3)&&(dead!=true))
             {
                 Debug.Log("The plant dies soon. Give water and prey.");
+
+                if (health < 1)
+                {
+                    Debug.Log("Planten døde.");
+                    dead = true;
+                } 
+
             }
-            else if (health<1)
-            {
-                Debug.Log("Planten døde.");
-                dead = true;
-            }
+        
            
-           if (height < maxHeight)
+            if (dead)
+            {
+                height = 5; //når planten dør, blir den fem centimeter. For å unngå forvirring...
+            }
+            else if (height < maxHeight)
             {
 
                 if (height < maxHeight * 0.6)

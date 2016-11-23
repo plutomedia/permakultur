@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Farmscene100 graf ok igjen.unity
+- path: Assets/Farmscene101.unity
   isLoaded: 1
   isActive: 1

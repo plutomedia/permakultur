@@ -116,6 +116,7 @@ public class trig_boxes : MonoBehaviour {
         Debug.Log("humusQuality antall " + Initializer.SpotValgt.humusQuality.Count);
         Debug.Log("nitrogen antall " + Initializer.SpotValgt.nitrogen.Count);
         Debug.Log("organicMatter antall " + Initializer.SpotValgt.organicMatter.Count);
+        Debug.Log("pHeight antall " + Initializer.SpotValgt.pHeight.Count);
 
         //sjekker om denne spot har noe data i det hele tatt.
 

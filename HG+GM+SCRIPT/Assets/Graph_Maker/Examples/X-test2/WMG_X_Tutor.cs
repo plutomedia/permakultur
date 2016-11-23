@@ -180,7 +180,7 @@ namespace HappyGardenConsoleVSU
         public void Oppdater()
         {
            
-            Debug.Log("GRAF OPPDATERING. spot: " + Initializer.SpotValgt.SpotID);
+            Debug.Log("\nGRAF OPPDATERING. spot: " + Initializer.SpotValgt.SpotID);
 
             List<string> groups = new List<string>();
             List<Vector2> empty = new List<Vector2>();

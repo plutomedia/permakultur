@@ -151,6 +151,7 @@ namespace HappyGardenConsoleVSU
             //Debug.Log("Plant. Field. Plant funksjonen");
 
             //spots[spotX,spotY] er aktuell 'Spot'. Kaller på dennes Plant-funksjon
+
             spots[spotX, spotY].Plant(namn, fieldNr, spotX, spotY);
 
             //for (int i = 0; i < 3; i++)
