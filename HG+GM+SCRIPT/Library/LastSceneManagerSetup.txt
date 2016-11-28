@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Farmscene102 problem med andre simulering og gamle grafer.unity
+- path: Assets/Farmscene103 samme problem, men forandret hoyden.unity
   isLoaded: 1
   isActive: 1

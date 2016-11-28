@@ -61,7 +61,7 @@ namespace HappyGardenConsoleVSU
             //}
 
             //fields[0].Update(iterasjon);
-
+            Debug.Log("farm.update  muldteig= " + muldTeig);
             muldTeig.Update(iterasjon);
         }
 

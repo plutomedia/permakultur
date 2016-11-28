@@ -202,7 +202,7 @@ namespace HappyGardenConsoleVSU
 
             Debug.Log("watermm antall " + waterMM.Count);
             Debug.Log("air antall " + air.Count);
-            Debug.Log("plant height antall " + plantHeight.Count);
+            if (plantHeight!=null)Debug.Log("plant height antall " + plantHeight.Count);
             Debug.Log("smallLife antall " + smallLife.Count);
             Debug.Log("humusQuality antall " + humusQuality.Count);
             Debug.Log("nitrogen antall " + nitrogen.Count);
@@ -217,6 +217,13 @@ namespace HappyGardenConsoleVSU
             series7.pointValues.SetList(empty);
             series8.pointValues.SetList(empty);
             series9.pointValues.SetList(empty);
+
+            Debug.Log("Initializer.SimNumber:   " + Initializer.SimNumber);
+            if (Initializer.SimNumber == 0)
+            {
+                Debug.Log("Ikke graf før simulering");
+            }
+            else
 
             if (showW)
                 {

@@ -384,12 +384,12 @@ namespace HappyGardenConsoleVSU
 
 Debug.Log("D E T T E   E R   S I M U L E R I N G   N R   " + Initializer.SimNumber);
 
-                    Debug.Log("Vector waterMM[dagenIdag="+dagenIdag+ "] . waterMM.Count= " + waterMM.Count+ "firstSimulation="+ firstSimulation);
+                    Debug.Log("Vector waterMM[dagenIdag="+dagenIdag+ "] . waterMM.Count= " + waterMM.Count+ " firstSimulation= "+ firstSimulation);
 
 
 
                     //denne if statementet holder ikke mål. bruker en Initializer.SimNumber i stedet
-
+/*
                     if ((dagenIdag == 1) && (waterMM.Count == 1))
                     {
                         if (firstSimulation) {
@@ -417,16 +417,16 @@ Debug.Log("D E T T E   E R   S I M U L E R I N G   N R   " + Initializer.SimNumb
                         //        Debug.Log("initerte ny plante, planten");
                         //        pHeight = new List<Vector2>();      
                     }
-
+*/
 /*prøv ut noe ala. Det over holder ikke mål. skriv tydelig og entydig kode rundt dette problemet
  * vi skal bruke samme metode i forbindelse med tillegg av andre faktorer til jorda.
  * men i denne iterasjon: vann, næringsstoff, og kanskje mulch (jorddekke fra kompost)
- * 
+ * */
                     if (Initializer.SimNumber==1)
                     {
                         Debug.Log("ALLER FØRSTE SIMULERING");             
                     }
-                    else if ((dagenIdag == 1) && (pHeight.Count > 1))
+                    else if ((dagenIdag == 1) && (planted))
                     {
                         Debug.Log("IKKE FØRSTE SIMULERING. Det finnes en plante. initializerer jorda på ny");
                         InitializeType("muldjord");
@@ -437,7 +437,7 @@ Debug.Log("D E T T E   E R   S I M U L E R I N G   N R   " + Initializer.SimNumb
                         }
                     }
 
-*/
+
 
                     //String todayIs = vaer.Name;  //debugging purpose
                     double absorbtion = 0;

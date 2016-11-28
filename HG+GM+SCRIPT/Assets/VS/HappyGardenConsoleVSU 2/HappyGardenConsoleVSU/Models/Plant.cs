@@ -185,7 +185,7 @@ namespace HappyGardenConsoleVSU
            
             if (dead)
             {
-                height = 5; //når planten dør, blir den fem centimeter. For å unngå forvirring...
+                height = 0; //når planten dør, blir den null centimeter. For å unngå forvirring...
             }
             else if (height < maxHeight)
             {

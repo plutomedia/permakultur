@@ -116,6 +116,7 @@ public class trig_boxes : MonoBehaviour {
         Debug.Log("humusQuality antall " + Initializer.SpotValgt.humusQuality.Count);
         Debug.Log("nitrogen antall " + Initializer.SpotValgt.nitrogen.Count);
         Debug.Log("organicMatter antall " + Initializer.SpotValgt.organicMatter.Count);
+        if (Initializer.SpotValgt.pHeight == null) { } else
         Debug.Log("pHeight antall " + Initializer.SpotValgt.pHeight.Count);
 
         //sjekker om denne spot har noe data i det hele tatt.
@@ -124,11 +125,12 @@ public class trig_boxes : MonoBehaviour {
 
         spotstring = System.String.Format("({0},{1})", choseSpot.v_index, choseSpot.h_index);
         myText.text = spotstring;
-        Debug.Log(">>>>>>spotstring>>>>>>>>>  "+spotstring);
+       
+        //Debug.Log(">>>>>>spotstring>>>>>>>>>  "+spotstring);
         v = choseSpot.v_index;
         h = choseSpot.h_index;
         nytekst = String.Format("({0},{1})", v, h);
-
+        
 
     }
 

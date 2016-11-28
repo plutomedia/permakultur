@@ -136,7 +136,7 @@ namespace HappyGardenConsoleVSU
             int timeSpan = 28;//ellers28
             for (int day = 1; day < timeSpan; day ++)
             {
-                //IMPOPRTANT: FIRST DAY ALREADY INITIALIZED
+                //IMPORTANT: FIRST DAY ALREADY INITIALIZED
                 // WHEN UPDATING EACH DAY, REMEMBER TO USE THE WEATHER OF PREVIOUS DAY
                 // -> check 'Oppdater()' og tilordninger
 
