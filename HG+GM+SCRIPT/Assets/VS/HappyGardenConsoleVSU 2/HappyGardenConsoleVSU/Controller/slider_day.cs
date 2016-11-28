@@ -20,7 +20,7 @@ public class slider_day : MonoBehaviour {
         tekst.text = dagnr.ToString();
         showDayText.text = tekst.text;
 
-        WMG_X_Tutor.ChosenDay=dagnr;//ta dette bort når det under funker. prøv ikke å lagre i wmg...
+        Graf.ChosenDay=dagnr;//ta dette bort når det under funker. prøv ikke å lagre i wmg...
         Initializer.dagValgt=dagnr;
 
         //Debug.Log(" dagnr.ToString()=" + dagnr.ToString());

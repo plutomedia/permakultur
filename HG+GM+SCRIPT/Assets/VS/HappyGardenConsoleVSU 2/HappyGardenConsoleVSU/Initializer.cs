@@ -32,8 +32,9 @@ namespace HappyGardenConsoleVSU
         Weather vaer;
 
         public static int dagenIdag, dagValgt;  //dagen som det skal simuleres fra. dvs input som fx vanning og kalking og planting
-        public WMG_X_Tutor wmgTut;
+        public Graf wmgTut;
 
+        public static int simNumber;
 
 
         void Start()
@@ -48,6 +49,7 @@ namespace HappyGardenConsoleVSU
             //startverdier for get-set
             dagValgt = 0; //DVS dag 0
             spotValgt = Field.Spots[0, 0];//blir oppdatert hvis spot-array-boksene velges
+            simNumber = 0;//oppdateres til 1 før første Simulering
         }
 
 
@@ -119,12 +121,15 @@ namespace HappyGardenConsoleVSU
 
         public void UpdateMonth()
         {
+            simNumber += 1; //holder rede på hvilken simulering vi har
+
+            Debug.Log("Debug.Log Simulation number. simNunber=" + simNumber);
             //problem. andre gangs update, så legges dataene til.
             //kvikk-fiks? hva med å initalisere alt på nytt (bare jordverdiene)
             //Dette kan gjøres fra Update i Spot, hvis det gjøres fx i iterasjon1
 
             //dagenIdag = 1;
-            graphUpdated = true;
+            graphUpdated = true; //denne blir obsolete og litt for diffus
             //dagenIdag = dagenidag;           
             //Weather vair = Weather.ThisDay;  //remninscenser fra tidligere versjon.
 
@@ -209,6 +214,18 @@ namespace HappyGardenConsoleVSU
             set
             {
                 spotValgt = value;
+            }
+        }
+
+        public static int SimNumber
+        {
+            get
+            {
+                return simNumber;
+            }
+            set
+            {
+                simNumber = value;
             }
         }
 

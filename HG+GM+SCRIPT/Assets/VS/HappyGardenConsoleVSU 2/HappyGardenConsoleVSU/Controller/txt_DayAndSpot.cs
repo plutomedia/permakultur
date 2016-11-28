@@ -8,7 +8,7 @@ public class txt_DayAndSpot : MonoBehaviour {
 
     public String spotChosen;
     //public Text dayChosen;
-    //public Spot chosenSpot= WMG_X_Tutor.chosenSpot;
+    //public Spot chosenSpot= Graf.chosenSpot;
    // public Text spotChosenTXT;
     private Spot previousSpot, thisSpot;
 
@@ -29,7 +29,7 @@ public class txt_DayAndSpot : MonoBehaviour {
     void Update()
     {
         previousSpot = thisSpot;
-        thisSpot = WMG_X_Tutor.ChosenSpot;
+        thisSpot = Graf.ChosenSpot;
 
         //Text temp = tekstfeltet.GetComponent<Text>();
         //Debug.Log("tekstfeltet  " + temp);

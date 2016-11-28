@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Farmscene101.unity
+- path: Assets/Farmscene102 problem med andre simulering og gamle grafer.unity
   isLoaded: 1
   isActive: 1

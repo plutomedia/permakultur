@@ -11,13 +11,13 @@ public class tog_Plant : MonoBehaviour
     void Start()
     {
         ison = false;
-        WMG_X_Tutor.ShowP = ison;
+        Graf.ShowP = ison;
     }
 
     public void toggleChanged()
     {
         if (ison) ison = false; else ison = true;
-        WMG_X_Tutor.ShowP = ison;
+        Graf.ShowP = ison;
         Debug.Log("plant "+ison);
     }
 

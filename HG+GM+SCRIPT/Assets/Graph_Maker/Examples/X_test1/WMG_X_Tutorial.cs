@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class WMG_X_Tutorial : MonoBehaviour {
+public class Grafial : MonoBehaviour {
 
     public GameObject denneGraf;
 

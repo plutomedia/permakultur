@@ -47,7 +47,7 @@ namespace HappyGardenConsoleVSU
         public List<Vector2> temp = new List<Vector2>();
 
         //planterelatert
-        public List<Vector2> pHeight; //hver spot har en slik liste. den er tom inntil vi skaper en plante
+        public List<Vector2> pHeight=null; //hver spot har en slik liste. den er tom inntil vi skaper en plante
         //når planten lages, initieres listen med 0,0 verdier inntil dayPlanted hvis nødvendig. prøv:[6,0][7,2][8,4][9,5][10,8][11,10]
 
 
@@ -90,7 +90,7 @@ namespace HappyGardenConsoleVSU
         private string plantName;
 
         private bool planted;
- 
+        private bool fantesFraTidligere; //når vi simulerer et felt om igjen som allerede har en plante
 
         public List<Plant> planter;
         public Plant plant;
@@ -112,28 +112,18 @@ namespace HappyGardenConsoleVSU
 
 
         float _water,  _luftverdi, _smallLife, _nitrogen, _air, _humusQuality, _organicMatter; //brukes for å holde jordlappens verdier
-
         Weather vaer;
-        //the abundance of these minerals will decide the content of the same in the plants.
-        // good? explanation of effects on plants:
-        /* http://www.holganix.com/blog/bid/59536/
-         * The-Science-Behind-Holganix-The-6-Essential-Nutrients-for-Healthy-Plants
-        */
+
 
 
 
         public Spot(int fnr, int vert, int hor, Text myTex)
         {
 
-
-
             if ((hor == 0) && (vert == 0)) marked = true;//denne er kanskje overflødig
             //lager en initiering i field
 
             vaer = Weather.ThisDay;
-
-            //int tempDay;
-            //tempDay = vaer.WhichDay;
 
             firstSimulation = true; //blir satt til true i iteration1 i update. Brukt for å bruke spotobjekt.Set(new Vector2) i stedet for Add)
 
@@ -161,23 +151,8 @@ namespace HappyGardenConsoleVSU
 
 
 
-
-
-
-
         public void printVectors(int max)
         {
-            /*
-            Debug.Log("PRINTVECTORS, v_index= "+v_index+", h_index= "+h_index+ ",  day "+tempDay);
-
-            Debug.Log("tempday "+tempDay);
-
-            Debug.Log("waterMM      " +       waterMM[tempDay] +   "=" + (float)waterMM[tempDay].y);
-            Debug.Log("air          " +           air[tempDay] +   "=" + (float)air[tempDay].y);
-            Debug.Log("smallLife    " +     smallLife[tempDay] +   "=" + (float)smallLife[tempDay].y);
-            Debug.Log("humusQuality " +  humusQuality[tempDay] +   "=" + (float)humusQuality[tempDay].y);
-            Debug.Log("nitrogen     " +      nitrogen[tempDay] +   "=" + (float)nitrogen[tempDay].y);
-            Debug.Log("organicMatter " + organicMatter[tempDay] +   "=" + (float)organicMatter[tempDay].y);*/
 
             if (true)
             {
@@ -192,9 +167,7 @@ namespace HappyGardenConsoleVSU
                     Debug.Log("organicMatter " + organicMatter[j] + "=" + (float)organicMatter[j].y);*/
                 }
                 Debug.Log("\n");
-            }
-
-     
+            }   
         }
 
 
@@ -380,7 +353,7 @@ namespace HappyGardenConsoleVSU
            
            // Weather vaer = Weather.ThisDay;
 
-            fraDag = Initializer.DagValgt;
+            //fraDag = Initializer.DagValgt;
             //tempDay = Initializer.DagenIdag; //holde rede på index
 
            
@@ -394,7 +367,12 @@ namespace HappyGardenConsoleVSU
             Debug.Log("Soltimer. (int)Weather.Sun[dagenIdag-1].y:   "+ soltimer);
 
 
-            //printVectors(dagenIdag);
+            //POSSIBLE SOLUTION TO MAKE THIS STRAIT
+            // IF CASE: FIRST-TIME SIMULATION
+            // IF CASE: LATER TIME && EXISTING PLANT: RENEW AND RE-SIMULATE. FORGET THE OLD ONE
+            // 
+
+            
 
             switch (iterasjon)
             {
@@ -404,9 +382,13 @@ namespace HappyGardenConsoleVSU
                     //checking first whether it is freshly made
                     //this has to be checked for all vectors? No, by checking one, you checking all ..(?)
 
-
+Debug.Log("D E T T E   E R   S I M U L E R I N G   N R   " + Initializer.SimNumber);
 
                     Debug.Log("Vector waterMM[dagenIdag="+dagenIdag+ "] . waterMM.Count= " + waterMM.Count+ "firstSimulation="+ firstSimulation);
+
+
+
+                    //denne if statementet holder ikke mål. bruker en Initializer.SimNumber i stedet
 
                     if ((dagenIdag == 1) && (waterMM.Count == 1))
                     {
@@ -414,33 +396,48 @@ namespace HappyGardenConsoleVSU
                             Debug.Log("ALLER FØRSTE SIMULERING");
                             //firstSimulation = false; settes false i iteration4
                         }
-                        //else
-                        //{
-                        //    Debug.Log("IKKE FØRSTE SIMULERING. ADD ERSTATTES AV 'SET'");
-                        //    //nuller ut alle vektor2-arrayene som har å gjøre med jord
-
-                        //    InitializeType("muldjord");
-                        //}
-         
                     }
                     else if ((dagenIdag == 1) && (waterMM.Count > 26))
                     {
                         Debug.Log("IKKE FØRSTE SIMULERING. initializerer jorda på ny");
                         InitializeType("muldjord");
 
+                        if (planted)
+                        {
+                            Debug.Log("det er allerede plantet en plante her. La vektoren i fred");
+                            fantesFraTidligere = true; //brukes i Spot.Plant(); for å resette plante
+                            //det som må gjøres er å plante planten om igjen, så alt kan simuleres om igjen
+                        }
+
                         //planten: denne må plantes om igjen på samme sted.
                         //den må initieres på nytt
-
-                    if (false)
-                        {
-                            string plantenavn = planten.name_no;
-                            planten = new HappyGardenConsoleVSU.Plant(dagenIdag, plantenavn, 0,v_index,h_index);
-                            Debug.Log("initerte ny plante, planten");
-                            pHeight = new List<Vector2>();
-    }
+            
+                        //        string plantenavn = planten.name_no;
+                        //        planten = new HappyGardenConsoleVSU.Plant(dagenIdag, plantenavn, 0,v_index,h_index);
+                        //        Debug.Log("initerte ny plante, planten");
+                        //        pHeight = new List<Vector2>();      
                     }
 
+/*prøv ut noe ala. Det over holder ikke mål. skriv tydelig og entydig kode rundt dette problemet
+ * vi skal bruke samme metode i forbindelse med tillegg av andre faktorer til jorda.
+ * men i denne iterasjon: vann, næringsstoff, og kanskje mulch (jorddekke fra kompost)
+ * 
+                    if (Initializer.SimNumber==1)
+                    {
+                        Debug.Log("ALLER FØRSTE SIMULERING");             
+                    }
+                    else if ((dagenIdag == 1) && (pHeight.Count > 1))
+                    {
+                        Debug.Log("IKKE FØRSTE SIMULERING. Det finnes en plante. initializerer jorda på ny");
+                        InitializeType("muldjord");
+                        if (planted)
+                        {
+                            Debug.Log("det er allerede plantet en plante her. La vektoren i fred");
+                            fantesFraTidligere = true; //brukes i Spot.Plant(); for å resette plante
+                        }
+                    }
 
+*/
 
                     //String todayIs = vaer.Name;  //debugging purpose
                     double absorbtion = 0;
@@ -720,13 +717,13 @@ namespace HappyGardenConsoleVSU
                     Debug.Log("[iterasjon 3] Plante. soltimer " + soltimer + ".  Planted=" + planted + "   Plantehøyde    " + planten.Height);
 
 
-
-                    if (dagenIdag > fraDag)
+                    int plantePlantet = planten.dayPlanted;
+                    if (dagenIdag > plantePlantet)
                     {
                         Debug.Log("oppdaterer planten. dagenIdag=" + dagenIdag + ",  fraDag(plantet dag)=" + fraDag);
                         planten.Oppdater(this);
 
-                        pHeight.Add(new Vector2(dagenIdag, (float)planten.Height)); // fordi jeg bare vil prøve ut selve grafen
+                        pHeight.Add(new Vector2(dagenIdag, (float)planten.Height)); 
 
                     }
 
@@ -817,18 +814,11 @@ namespace HappyGardenConsoleVSU
                         water_H2O = water_H2O - waterNeedPlant;
                     }
 
-                    /*
-                    */
+
                     Debug.Log("[ETTER ITERASJON 3]:Water_H2O   " + (float)water_H2O);
 
 
                     break;
-
-
-
-
-
-
 
                 case 4:
 
@@ -1144,24 +1134,34 @@ namespace HappyGardenConsoleVSU
         public void Plant(string namn, int fieldNr, int spotX, int spotY)
         {
             plantName = namn;
-            pHeight = new List<Vector2>();
+            
 
-            Debug.Log(" Spot: HER PLANTES PLANTEN: "+spotX+","+spotY+"  " + namn);
-            //Debug.Log("Spot, Plant-funksjonen fieldnr/spotx/spoty  "+fieldNr + spotX + spotY);
+            if (planted==false)
+            {
+                //ingen plante plantet, i denne simuleringen eller i foregående
+                //Da resetter vi vektor-lista og lager en ny plante 
+                Debug.Log(" Spot: HER PLANTES PLANTEN: "+spotX+","+spotY+"  " + namn);
 
-            // enten lages planten og tilordnes herfra, eller så gjøres det før iterasjonen fra kontrolleren
-            // lager en peker til objektet
-
-            planted = true; //ikke så robust, må huske å forandre verdien hvis planten fjernes eller dør.
-            planten = new Plant(Initializer.DagValgt, plantName, fieldNr,spotX, spotY);
-
-            //planteparametre kan kreeres her:
-            //pHeight.Add(new Vector2(fraDag, 0f)); //fraDag er dagen som er valgt, når planten settes
-
-            pHeight.Add(new Vector2(Initializer.DagValgt, 0));
+                pHeight = null;
+                pHeight = new List<Vector2>();
+                planted = true; //ikke så robust, må huske å forandre verdien hvis planten fjernes eller dør.
+                planten = new Plant(Initializer.DagValgt, plantName, fieldNr,spotX, spotY);
 
 
+                pHeight.Add(new Vector2(Initializer.DagValgt, 0));
+            }
+            else if ((planted==true)&&(fantesFraTidligere == true))
+            {
+                // her finnes planten fra før
+                Debug.Log(" Spot: PLANTEN ER PLANTET I TIDLIGERE SIMULERING. FARE FOR DOBLING: " + spotX + "," + spotY + "  " + namn);
 
+                pHeight = null;
+                pHeight = new List<Vector2>();
+                planted = true; //ikke så robust, må huske å forandre verdien hvis planten fjernes eller dør.
+                planten = new Plant(Initializer.DagValgt, plantName, fieldNr, spotX, spotY);
+
+                pHeight.Add(new Vector2(Initializer.DagValgt, 0));
+            }
         }
 
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using HappyGardenConsoleVSU;
 
-public class WMG_X_Tutorial_1 : MonoBehaviour {
+public class Grafial_1 : MonoBehaviour {
 
 	public GameObject emptyGraphPrefab;
 	public WMG_Axis_Graph graph;

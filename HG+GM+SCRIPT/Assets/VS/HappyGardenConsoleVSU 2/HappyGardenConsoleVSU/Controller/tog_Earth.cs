@@ -12,14 +12,14 @@ public class tog_Earth : MonoBehaviour
     void Start()
     {
         ison = false;
-        WMG_X_Tutor.ShowE = ison;
+        Graf.ShowE = ison;
 
     }
 
     public void toggleChanged()
         {
         if (ison) ison = false; else ison = true;
-        WMG_X_Tutor.ShowE = ison;
+        Graf.ShowE = ison;
         Debug.Log("earth " + ison);
     }
 

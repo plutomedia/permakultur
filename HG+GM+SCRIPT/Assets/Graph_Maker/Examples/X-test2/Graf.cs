@@ -8,7 +8,7 @@ using System;
 
 namespace HappyGardenConsoleVSU
 {
-    public class WMG_X_Tutor : MonoBehaviour
+    public class Graf : MonoBehaviour
     {
         public GameObject ScriptContainer;   //containerValues
         public GameObject emptyGraphPrefab;

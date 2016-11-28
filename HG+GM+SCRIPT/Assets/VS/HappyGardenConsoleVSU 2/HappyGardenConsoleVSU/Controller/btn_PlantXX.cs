@@ -19,8 +19,8 @@ namespace HappyGardenConsoleVSU
 
 
             // 1 find day and spot chosen
-            //Spot valgtSpot = WMG_X_Tutor.ChosenSpot;
-            //int valgtDag = WMG_X_Tutor.ChosenDay;
+            //Spot valgtSpot = Graf.ChosenSpot;
+            //int valgtDag = Graf.ChosenDay;
 
             Spot valgtSpot = Initializer.SpotValgt;
             int valgtDag = Initializer.DagValgt;

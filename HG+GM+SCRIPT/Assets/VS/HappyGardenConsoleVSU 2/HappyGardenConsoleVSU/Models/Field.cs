@@ -54,7 +54,7 @@ namespace HappyGardenConsoleVSU
             }
 
             //default valgt verdi som kan oppdateres til wievet
-            WMG_X_Tutor.ChosenSpot = spots[0, 0];
+            Graf.ChosenSpot = spots[0, 0];
 
         }
 
@@ -92,41 +92,23 @@ namespace HappyGardenConsoleVSU
             Debug.Log("############  Field "+ Fieldnr + " Update, iterasjon "+iterasjon+
                 "  ###########################################################");
 
-             bool firstTime = true;// 
 
-
-
-
-            if (firstTime)
+            for (int i = 0; i < rows; i++)
             {
-                for (int i = 0; i < rows; i++)
-                {
                 
-                    for (int j = 0; j < columns; j++)
+                for (int j = 0; j < columns; j++)
+                {
+
+                    jordbit = spots[i, j];
+
+                    if (jordbit.Marked)
                     {
-
-
-
-                        jordbit = spots[i, j];
-
-                        if (jordbit.Marked)
-                        {
-                            Debug.Log("oppdaterer spot (f,x,y)  "+Fieldnr+" , " + i + " , " + j);
-                            jordbit.Update(iterasjon);
-                        } //alle som er trykket på
-                   }
-                }
-            }
-            else
-            {
-                //Debug.Log("oppdaterer bare spot WMG_X_Tutor.ChosenSpot.  " + WMG_X_Tutor.ChosenSpot.v_index+";" + WMG_X_Tutor.ChosenSpot.h_index);
-                Debug.Log("oppdaterer bare spot Initializer.SpotValgt.  " + Initializer.SpotValgt.SpotID);
-
-                //WMG_X_Tutor.ChosenSpot.Update(iterasjon);
-
-                Initializer.SpotValgt.Update(iterasjon);
-            }
-            
+                        Debug.Log("oppdaterer spot (f,x,y)  "+Fieldnr+" , " + i + " , " + j);
+                        jordbit.Update(iterasjon);
+                    } //alle som er trykket på
+                }//for j
+            }//for i
+      
         }
 
 

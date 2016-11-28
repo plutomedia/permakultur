@@ -12,14 +12,14 @@ public class tog_Weather : MonoBehaviour
     void Start()
     {
         ison = false;
-        WMG_X_Tutor.ShowW = ison;
+        Graf.ShowW = ison;
 
     }
 
     public void toggleChanged()
     {
         if (ison) ison = false; else ison = true;
-        WMG_X_Tutor.ShowW = ison;
+        Graf.ShowW = ison;
         Debug.Log("weather " + ison);
     }
 

@@ -25,9 +25,9 @@ public class trig_boxes : MonoBehaviour {
     void  Start()
     {
         myText = tekstfelt.GetComponent<Text>();
-        choseSpot = WMG_X_Tutor.ChosenSpot;
+        choseSpot = Graf.ChosenSpot;
 
-        //WMG_X_Tutor.chosenSpot = choseSpot;
+        //Graf.chosenSpot = choseSpot;
 
         spotstring = "0,0";
         myText.text = spotstring;
@@ -105,7 +105,7 @@ public class trig_boxes : MonoBehaviour {
 
         Debug.Log(">  "+choseSpot.v_index + "  " + choseSpot.h_index+"  ");
 
-       // WMG_X_Tutor.chosenSpot = choseSpot; //Jeg vil gå bort i fra WMG_X_Tutor som container for verdier
+       // Graf.chosenSpot = choseSpot; //Jeg vil gå bort i fra Graf som container for verdier
         //Initializer.SpotValgt = Field.Spots[v,h];
 
         Debug.Log("sjekker om verdier finnes i denne spot. Field.Spots[v,h]=" + Field.Spots[v, h].air.Count);
