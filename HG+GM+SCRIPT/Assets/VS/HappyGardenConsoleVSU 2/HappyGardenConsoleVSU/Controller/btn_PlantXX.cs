@@ -28,7 +28,7 @@ namespace HappyGardenConsoleVSU
             Debug.Log("Planter på dag " + valgtDag + " og på spot ( " + valgtSpot.v_index+" ,  "+valgtSpot.h_index+" )");
             Debug.Log("planting              ---------------------------------------------------");
 
-            initializer.Plant("Reddik", fieldnr, valgtSpot.v_index, valgtSpot.h_index);
+            initializer.Plant("reddik", fieldnr, valgtSpot.v_index, valgtSpot.h_index);
            /* initializer.Plant("Reddik",1, 2, 2);
             initializer.Plant("Reddik",1, 2, 1);
             initializer.Plant("Reddik",1, 2, 0);
@@ -43,6 +43,24 @@ namespace HappyGardenConsoleVSU
             initializer.Plant("Bønner", 0, 2, 1);
             initializer.Plant("Bønner", 0, 2, 0);
             initializer.Plant("Bønner", 0, 1, 2);*/
+
+        }
+
+        public void PlantPea()
+        {
+            int fieldnr = 0; // i denne versjon 0.1, har vi bare ett 'field' med 4x4 spot
+
+
+
+            Spot valgtSpot = Initializer.SpotValgt;
+            int valgtDag = Initializer.DagValgt;
+
+            Debug.Log("Planter på dag " + valgtDag + " og på spot ( " + valgtSpot.v_index + " ,  " + valgtSpot.h_index + " )");
+            Debug.Log("planting              ---------------------------------------------------");
+
+            //initializer.Plant("Pea", fieldnr, valgtSpot.v_index, valgtSpot.h_index);
+            initializer.Plant("pillErter", fieldnr, Initializer.SpotValgt.v_index, Initializer.SpotValgt.h_index);
+
 
         }
     }

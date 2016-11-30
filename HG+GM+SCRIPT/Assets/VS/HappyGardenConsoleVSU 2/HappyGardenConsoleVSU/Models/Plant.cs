@@ -44,8 +44,9 @@ namespace HappyGardenConsoleVSU
 
         bool dead = false;
 
+        string pillErter, reddik;
 
-        /// 
+
 
         int aromatic; int timeGrow;       //Spiringstid. Default er 1 inntil videre. Tid før frøet spirer.
         int timePlant;      //Tid spiren trenger for å være klar til å plantes. Minimumstid. Varierer med årstid og temp.
@@ -104,24 +105,52 @@ namespace HappyGardenConsoleVSU
            //// Debug.Log("Plant Model> " + name_no);
 
 
-
-
             initializeMe(name_no);
         }
+
 
         public Plant()
         {
             name_no = "noname";
         }
 
+
         private void initializeMe(string namn)
         {
-            //Debug.Log("initalisering av " + namn);
+            Debug.Log("initalisering av " + namn);
 
             name_eng = "Dummy-name";
             name_no = namn;
             name_lat = "Domio Nomino";
             dead = false;
+
+            if(name_no== pillErter)
+            {
+                bindsNitrogen=true;
+                consumeNitrogen = 0.01;// Hvis det er lite nitrogen, blir planten lidende. Les om virkningene
+                produceNitrogen = 0.05;
+                growthSpeed = 1;
+                maxHeight = 70;
+                consumeWater = 0.08;
+            }
+
+            if (name_no == reddik)
+            {
+                bindsNitrogen = false;
+                consumeNitrogen = 0.01;// Hvis det er lite nitrogen, blir planten lidende. Les om virkningene
+                produceNitrogen = 0.00;
+                maxHeight = 30;
+                consumeWater = 0.04;
+            }
+            else
+            {
+                bindsNitrogen = false;
+                consumeNitrogen = 0.01;// Hvis det er lite nitrogen, blir planten lidende. Les om virkningene
+                produceNitrogen = 0.00;
+                growthSpeed = 2.5;    //default average speed. It is modified whith the height. Close to max is slow, beginning is relatively slow.
+                maxHeight = 50;     //THIS IS FOR DEBUGGING REASONS ONLY. SHOULD BE INITIALIZED FROM JSON OR THE LIKE
+                consumeWater = 0.05;
+            }
 
             aromatic = 0; int timeGrow = 1;       //Spiringstid. Default er 1 inntil videre. Tid før frøet spirer.
             timePlant = 7;      //Tid spiren trenger for å være klar til å plantes. Minimumstid. Varierer med årstid og temp.
@@ -129,24 +158,15 @@ namespace HappyGardenConsoleVSU
             timeBlomst = 28;    //Tid relativt til spiring. Normal blomstringstid. 
             timeSeed = 35;      //Time relative to sprouting. Normal time seeds are ready       
             height = 0;
-            consumeNitrogen = 0.01;// Hvis det er lite nitrogen, blir planten lidende. Les om virkningene
-            consumeWater = 0.05;//testverdier. ikke reelt. dessuten er vannopptak avhengig av størrelse
-            // andre variable consume eller produce
-            produceNitrogen = 0.0;
-
-            growthSpeed = 2;    //default average speed. It is modified whith the height. Close to max is slow, beginning is relatively slow.
-            maxHeight = 50;     //THIS IS FOR DEBUGGING REASONS ONLY. SHOULD BE INITIALIZED FROM JSON OR THE LIKE
-
             health = 10;
-
-            if (produceNitrogen > 0) bindsNitrogen = true;
 
             string  planteutskrift;
 
             planteutskrift = string.Format("Plante {0}: ConsumeN {1}, ProduceN {2}, ConsumeWater {3}, Aromatic {4} ", name_no, consumeNitrogen, produceNitrogen, consumeWater, aromatic);
-           /// Debug.Log(planteutskrift);
+           Debug.Log(planteutskrift);
             //mySpot();
         }
+
 
         public void Oppdater(Spot myspot)
         {

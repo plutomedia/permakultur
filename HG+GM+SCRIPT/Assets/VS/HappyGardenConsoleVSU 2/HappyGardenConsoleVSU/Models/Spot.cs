@@ -114,6 +114,11 @@ namespace HappyGardenConsoleVSU
         float _water,  _luftverdi, _smallLife, _nitrogen, _air, _humusQuality, _organicMatter; //brukes for å holde jordlappens verdier
         Weather vaer;
 
+        float val_air;
+        float val_Nitrogen;
+        float val_OrgM;
+        float val_sLife;
+
 
 
 
@@ -154,17 +159,19 @@ namespace HappyGardenConsoleVSU
         public void printVectors(int max)
         {
 
+
             if (true)
             {
-                
-                for (int j = 0; j < max; j++)
+                int maxverdi = waterMM.Count;
+
+                for (int j = 0; j < maxverdi; j++)
                 {
                     Debug.Log("\nwaterMM      " + waterMM[j] + "=" + (float)waterMM[j].y);
-                   /* Debug.Log("air          " + air[j] + "=" + (float)air[j].y);
+                   Debug.Log("air          " + air[j] + "=" + (float)air[j].y);
                     Debug.Log("smallLife    " + smallLife[j] + "=" + (float)smallLife[j].y);
                     Debug.Log("humusQuality " + humusQuality[j] + "=" + (float)humusQuality[j].y);
                     Debug.Log("nitrogen     " + nitrogen[j] + "=" + (float)nitrogen[j].y);
-                    Debug.Log("organicMatter " + organicMatter[j] + "=" + (float)organicMatter[j].y);*/
+                    Debug.Log("organicMatter " + organicMatter[j] + "=" + (float)organicMatter[j].y);
                 }
                 Debug.Log("\n");
             }   
@@ -199,23 +206,34 @@ namespace HappyGardenConsoleVSU
             humusQuality = new List<Vector2>();
             nitrogen = new List<Vector2>();
 
-
+  /*
             switch (jordType)
             {
-                //Earth Life has to be dramatically simplified
+              
 
                 case "muldJord":
 
                     //This will be the main vector-lists with earth data
-                    _water = 0.25f;
-                    _air = 0.2f;
-                    _luftverdi = 0.23f;
-                    _smallLife = 0.09f;
-                    _nitrogen = 0.15f;
-                    _humusQuality = 0.5f;
-                    _organicMatter = 0.2f;
 
+                    val_air = 10;
+                    val_Nitrogen = 1;
+                    val_OrgM = 3;
+                    val_sLife = 3;
+
+
+
+                    _air            = val_air/20f;
+                    _nitrogen       = val_Nitrogen/5f;
+                    _organicMatter  = val_OrgM/25f;
+                    _smallLife      = val_sLife/15f;
+
+
+                    _water = 0.25f;
+                    _luftverdi = 0.23f;
                     water = _water;
+
+
+                    _humusQuality = (_air * 1 + _nitrogen * 2 + _organicMatter * 3 + _smallLife * 4) / (1 + 2 + 3 + 4);
 
                     //Debug.Log("beregnetNyvannverdi:" + water);
 
@@ -255,11 +273,6 @@ namespace HappyGardenConsoleVSU
                     nitrogen.Add(nitrogenVec);
                     organicMatter.Add(organicMatterVec);
 
-
-
-
-
-
                     break;
                 case "myrJord":
                     Debug.Log("Initialisering av jordverdier. Jordtype 'myrJord'");
@@ -290,8 +303,51 @@ namespace HappyGardenConsoleVSU
                 //Debug.Log(i+": init : waterMM      " + waterMM[i] + " = " + (float)waterMM[i].y);
             }
 
+            */
 
+
+            val_air = 10;
+            val_Nitrogen = 1;
+            val_OrgM = 3;
+            val_sLife = 3;
+
+
+
+            _air = val_air / 20f;
+            _nitrogen = val_Nitrogen / 5f;
+            _organicMatter = val_OrgM / 25f;
+            _smallLife = val_sLife / 15f;
+
+
+            _water = 0.25f;
+            _humusQuality = (_air * 1 + _nitrogen * 2 + _organicMatter * 3 + _smallLife * 4) / (1 + 2 + 3 + 4);
+
+
+            //vektorene skal tilpasses. her initieres de med 'nye verdier'
+            waterMMVec.Set(0, _water * 100);
+            airVec.Set(0, (float)_air * 100);
+            organicMatterVec.Set(0, _organicMatter * 100);
+            smallLifeVec.Set(0, _smallLife * 100);
+            humusQualityVec.Set(0, _humusQuality * 100);
+            nitrogenVec.Set(0, _nitrogen * 100);
+
+
+            waterMM.Add(waterMMVec);  //ganger med hundre pga grafen
+            air.Add(airVec);
+            smallLife.Add(smallLifeVec);
+            humusQuality.Add(humusQualityVec);
+            nitrogen.Add(nitrogenVec);
+            organicMatter.Add(organicMatterVec);
+
+
+            Debug.Log("\nHER ER VERDIENE I JORDA sist i InitalizeType.");
+            Debug.Log("Air " + _air + ", N " + _nitrogen + ", Org.matter " + _organicMatter + ". Small life " + _smallLife);
+            Debug.Log("val_air " + val_air + ", val_Nitrogen " + val_Nitrogen + ", val_OrgM " + val_OrgM + ". val_sLife " + val_sLife);
+            Debug.Log("HumusQuality: " + _humusQuality);
         }
+
+
+
 
 
         public void InitializeSpot()
@@ -351,11 +407,6 @@ namespace HappyGardenConsoleVSU
 
             //This is the same for every iteration. 4 iterations each day/period
            
-           // Weather vaer = Weather.ThisDay;
-
-            //fraDag = Initializer.DagValgt;
-            //tempDay = Initializer.DagenIdag; //holde rede på index
-
            
             soltimer        = (int)(Weather.Sun[dagenIdag-1].y/10); //soltimene er lagret x10. Og timene er heltall..
             rainmm          = (int)(Weather.Rain[dagenIdag - 1].y / 10);
@@ -370,7 +421,7 @@ namespace HappyGardenConsoleVSU
             //POSSIBLE SOLUTION TO MAKE THIS STRAIT
             // IF CASE: FIRST-TIME SIMULATION
             // IF CASE: LATER TIME && EXISTING PLANT: RENEW AND RE-SIMULATE. FORGET THE OLD ONE
-            // 
+            // THAT IS DONE IN ITERATION 1, AND ONLY ONCE FOR EACH OF THE NON-ENRITONMENTAL VECTORS
 
             
 
@@ -382,59 +433,51 @@ namespace HappyGardenConsoleVSU
                     //checking first whether it is freshly made
                     //this has to be checked for all vectors? No, by checking one, you checking all ..(?)
 
-Debug.Log("D E T T E   E R   S I M U L E R I N G   N R   " + Initializer.SimNumber);
+                    Debug.Log("D E T T E   E R   S I M U L E R I N G   N R   " + Initializer.SimNumber);
 
-                    Debug.Log("Vector waterMM[dagenIdag="+dagenIdag+ "] . waterMM.Count= " + waterMM.Count+ " firstSimulation= "+ firstSimulation);
+                    Debug.Log("Simulation nr " + Initializer.SimNumber + "Vector waterMM[dagenIdag="
+                        +dagenIdag+ "] . waterMM.Count= " + waterMM.Count+ " firstSimulation= "+ firstSimulation);
 
 
-
-                    //denne if statementet holder ikke mål. bruker en Initializer.SimNumber i stedet
-/*
-                    if ((dagenIdag == 1) && (waterMM.Count == 1))
+                    if (Initializer.SimNumber > 1)
                     {
-                        if (firstSimulation) {
-                            Debug.Log("ALLER FØRSTE SIMULERING");
-                            //firstSimulation = false; settes false i iteration4
-                        }
+                        firstSimulation = false;
                     }
-                    else if ((dagenIdag == 1) && (waterMM.Count > 26))
-                    {
-                        Debug.Log("IKKE FØRSTE SIMULERING. initializerer jorda på ny");
-                        InitializeType("muldjord");
 
-                        if (planted)
-                        {
-                            Debug.Log("det er allerede plantet en plante her. La vektoren i fred");
-                            fantesFraTidligere = true; //brukes i Spot.Plant(); for å resette plante
-                            //det som må gjøres er å plante planten om igjen, så alt kan simuleres om igjen
-                        }
-
-                        //planten: denne må plantes om igjen på samme sted.
-                        //den må initieres på nytt
-            
-                        //        string plantenavn = planten.name_no;
-                        //        planten = new HappyGardenConsoleVSU.Plant(dagenIdag, plantenavn, 0,v_index,h_index);
-                        //        Debug.Log("initerte ny plante, planten");
-                        //        pHeight = new List<Vector2>();      
-                    }
-*/
-/*prøv ut noe ala. Det over holder ikke mål. skriv tydelig og entydig kode rundt dette problemet
- * vi skal bruke samme metode i forbindelse med tillegg av andre faktorer til jorda.
- * men i denne iterasjon: vann, næringsstoff, og kanskje mulch (jorddekke fra kompost)
- * */
                     if (Initializer.SimNumber==1)
                     {
-                        Debug.Log("ALLER FØRSTE SIMULERING");             
+                        Debug.Log("ALLER FØRSTE SIMULERING");
+                        firstSimulation = true;             
                     }
-                    else if ((dagenIdag == 1) && (planted))
+                    else if ((dagenIdag == 1) && (Initializer.SimNumber > 1))
                     {
-                        Debug.Log("IKKE FØRSTE SIMULERING. Det finnes en plante. initializerer jorda på ny");
-                        InitializeType("muldjord");
+                        Debug.Log("IKKE FØRSTE SIMULERING. initializerer jorda på ny. muldjord");               
+
+                        
+
+                        // THIS IS THE PLACE TO RE-INITIALIZE ALL THE VECTORS.
+                        // WHAT IS TO MAINTAIN THOUGH IS ENVIRONMENTAL VECTORS AND PLANTING DATA
+                        // THE SAME PLANT HAS TO BE PLANTED ON THE SAME SPOT AND DATE
+                        // 1 FIRST WE SEE THAT ALL EARTH VARIABLES ARE RENEWED
+                        // 2 WE HAVE TO EMPTY THE VECTOR, CREATE  THE VECTOR AS A NEW VECTOR / VECTOR-LIST
+                        // 3 THIRD WE SEE THAT WE CAN STORE AND GET THE PLANT, SO IT WILL BE SIMULATED AGAIN
+
+                        // 1 INITIALIZING av jordverdier 
+                        InitializeType("muldjord"); //har denne tilsiktet virkning. poenget er ved gjentatte simuleringer også
+                        // 2 RECREATE THE VECTOR LISTS happens in InitializeType()
+                       
+
+
+                        //2 
                         if (planted)
                         {
-                            Debug.Log("det er allerede plantet en plante her. La vektoren i fred");
+                            Debug.Log("Her er allerede plantet. Planten må hentes igjen og simuleres på ny");
                             fantesFraTidligere = true; //brukes i Spot.Plant(); for å resette plante
                         }
+
+
+                        //printVectors(1);
+                        //skriv ut kontrollverdier for å se om alt virkelig er reinitiert
                     }
 
 
@@ -447,7 +490,7 @@ Debug.Log("D E T T E   E R   S I M U L E R I N G   N R   " + Initializer.SimNumb
                     double waterValueBeforeSun;
 
                     //soltimer = vaer.SunHours;
-                     
+ /*      
                     Debug.Log("[iterasjon 1] soltimer " + soltimer+ ".  Water before rain update (water_H2O):    " + water_H2O);
 
                     //String nytekst = String.Format("\nEnvironment. Simulation day {0}, with weather.:   mm Nedbør {1},  Soltimer {2},  Dagslystimer {3},  Gj.Sn temp {4}", vaer.WhichDay, vaer.Nedboer, vaer.SunHours, vaer.LightHours, vaer.MeanTemp);
@@ -455,7 +498,7 @@ Debug.Log("D E T T E   E R   S I M U L E R I N G   N R   " + Initializer.SimNumb
 
                     //if ((h_index == 0) && (v_index == 0))
                         Debug.Log(nytekst); //begrensning til bare en gang per Field
-
+*/
 
 
                     //Calculates the weather influence on the earth with the values
@@ -554,11 +597,11 @@ Debug.Log("D E T T E   E R   S I M U L E R I N G   N R   " + Initializer.SimNumb
 
                     waterValueBeforeSun = water_H2O;
 
-
+/*
                     Debug.Log("waterValueBeforeSun "+waterValueBeforeSun);
                     Debug.Log("soltimer " + soltimer);
                     Debug.Log("Water_H2O før regnvannsberegning:  " +oldWatervalue+    " ETTER regnvannberegning: "+water_H2O+ "  rainmm: "+rainmm) ;
-                    double tempWater = water_H2O;
+*/                    double tempWater = water_H2O;
 
 
                     //Sun will dry the earth.
@@ -612,9 +655,7 @@ Debug.Log("D E T T E   E R   S I M U L E R I N G   N R   " + Initializer.SimNumb
 
                     Debug.Log("...................Spot (" + h_index + "," + v_index + ").Water_H2O først:  " + oldWatervalue + 
                         " ETTER rainwater: " + tempWater + ", ETTER soltimeuttørking(new walue): " + water_H2O + "  (rainmm: " + rainmm + ")");
-
-
-                   Debug.Log("[ETTER ITERASJON 1]:Water_H2O   " + (float)water_H2O);
+                    Debug.Log("[ETTER ITERASJON 1]:Water_H2O   " + (float)water_H2O);
 
 
                     //disse tilordnes i iterasjon 4 og kan derfor ikke lenger skrives ut her slik det var i en tidlignere versjon av dette prod.
@@ -631,6 +672,15 @@ Debug.Log("D E T T E   E R   S I M U L E R I N G   N R   " + Initializer.SimNumb
 
 
                 case 2:
+
+                    float val_airOld;//bevarer de gamle jordverdier for sammenligningsformål
+                    float val_NitrogenOld;
+                    float val_OrgMOld;
+                    float val_sLifeOld;
+                    float _humusQualityOld;
+
+                    Debug.Log("C A S E   2.     planted er " + planted);
+
                     Debug.Log("---------------------------------------------------earth update");
                     //Debug.Log("Iteration 2: Calculating new equilibrum between spots, according to env variables. Not implemented");
                     //Debug.Log("  Calculating humus factors. Especially water, oxygen, amount of small life and other");
@@ -645,28 +695,182 @@ Debug.Log("D E T T E   E R   S I M U L E R I N G   N R   " + Initializer.SimNumb
                     //_humusQuality = (float)nitrogen[tempDay].y;
                     //_organicMatter = (float)organicMatter[tempDay].y;
 
+                    //VARIABLES
+                    /* 
+                     * QUALITY CONSIST OF 4 FACTORS
+                     * 1 Air
+                     * 2 Nitrogen
+                     * 3 Organic stuff
+                     * 4 small life
+                     * 
+                     * with weight-importance for quality
+                     * Air 1, Nitrogen 2, Org matter 3, Animal life 4
+                     * 
+                     * Normal values in This earth (earttype "muldTeig". Initialized in 1st iteration
+                     * Each matter is measured on a scale with different max. e.g Air[0,20]
+                     *   here we have amount(air)/max(air)
+                     *   
+                     * FRA JORDINITIERINGEN HAR VI                      
+                    val_air = 10;
+                    val_Nitrogen = 1;
+                    val_OrgM = 3;
+                    val_sLife = 3;
+
+                     * 1 Air            10/20;  //Start value for Air, amount 10, max 20
+                     * 2 Nitrogen       1/5;
+                     * 3 Organic stuff  4/25;
+                     * 4 small Life     3/15;
+                     * 
+                     * Calculating quality of earth:
+                     * starting values:
+                     * veight(Air)          * value(Air)                = 1*10/20   = 0.5
+                     * veight(Nitrogen)     * value(Nitrogen)           = 2*1/5     = 0.4
+                     * veight(Organic matter) * value(Organic matter)   = 3*4/25    = 0.48
+                     * veight(small Life)   * value(small Life)         = 4*3/15    = 0.8
+                     * 
+                     * max values for the materials:
+                     * Air 1, Nitrogen 2, organic matter 3, small life 4
+                     * 
+                     * Calculations of the soil quality goes like this 
+                     * (Sum of all amounts)/(max values) = (0.5+0.2+0.16+0.2)/(1+2+3+4)
+                     *  = 2,18/10 = 0.22
+                     *  On the soil quality scale from 1 to 10 [1:10] this is fairly poor soil
+                     *  
+                     *  This will be calculated every iteration 2.
+                     *  Th plant will grow according to these three things:
+                     *  Water, soil quality, temperature
+                     *  
+                     *  the result for the plant is
+                     *  lack of water, dryes out and die but slowing the grow first
+                     *  the health of the plant: will not be better than the soil permits
+                     *  colder days slows the growth
+                     *  */
 
 
-                    //bool mulch er true hvis det er lagt på kompost-dekke
+                    //and now we calculate the new values of the soil
+                    //float _water,  _luftverdi, _nitrogen, _air, _humusQuality, _organicMatter, _smallLife;
+
+                    Debug.Log("\nHER ER VERDIENE I JORDA FØR NY BEREGNING.");
+                    Debug.Log("Air "+_air+ ", N " + _nitrogen+ ", Org.matter " + _organicMatter+ ". Small life " + _smallLife);
+                    Debug.Log("val_air " + val_air + ", val_Nitrogen " + val_Nitrogen + ", val_OrgM " + val_OrgM + ". val_sLife " + val_sLife);
+                    Debug.Log("HumusQuality: " + _humusQuality);
+
+                    //gamle verdier tas vare på for sammenligning
+                    val_airOld = val_air;     
+                    val_NitrogenOld = val_Nitrogen;
+                    val_OrgMOld = val_OrgM;
+                    val_sLifeOld = val_sLife;
+                    _humusQualityOld = _humusQuality;
+
+                    //beregning av jordverdiene for plotting
+                    //_air = val_air / 20f;
+                    //_nitrogen = val_Nitrogen / 5f;
+                    //_organicMatter = val_OrgM / 25f;
+                    //_smallLife = val_sLife / 15f;
+
+                   // Debug.Log("NY BEREGNING:   Air " + _air + ", N " + _nitrogen + ", Org.matter " + _organicMatter + ". Small life " + _smallLife);
+
+                    //SKAL FORANDRE BEREGNINGEN AV JORDKVALITET
+                    // VAL-VERDIENE FÅR NYE VERDIER
+                    // JORDKVALITETEN BEREGNES UT I FRA VERDIENE
+                    // FAKTORER SOM FORANDRER VAL-VERDIENE
+
+                    // air  mer organicMatter og smallLife øker air
+                    // nitrogen proporsjonalt med organicMatter, øker hvis planten er N-produsent
+                    // organicMatter øker langsomt hvis smallLife øker, øker mer hvis Mulch
+                    // smallLife øker hvis humuskvaliteten er god
+
+                    //beregner air.
+                    //
+                    if (val_air<20)
+                    {
+                        val_air= val_air*(1+(_organicMatter* _organicMatter )/ 20); //multipliserer med en variabel faktor.
+                        val_air= val_air * (1 + (_smallLife) / 20);
+                       // Debug.Log("val_air="+ val_air);
+                    }
+
+                    //beregner nitrogen
+                    if (planted)
+                    {
+                        if ((planten.bindsNitrogen)&&(planten.Dead==false))
+                        {
+                            val_Nitrogen = val_Nitrogen * (1+((float)planten.Height)/10);
+
+                          //  Debug.Log((1+((float)planten.Height)/10)+"val_Nitrogen=" + val_Nitrogen);
+
+                        }
+                        else if ((planten.bindsNitrogen==false) && (planten.Dead == false))
+                        {
+                            val_Nitrogen = val_Nitrogen * (1 + ((float)planten.Height) / 10000);
+
+                        }
+                        else if(planten.Dead)
+                        {
+                            val_Nitrogen = val_Nitrogen * 1;  //hva har plantedød å si for nitrogeninnholdet?
+                            float rnd= random(val_OrgM / 50, val_OrgM / 100);
+                            Debug.Log("random value nitrogen økning hvis planten er død. rnd tillegg: " + rnd);
+                            val_OrgM += rnd;
+                        }
+
+                        // Debug.Log("val_Nitrogen=" + val_Nitrogen);
+
+                    }
+
+                    //beregner organicMatter
+                    //mulch tilsetning
                     if (mulch)
                     {
-                        _luftverdi = _luftverdi * 1.01f;
-                        _smallLife *= 1.01f;
-                        _nitrogen *= 1.01f;
-                        _air *= 1.01f;
-                        _humusQuality *= 1.01f;
-                        _organicMatter *= 1.01f;
+                        val_OrgM *= (1 + (0.05f *(val_sLife/100)));
                     }
                     else
                     {
-                        _luftverdi = _luftverdi * 0.99f;
-                        _smallLife *= 0.99f;
-                        _nitrogen *= 0.99f;
-                        _air *= 0.99f;
-                        _humusQuality *= 0.99f;
-                        _organicMatter *= 1f;
+                        val_OrgM *= 0.99f;
                     }
 
+
+
+                    //bedret humuskvalitet gir bonus for organisk matter og small life
+                    if (_humusQualityOld > _humusQuality)
+                    {
+                        val_OrgM *= 1.01f;
+                        val_sLife *= 1.01f;
+                        
+                    }
+                    else
+                    {
+                        val_OrgM *= 1.01f;
+                        val_sLife *= 1.01f;
+                    }
+
+
+
+                        //Debug.Log("val_OrgM=" + val_OrgM);
+                        //Debug.Log("val_sLife=" + val_sLife);
+
+
+
+
+                    //bool mulch er true hvis det er lagt på kompost-dekke
+                    /*  if (mulch)
+                      {
+                          _luftverdi = _luftverdi * 1.01f;
+                          _smallLife *= 1.01f;
+                          _nitrogen *= 1.01f;
+                          _air *= 1.01f;
+                          _humusQuality *= 1.01f;
+                          _organicMatter *= 1.01f;
+                      }
+                      else
+                      {
+                          _luftverdi = _luftverdi * 0.99f;
+                          _smallLife *= 0.99f;
+                          _nitrogen *= 0.99f;
+                          _air *= 0.99f;
+                          _humusQuality *= 0.99f;
+                          _organicMatter *= 1f;
+                      }
+                      */
+                    Debug.Log("planted er " + planted);
                     if (planted)
                     {
                        // nitrogen fratrekk og tillegg vedrørende planten. gjøres under case 4 (iterasjon4)
@@ -677,10 +881,21 @@ Debug.Log("D E T T E   E R   S I M U L E R I N G   N R   " + Initializer.SimNumb
                         //calculate new values. e.g mengde jordte er '100' dette fordeles og tilføyes jorda etterhvert
                     }
 
+                    //HER BEREGNES PLOTTEVERDIENE FOR HUMUS
+                    _air = val_air / 20f;
+                    _nitrogen = val_Nitrogen / 5f;
+                    _organicMatter = val_OrgM / 25f;
+                    _smallLife = val_sLife / 15f;
+
+                    Debug.Log("HER ER VERDIENE I JORDA ETT BER EREGNING. FØR PLOTTING");
+                    Debug.Log("Air " + _air + ", N " + _nitrogen + ", Org.matter " + _organicMatter + ". Small life " + _smallLife);
+                    Debug.Log("val_air " + val_air + ", val_Nitrogen " + val_Nitrogen + ", val_OrgM " + val_OrgM + ". val_sLife " + val_sLife);
+                    Debug.Log("HumusQuality: " + _humusQuality);
+
 
 
                     //Debug.Log("\n___________________________________________________________Spot oppdateres dag " + dagenIdag + " > (" + v_index + " , " + h_index + " )");
-                   //d Debug.Log("air  dagenIdag  _air=" + _air);
+                    //d Debug.Log("air  dagenIdag  _air=" + _air);
 
                     //disse push-uppene skal legges i case 4 = iterasjon 4, fordi flere faktorrer gjennom iterasj påvirker dem, så som planten
                     air.Add             (new Vector2(dagenIdag, (float)_air*100));
@@ -856,10 +1071,10 @@ Debug.Log("D E T T E   E R   S I M U L E R I N G   N R   " + Initializer.SimNumb
                     //}
                     //else
                     {
-                    //    Debug.Log("bytter verdier. dagenIdag=" + dagenIdag + " waterMMVec " + waterMMVec+"waterMM.Count =" +waterMM.Count);
-                    //    waterMMVec.Set(dagenIdag, _water * 100);
-                    //    waterMM.RemoveAt(dagenIdag);
-                    //    waterMM.Add(waterMMVec);
+                        //    Debug.Log("bytter verdier. dagenIdag=" + dagenIdag + " waterMMVec " + waterMMVec+"waterMM.Count =" +waterMM.Count);
+                        //    waterMMVec.Set(dagenIdag, _water * 100);
+                        //    waterMM.RemoveAt(dagenIdag);
+                        //    waterMM.Add(waterMMVec);
 
 
                     }
@@ -1135,6 +1350,7 @@ Debug.Log("D E T T E   E R   S I M U L E R I N G   N R   " + Initializer.SimNumb
         {
             plantName = namn;
             
+
 
             if (planted==false)
             {

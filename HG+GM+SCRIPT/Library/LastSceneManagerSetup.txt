@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Farmscene103 samme problem, men forandret hoyden.unity
+- path: Assets/Farmscene104 multisimuleriner ser bra ut. to planter.unity
   isLoaded: 1
   isActive: 1

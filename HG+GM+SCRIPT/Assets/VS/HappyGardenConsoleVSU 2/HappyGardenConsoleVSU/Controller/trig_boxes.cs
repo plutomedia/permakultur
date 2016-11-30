@@ -39,6 +39,8 @@ public class trig_boxes : MonoBehaviour {
 
     public void OnMouseDown()
     {
+
+        Debug.Log("spots arrayet kontrolleres for eksistens. Field.Spots.Length= " + Field.Spots.Length);
         zpots = Field.Spots;
         Debug.Log("klikket på denne box: "+this.name);
         //Debug.Log("  " + zpots[0, 0].v_index + "  " + zpots[0, 0].h_index + "  ");

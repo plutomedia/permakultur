@@ -38,7 +38,7 @@ namespace HappyGardenConsoleVSU
             fieldText = myText;
             Fieldnr = nr;
             //Debug.Log("Field>" + nr);
-            spots = new Spot[rows, columns]; //et 'Field' er på 10x10 punkter (egentlig ca 20x200)
+            spots = new Spot[rows, columns]; //et 'Field' er på rows x columns punkter (egentlig ca 20x200)
 
 
             for (int i = 0; i < rows; i++)
