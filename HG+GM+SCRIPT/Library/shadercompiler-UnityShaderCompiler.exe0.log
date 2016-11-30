@@ -1,2 +1,4 @@
 Base path: C:/Program Files/Unity542/Unity/Editor/Data
 Cmd: getPlatforms
+Cmd: compileCompute
+  api=4 insize=1292 outsize=1761 ok=1

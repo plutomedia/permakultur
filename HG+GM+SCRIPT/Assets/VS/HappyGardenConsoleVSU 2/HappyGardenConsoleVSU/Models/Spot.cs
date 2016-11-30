@@ -28,7 +28,7 @@ namespace HappyGardenConsoleVSU
         Vector2 humusQualityVec;
         Vector2 nitrogenVec;
 
-
+        public float[] watering;//An array containing the amount of water added, for each day
 
         //kompost, næring og annet
         public bool mulch = false; //lagt på jorddekke av kompost
@@ -48,9 +48,11 @@ namespace HappyGardenConsoleVSU
 
         //planterelatert
         public List<Vector2> pHeight=null; //hver spot har en slik liste. den er tom inntil vi skaper en plante
-        //når planten lages, initieres listen med 0,0 verdier inntil dayPlanted hvis nødvendig. prøv:[6,0][7,2][8,4][9,5][10,8][11,10]
+                                           //når planten lages, initieres listen med 0,0 verdier inntil dayPlanted hvis nødvendig. prøv:[6,0][7,2][8,4][9,5][10,8][11,10]
 
-
+        //vannrelatert water related
+        float waterAdded = 0f; //contain the local value of water added on each spot at every day.
+                                //has to be reset every simulation, not to adding up old values
 
         System.Random rnd = new System.Random();
 
@@ -190,6 +192,7 @@ namespace HappyGardenConsoleVSU
 
             // InitializeSpot vil bare legge til noen forskjeller som avhenger av andre faktorer
             // som ...
+            watering = new float[30];
 
             waterMMVec = new Vector2(0, 0);
             airVec = new Vector2(0, 0);
@@ -661,6 +664,31 @@ namespace HappyGardenConsoleVSU
                     //disse tilordnes i iterasjon 4 og kan derfor ikke lenger skrives ut her slik det var i en tidlignere versjon av dette prod.
                     //waterMM.Add(new Vector2(dagenIdag, (float)water_H2O * 100));
                     //Debug.Log("waterMM[dagenIdag].y     " + waterMM[dagenIdag].y + ",    waterMM[dagenIdag-1]  " + waterMM[dagenIdag-1].y);
+
+
+                    //Watering
+                    //Water added this day watering[dagenIdag]
+                    Debug.Log("WATERING, ("+h_index+","+ v_index+")="+ watering[dagenIdag]);
+
+                    if (watering[dagenIdag] > 0)
+                    {
+                        water_H2O += watering[dagenIdag];
+                        Debug.Log("EXTRA WATER ADDED. NEW WATER LEVEL: " + water_H2O);
+                    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1146,7 +1174,10 @@ namespace HappyGardenConsoleVSU
             // Dummy variable is watered until 0.4
             // More water is excessive
 
-            if (water_H2O < 0.4) water_H2O = 0.4;
+            Debug.Log("planten vannes. vann-tilsatt før:" + watering[Initializer.DagValgt]);
+            
+            watering[Initializer.DagValgt] += 0.15f; //amount of water add this day
+            Debug.Log("planten vannes. Samlet tilsetning:" + watering[Initializer.DagValgt]);
         }
 
 

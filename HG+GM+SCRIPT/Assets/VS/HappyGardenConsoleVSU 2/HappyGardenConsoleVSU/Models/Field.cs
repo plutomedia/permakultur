@@ -115,6 +115,7 @@ namespace HappyGardenConsoleVSU
 
         public void PourWater()
         {
+            /*
             for (int i = 0; i < rows; i++)
             {
                 for (int j = 0; j < columns; j++)
@@ -124,6 +125,9 @@ namespace HappyGardenConsoleVSU
                     ///Debug.Log("jordbit " + i + "  " + j);
                 }
             }
+            */
+
+            Initializer.SpotValgt.PourWater();
         }
 
 

@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Farmscene104 multisimuleriner ser bra ut. to planter.unity
+- path: Assets/Farmscene104 og vanntesting.unity
   isLoaded: 1
   isActive: 1

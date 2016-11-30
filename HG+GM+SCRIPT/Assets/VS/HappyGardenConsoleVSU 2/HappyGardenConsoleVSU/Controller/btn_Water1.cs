@@ -14,7 +14,7 @@ namespace HappyGardenConsoleVSU
             fieldNr = 1;
             initializer.PourWater(fieldNr);
             //initializer.Oppdater(fieldNr);
-            initializer.WriteEarthValues();
+            //initializer.WriteEarthValues();
         }
     }
 }
